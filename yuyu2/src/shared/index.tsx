@@ -12,6 +12,7 @@ export { default as UserLog } from "./components/UserLog.js";
 export { default as ValidateSesion } from "./components/ValidateSesion.js";
 export { default as TagsSearch } from "./components/TagsSearch.js";
 export { default as TagLabel } from "./components/TagLabel.js";
+export { default as HoverInfo } from "./components/HoverInfo.js";
 
 export { Profile } from "./functions/Profile.js";
 export { ReduceQuality } from "./functions/ReduceQuality.js";

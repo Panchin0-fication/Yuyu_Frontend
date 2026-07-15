@@ -6,6 +6,7 @@ import {
   ReduceQuality,
   InfoMessage,
   Message,
+  HoverInfo,
   type fanArt,
   type fanArtReducedQuality,
   type returnedReducedQuality,
@@ -222,11 +223,10 @@ export default function FanArts() {
                     onMouseOut={() => setAddFanartHover(false)}
                   >
                     <img src="/icons/add_box.svg" alt="" />
-                    <span
-                      className={`${styles.addFanartSpan} ${addFanartHover && styles.showSpan}`}
-                    >
-                      {t("add_tag_span")}
-                    </span>
+                    <HoverInfo
+                      info={t("add_tag_span")}
+                      hover={addFanartHover}
+                    />
                   </div>
 
                   <input

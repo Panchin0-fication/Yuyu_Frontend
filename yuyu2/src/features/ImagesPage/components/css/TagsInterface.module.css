@@ -155,3 +155,15 @@
 .iconContainer:hover {
   background-color: #e8e8e8;
 }
+
+.headerSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 20px;
+}
+.correctSpan {
+  width: max-content;
+  transform: translateY(-50px) translateX(30px);
+}

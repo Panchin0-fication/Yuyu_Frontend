@@ -97,6 +97,7 @@
   "message_header_unautorized": "No puedes acceder",
   "message_text_unautorizes": "No tienes autorización para acceder a esta pagina",
   "header_to_validate": "Fan Arts a Validar",
+  "span_restart_tags": "Reiniciar tags",
   "unverified_tags_label": "Tags sin verificar",
   "verified_tags_label": "Tags verificados",
   "no_unverified_tags": "Sin tags a verificar...",

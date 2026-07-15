@@ -54,9 +54,14 @@ export default function ValidateFanArts() {
     }, []);
   }
 
-  useEffect(() => {
+  // Set the default tags (added by the user) of the fanart
+  function setDefault() {
     setUnVerTags(location.state.pending);
     setFanArtTags(location.state.verified);
+  }
+
+  useEffect(() => {
+    setDefault();
   }, []);
 
   useEffect(() => {
@@ -248,6 +253,7 @@ export default function ValidateFanArts() {
       );
       return;
     }
+    // No yuyuko tag
     if (
       fanArtTags.filter((tag) => tag.name === "saigyouji_yuyuko").length < 1
     ) {
@@ -264,6 +270,7 @@ export default function ValidateFanArts() {
       );
       return;
     }
+    // URL validation
     let url: URL;
     try {
       url = new URL(fields.originalLink);
@@ -309,7 +316,8 @@ export default function ValidateFanArts() {
       return;
     }
 
-    // Warnings
+    // %% Warnings
+    // No artist tag
     var continueValidation = true;
     if (fanArtTags.filter((tag) => tag.category === "artist").length < 1) {
       continueValidation = false;
@@ -369,6 +377,7 @@ export default function ValidateFanArts() {
         setUnVerTags={setUnVerTags}
         changesRecords={changesRecords}
         setChangesRecords={setChangesRecords}
+        setDefault={setDefault}
       />
       <div className={styles.buttons}>
         <button

@@ -5,6 +5,7 @@ import {
   TagLabel,
   TagsSearch,
   Message,
+  HoverInfo,
   type response,
   type tag,
   type change,
@@ -19,6 +20,7 @@ type props = {
   setUnVerTags?: React.Dispatch<React.SetStateAction<tag[]>>;
   changesRecords?: change[];
   setChangesRecords?: React.Dispatch<React.SetStateAction<change[]>>;
+  setDefault?: () => void;
 };
 export default function TagsInterface({
   fanArtTags,
@@ -27,6 +29,7 @@ export default function TagsInterface({
   setUnVerTags,
   changesRecords,
   setChangesRecords,
+  setDefault,
 }: props) {
   const { t } = useTranslation("images");
   const [message, setMessage] = useState<null | ReactNode>(null);
@@ -43,6 +46,9 @@ export default function TagsInterface({
   //For validating
   const [showEdit, setShowEdit] = useState("");
   const [nameChange, setNameChange] = useState("");
+
+  //To show span in restart tags
+  const [hoverRestart, setHoverRestart] = useState(false);
 
   async function addTagFromNew(): Promise<void> {
     const added: string = inputs.addTag.trim().replace(" ", "_");
@@ -95,7 +101,6 @@ export default function TagsInterface({
             record.type === "newEliminated" && record.previous === added,
         )
       ) {
-        console.log("SCOOBY DOO");
         setChangesRecords(
           changesRecords.filter(
             (record) =>
@@ -255,9 +260,30 @@ export default function TagsInterface({
       {message}
       <div className={`${styles.tagInterface}`}>
         <div className={`${styles.actualTags} ${styles.interfaceSection}`}>
-          <header className={styles.ttt}>
-            <br />
+          <header className={styles.headerSection}>
             <h3>{t("header_interface_tags_added_tags")}</h3>
+            {changesRecords &&
+              setDefault &&
+              setChangesRecords &&
+              changesRecords.length > 0 && (
+                <div>
+                  <div className={styles.correctSpan}>
+                    <HoverInfo
+                      info={t("span_restart_tags")}
+                      hover={hoverRestart}
+                    />
+                  </div>
+                  <img
+                    src="/icons/refresh.svg"
+                    onMouseOverCapture={() => setHoverRestart(true)}
+                    onMouseOut={() => setHoverRestart(false)}
+                    onClick={() => {
+                      setDefault();
+                      setChangesRecords([]);
+                    }}
+                  ></img>
+                </div>
+              )}
           </header>
           <section className={styles.tagsContainer}>
             {fanArtTags.map((tag, id) => (
@@ -276,8 +302,7 @@ export default function TagsInterface({
           </section>
           {unVerTags && setUnVerTags && (
             <>
-              <header className={styles.ttt}>
-                <br />
+              <header className={styles.headerSection}>
                 <h3>{t("text_interface_tags_unverified_tags")}</h3>
               </header>
               <section className={styles.tagsContainer}>
