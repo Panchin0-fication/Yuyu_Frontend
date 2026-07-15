@@ -118,7 +118,6 @@ export default function ToValidateFanArts() {
 
       const dataTags = (await responseUnVer.json()) as thisResponse;
       if (dataTags.unverified_tags && dataTags.verified_tags) {
-        console.log("LELELE", dataTags);
         setUnverTags(dataTags.unverified_tags);
         setVerTags(dataTags.verified_tags);
       }

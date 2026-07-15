@@ -68,7 +68,7 @@ export default function ValidateFanArts() {
     const addedByAdmin = changesRecords
       .filter((change) => change.type === "newAdded")
       .map((tag) => tag.actual);
-    console.log("Depuracion", addedByAdmin);
+
     const findTags = fanArtTags
       .filter((tag) => addedByAdmin.includes(tag.name))
       .map((current) => (
@@ -165,7 +165,6 @@ export default function ValidateFanArts() {
   }
 
   async function validateFanart(): Promise<void> {
-    console.log("pasado a validar");
     setMessage(
       <InfoMessage
         header={"FanArt a validar"}
