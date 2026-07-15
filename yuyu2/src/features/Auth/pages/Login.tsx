@@ -110,9 +110,15 @@ export default function Login() {
             icon="/icons/lock.svg"
             type="password"
           />
-          <Link to={"/auth/changePassword"}>
-            <p>{t("forgot_password")}</p>
-          </Link>
+          <div className={styles.links}>
+            <Link to={"/auth/changePassword"}>
+              <p>{t("forgot_password")}</p>
+            </Link>
+            <Link to={"/auth/create"}>
+              <p>{t("create_account")}</p>
+            </Link>
+          </div>
+
           <button
             className={styles.createButton}
             onClick={() => {

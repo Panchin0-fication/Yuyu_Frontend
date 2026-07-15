@@ -2,15 +2,13 @@
   padding: 20px;
   background-color: white;
   border-radius: 15px;
-  border: 2px solid black;
   display: flex;
   gap: 15px;
   align-items: center;
-  font-size: 18px;
+  font-size: 23px;
 }
 .errorBlock {
   background-color: rgb(207, 46, 46);
-  border: ridge 5px rgb(215, 67, 67);
   color: white;
 }
 .errorBlock img {
@@ -19,7 +17,6 @@
 }
 .successBlock {
   background-color: rgb(42, 219, 139);
-  border: ridge 4px rgb(50, 155, 85);
   color: white;
 }
 .successBlock img {
