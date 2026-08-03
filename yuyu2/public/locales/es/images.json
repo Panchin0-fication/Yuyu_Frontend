@@ -121,5 +121,11 @@
   "message_to_validate": "¿A validar?",
   "message_validate_actions": "Presiona continuar para validar el FanArt, los tags pendientes y agregar nuevos tags o cancelar para seguir editando",
   "validate_fan_art_button": "Validar",
-  "reject_fan_art_button": "Rechazar"
+  "reject_fan_art_button": "Rechazar",
+  "reject_fan_art_header": "Rechazar fanart",
+  "reject_fan_art_subheader": "Selecciona motivo(s) por el rechazo",
+  "reject_fan_art_incorrect_link_p": "Link de fuente de imagen incorrecto",
+  "reject_fan_art_low_resolution_p": "FanArt en baja resolución",
+  "reject_fan_art_artist_p": "Artista incorrecto / Sin identificar",
+  "reject_fan_art_no_yuyuko_p": "Sin Yuyuko"
 }

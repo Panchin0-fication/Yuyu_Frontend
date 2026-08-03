@@ -1,16 +1,15 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TagsInterface, FieldsFanArt, PreviewImage } from "@features";
-import {
-  HeaderPages,
-  InfoMessage,
-  TagLabel,
-  type fanArtReducedQuality,
-  type fanArt,
-  type tag,
-  type change,
-  type fieldsFanArtsInput,
+import { HeaderPages, InfoMessage, TagLabel } from "@shared";
+import type {
+  response,
+  fanArtReducedQuality,
+  fanArt,
+  tag,
+  change,
+  fieldsFanArtsInput,
 } from "@shared";
 import styles from "./css/ValidateFanArts.module.css";
 export default function ValidateFanArts() {
@@ -169,12 +168,63 @@ export default function ValidateFanArts() {
     return <div className={styles.tagContainer}>{findTags}</div>;
   }
 
+  async function updateFanArt(): Promise<void> {
+    //Send the new tags to validate
+    const validatedTags = fanArtTags
+      .filter((tag) => tag.status === "validating")
+      .map((tag) => tag.name);
+
+    /* const responseNewTags = await fetch(
+      `${import.meta.env.VITE_API_URL}/newTags`,
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(validatedTags),
+      },
+    );
+    const resNewTags = (await responseNewTags.json()) as response;
+    if (!resNewTags.success) {
+      console.log("Error");
+    } */
+
+    //Build body of the fanArt
+    var fanArtObject = fanArt;
+
+    fanArtObject["tags"] = fanArtTags
+      .filter((tag) => tag.category === "general")
+      .map((tag) => tag.name);
+    fanArtObject["artists"] = fanArtTags
+      .filter((tag) => tag.category === "artist")
+      .map((tag) => tag.name);
+    fanArtObject["caracters"] = fanArtTags
+      .filter((tag) => tag.category === "character")
+      .map((tag) => tag.name);
+    fanArtObject["clasification"] = fields.clasification;
+    fanArtObject["originalLink"] = fields.originalLink;
+    fanArtObject["status"] = "accepted";
+
+    /**const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/fanArt/validate`,
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(fanArtObject),
+      },
+    ); */
+  }
+
   async function validateFanart(): Promise<void> {
     setMessage(
       <InfoMessage
         header={"FanArt a validar"}
         onCancel={() => setMessage(null)}
-        onContinue={() => setMessage(null)}
+        onContinue={() => updateFanArt()}
       >
         {changesRecords.length >= 1 && (
           <>
@@ -336,6 +386,82 @@ export default function ValidateFanArts() {
     if (continueValidation) validateFanart();
   }
 
+  const incorrectLinkRef = useRef(false);
+  const lowResolutionRef = useRef(false);
+  const artistIssueRef = useRef(false);
+  const noYuyukoRef = useRef(false);
+  function rejectButton() {
+    incorrectLinkRef.current = false;
+    lowResolutionRef.current = false;
+    artistIssueRef.current = false;
+    noYuyukoRef.current = false;
+    setMessage(
+      <InfoMessage
+        header={t("reject_fan_art_header")}
+        onCancel={() => setMessage(null)}
+        onContinue={() => {
+          rejectFanart();
+        }}
+      >
+        <h2>{t("reject_fan_art_subheader")}</h2>
+        <div className={styles.tagContainer}>
+          <input
+            onChange={() => {
+              incorrectLinkRef.current = !incorrectLinkRef.current;
+            }}
+            type="checkbox"
+          />
+          <p>{t("reject_fan_art_incorrect_link_p")}</p>
+        </div>
+        <div className={styles.tagContainer}>
+          <input
+            onChange={() => {
+              lowResolutionRef.current = !lowResolutionRef.current;
+            }}
+            type="checkbox"
+          />
+          <p>{t("reject_fan_art_low_resolution_p")}</p>
+        </div>
+        <div className={styles.tagContainer}>
+          <input
+            onChange={() => (artistIssueRef.current = !artistIssueRef.current)}
+            type="checkbox"
+          />
+          <p>{t("reject_fan_art_artist_p")}</p>
+        </div>
+        <div className={styles.tagContainer}>
+          <input
+            onChange={() => (noYuyukoRef.current = !noYuyukoRef.current)}
+            type="checkbox"
+          />
+          <p>{t("reject_fan_art_no_yuyuko_p")}</p>
+        </div>
+      </InfoMessage>,
+    );
+  }
+
+  async function rejectFanart() {
+    console.log("Check", incorrectLinkRef, lowResolutionRef);
+    const rejectMotivesObject = {
+      incorrectLink: incorrectLinkRef.current,
+      lowResolution: lowResolutionRef.current,
+      artistIssue: artistIssueRef.current,
+      noYuyuko: noYuyukoRef.current,
+    };
+    /**const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/fanArt/reject`,
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(rejectMotivesObject),
+      },
+    ); */
+    setMessage(null);
+  }
+
   return (
     <div className={styles.validateFanArts}>
       <HeaderPages
@@ -387,7 +513,10 @@ export default function ValidateFanArts() {
           <p>{t("validate_fan_art_button")}</p>
           <img src="/icons/check.svg" alt="" />
         </button>
-        <button className={`${styles.rejectButton} ${styles.actionButton}`}>
+        <button
+          onClick={rejectButton}
+          className={`${styles.rejectButton} ${styles.actionButton}`}
+        >
           <p>{t("reject_fan_art_button")}</p>
           <img src="/icons/close.svg" alt="" />
         </button>

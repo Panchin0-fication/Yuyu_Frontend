@@ -37,6 +37,7 @@
   font-size: 24px;
 }
 .tagContainer {
+  align-items: center;
   display: flex;
   gap: 10px;
 }

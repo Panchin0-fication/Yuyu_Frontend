@@ -197,6 +197,7 @@ export default function PostFanArt() {
           method: "Post",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(newTags),
         },
@@ -208,6 +209,7 @@ export default function PostFanArt() {
           t("message_body_unexpected_error_new_tags"),
           "error",
         );
+        return;
       }
     }
 

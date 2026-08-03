@@ -25,5 +25,8 @@
   "message_header_no_loged_in": "Not logged in",
   "message_body_no_loged_in": "You must logged in to upload access this page",
 
-  "search_tags_not_found": "No tags were found..."
+  "search_tags_not_found": "No tags were found...",
+
+  "header_success": "Success",
+  "header_fail": "Failure"
 }

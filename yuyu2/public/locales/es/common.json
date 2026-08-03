@@ -25,5 +25,8 @@
   "message_header_no_loged_in": "Sin sesión",
   "message_body_no_loged_in": "Debes tener sesión iniciada para entrar a esta pagina",
 
-  "search_tags_not_found": "No se encontraron tags..."
+  "search_tags_not_found": "No se encontraron tags...",
+
+  "header_success": "Exito",
+  "header_fail": "Error"
 }
