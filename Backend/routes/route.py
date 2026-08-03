@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from models.yuyus import (Tags, FanArts, Preferences)
+from models.yuyus import (Tags, FanArts, Preferences, FanArtWithId, RejectionMotivesAndId)
 from config.database import (collection_name, collection_fanArts,collection_users)
 from schema.schemas import (list_serial , list_serial_fanArts,list_serial_user,individual_serial_user)
 from functions.functions import (create_token,generate_verification_token,send_email,get_current_user,get_optional_user,set_search_tags)
@@ -86,32 +86,35 @@ async def post_user(userName:Annotated[str, Form()],email:Annotated[EmailStr, Fo
     
 
 @router.get("/user/resendCode")
-def resend_code(background_tasks: BackgroundTasks, lang:str, user = Depends(get_current_user)):
-    if user["type"] == "Success":
-        try:
-            token = generate_verification_token()
-
-            collection_users.update_one(
-                {"email": user["user_data"]["email"]},
-                {
-                    "$set": {"verification_token":token},
-                }
-            )
-
-            background_tasks.add_task(send_email, user["user_data"]["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_two"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
-
-            return {"code":"VERIFICATION_CODE_SENT","success":True}
-        except Exception:
-            return {"code":"EMAIL_NOT_FOUND","success":False}
-    else:
+async def resend_code(background_tasks: BackgroundTasks, lang:str, user = Depends(get_current_user)):
+    if user["type"] != "Success":
         return {"code":"UNEXPECTED_ERROR","success":False}
-
-@router.post("/user/changeEmail")
-def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailStr, Form()], lang:Annotated[str, Form()], user = Depends(get_current_user)):
+    
     try:
         token = generate_verification_token()
 
-        collection_users.update_one(
+        await collection_users.update_one(
+            {"email": user["user_data"]["email"]},
+            {
+                "$set": {"verification_token":token},
+            }
+        )
+
+        background_tasks.add_task(send_email, user["user_data"]["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_two"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
+
+        return {"code":"VERIFICATION_CODE_SENT","success":True}
+    
+    except Exception:
+        return {"code":"EMAIL_NOT_FOUND","success":False}
+
+       
+
+@router.post("/user/changeEmail")
+async def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailStr, Form()], lang:Annotated[str, Form()], user = Depends(get_current_user)):
+    try:
+        token = generate_verification_token()
+
+        await collection_users.update_one(
             {"email": user["user_data"]["email"]},
             {
                 "$set": {"verification_token":token,"email":email},
@@ -150,7 +153,7 @@ async def reset_password_begin(email:Annotated[str, Form()], lang:Annotated[str,
         return {"code":"NOT_FOUND_USER","success":False}
     
     token = generate_verification_token()
-    collection_users.update_one(
+    await collection_users.update_one(
         {"_id":user["_id"]},
         {
             "$set":{"reset_password_token":token}
@@ -168,7 +171,7 @@ async def validate_reset_password(token:Annotated[str, Form()], password:Annotat
     
     hasedPassword = pwd_context.hash(password)
     
-    collection_users.update_one(
+    await collection_users.update_one(
         {"_id":user["_id"]},
         {
             "$set":{"password":hasedPassword},
@@ -179,14 +182,14 @@ async def validate_reset_password(token:Annotated[str, Form()], password:Annotat
     return {"code":"PASSWORD_CHANGED","success":True}
 
 @router.post("/user/verify-email")
-def verify_email(token: Annotated[str, Form()]):
+async def verify_email(token: Annotated[str, Form()]):
 
     user = collection_users.find_one({"verification_token": token})
 
     if not user:
         return {"code":"INVALID_VERIFICATION_TOKEN","success":False}
 
-    collection_users.update_one(
+    await collection_users.update_one(
         {"_id": user["_id"]},
         {
             "$set": {"verified": True},
@@ -216,11 +219,11 @@ async def login(userName:Annotated[str, Form()], password:Annotated[str, Form()]
 async def change_preferences( preferences:Preferences, user = Depends(get_current_user)):
     try:
         item = preferences.model_dump()
-        collection_users.update_one(
-                {"email": user["user_data"]["email"]},
-                {
-                    "$set": {"preferences":item},
-                }
+        await collection_users.update_one(
+            {"email": user["user_data"]["email"]},
+            {
+                "$set": {"preferences":item},
+            }
             )
         return {"code":"PREFERENCES_CHANGED","success":True}
     except Exception:
@@ -248,7 +251,10 @@ async def does_tag_already_exists(newTag: str):
         return {"code":"TAG_ALREADY_EXISTS","success":False}
 
 @router.post("/newTags")
-async def post_new_tags(tags: List[Tags]):
+async def post_new_tags(tags: List[Tags], user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+    
     try:
         items = []
         for tag in tags:
@@ -265,14 +271,25 @@ async def post_new_tags(tags: List[Tags]):
             repited_without_id.append(singular_repited)
 
         for repitedTag in repited_without_id:
-            print("repetido",repitedTag)
-            print("Tags",items)
             items.remove(repitedTag)
     
         collection_name.insert_many(items)
         return {"code":"TAGS_ADDED","success":True}
+    
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False}
+
+@router.post("/tags/validate")
+async def validate_tag(tags: List[str], user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+    
+    try:
+        result = await collection_name.update_many({"status":"pending","name":{"$in":tags}},{"$set":{"status":"accepted"}})
+        return {"code":"TAGS_VALIDATED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False, "modified":result}
     
 @router.post("/upload-image")
 async def upload_image(file: UploadFile = File(...)):
@@ -286,13 +303,12 @@ async def upload_image(file: UploadFile = File(...)):
 
 @router.post("/newFanArt")
 async def post_new_fanArt(fanArt: FanArts, user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
     try:
         item = fanArt.model_dump()
         collection_fanArts.insert_one(item)
         return {"code":"CREATED_FANART","success":True}
-    
-    except user["type"] != "Success":
-        return {"code":"INVALID_TOKEN","success":False}
     
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False}
@@ -305,6 +321,34 @@ async def get_fanArt():
 @router.post("/fanArt")
 async def post_fanArt(fanArt: FanArts):
     collection_fanArts.insert_one(dict(fanArt))
+
+# To validate/edit a fanArt
+@router.post("/fanArt/validate")
+async def validate_fanArt(fanArt: FanArtWithId, user = Depends(get_current_user)):
+    item = fanArt.model_dump()
+    if user["type"] != "Success":
+        return {"code":"INVALID_TOKEN","success":False}
+    
+    try:
+        await collection_fanArts.update_one({"_id": item["id"]},{"$set":item})
+        return{"code":"FANART_EDITED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False}
+
+# To reject a fanArt
+@router.post("/fanArt/reject")
+async def reject_fanart(motives:RejectionMotivesAndId, user = Depends(get_current_user)):
+    item = motives.model_dump()
+    if user["type"] != "Success":
+        return {"code":"INVALID_TOKEN","success":False}
+
+    try:
+        await collection_fanArts.update_one({"_id":item["FanArtId"]},{"$set":{"status":"rejected"}})
+        return{"code":"FANART_REJECTED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False}
 
 @router.get("/fanArt/{num}")
 async def get_fanArtsNum(num:int):
@@ -329,7 +373,6 @@ async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[
             return {"code":"FANARTS_COLLECTED","success":True, "fanArts":fanArts}
 
         tagList = list_serial(collection_name.find({"name":{"$in":tags}}))
-        print("CIMO",tagList, tags)
         set_search_tags(search,tagList,"$all")
         print("Preferences",search)
       

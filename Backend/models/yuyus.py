@@ -20,6 +20,16 @@ class FanArts(BaseModel):
     status: str
     uploader: Uploader
 
+class FanArtWithId(FanArts):
+    id: str
+
+class RejectionMotivesAndId(BaseModel):
+    FanArtId: str
+    incorrectLink: bool
+    lowResolution: bool
+    artistIssue: bool
+    noYuyuko: bool
+
 class SimpleTag(BaseModel):
     name: str
     category: str

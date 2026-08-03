@@ -14,8 +14,6 @@ from typing import Optional
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-
-
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.encrypt_algorithm
 EMAIL = settings.email
