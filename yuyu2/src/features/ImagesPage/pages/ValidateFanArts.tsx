@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { TagsInterface, FieldsFanArt, PreviewImage } from "@features";
-import { HeaderPages, InfoMessage, TagLabel } from "@shared";
+import { TagsInterface, FieldsFanArt, PreviewImage, FanArts } from "@features";
+import { HeaderPages, InfoMessage, Message, TagLabel } from "@shared";
 import type {
   response,
   fanArtReducedQuality,
@@ -168,57 +168,6 @@ export default function ValidateFanArts() {
     return <div className={styles.tagContainer}>{findTags}</div>;
   }
 
-  async function updateFanArt(): Promise<void> {
-    //Send the new tags to validate
-    const validatedTags = fanArtTags
-      .filter((tag) => tag.status === "validating")
-      .map((tag) => tag.name);
-
-    /* const responseNewTags = await fetch(
-      `${import.meta.env.VITE_API_URL}/newTags`,
-      {
-        method: "Post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(validatedTags),
-      },
-    );
-    const resNewTags = (await responseNewTags.json()) as response;
-    if (!resNewTags.success) {
-      console.log("Error");
-    } */
-
-    //Build body of the fanArt
-    var fanArtObject = fanArt;
-
-    fanArtObject["tags"] = fanArtTags
-      .filter((tag) => tag.category === "general")
-      .map((tag) => tag.name);
-    fanArtObject["artists"] = fanArtTags
-      .filter((tag) => tag.category === "artist")
-      .map((tag) => tag.name);
-    fanArtObject["caracters"] = fanArtTags
-      .filter((tag) => tag.category === "character")
-      .map((tag) => tag.name);
-    fanArtObject["clasification"] = fields.clasification;
-    fanArtObject["originalLink"] = fields.originalLink;
-    fanArtObject["status"] = "accepted";
-
-    /**const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/fanArt/validate`,
-      {
-        method: "Post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(fanArtObject),
-      },
-    ); */
-  }
-
   async function validateFanart(): Promise<void> {
     setMessage(
       <InfoMessage
@@ -279,6 +228,87 @@ export default function ValidateFanArts() {
         <h2>{t("message_to_validate")}</h2>
         <p>{t("message_validate_actions")}</p>
       </InfoMessage>,
+    );
+  }
+
+  async function updateFanArt(): Promise<void> {
+    //Send the new tags to validate
+    const validatedTags = fanArtTags.filter(
+      (tag) => tag.status === "validating" || tag.status === "adminAdded",
+    );
+
+    var queryString: String;
+    if (
+      changesRecords.filter(
+        (change) => change.type === "name" || change.type === "newEliminated",
+      ).length >= 1
+    ) {
+      queryString = changesRecords
+        .filter(
+          (change) => change.type === "name" || change.type === "newEliminated",
+        )
+        .map((change) => `toDelete=${encodeURIComponent(change.previous)}`)
+        .join("&");
+    } else {
+      queryString = `toDelete=${encodeURIComponent("NONENONENONE")}`;
+    }
+
+    const responseNewTags = await fetch(
+      `${import.meta.env.VITE_API_URL}/fanArt/tags/validation?${queryString}`,
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(validatedTags),
+      },
+    );
+    const resNewTags = (await responseNewTags.json()) as response;
+    if (!resNewTags.success) {
+      console.log("Error");
+      return;
+    }
+    //Build body of the fanArt
+    var fanArtObject = fanArt;
+
+    fanArtObject["tags"] = fanArtTags
+      .filter((tag) => tag.category === "general")
+      .map((tag) => tag.name);
+    fanArtObject["artists"] = fanArtTags
+      .filter((tag) => tag.category === "artist")
+      .map((tag) => tag.name);
+    fanArtObject["caracters"] = fanArtTags
+      .filter((tag) => tag.category === "character")
+      .map((tag) => tag.name);
+    fanArtObject["clasification"] = fields.clasification;
+    fanArtObject["originalLink"] = fields.originalLink;
+    fanArtObject["status"] = "accepted";
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/fanArt/validate`,
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(fanArtObject),
+      },
+    );
+    const res = (await response.json()) as response;
+    setMessage(
+      <Message
+        type={res.success ? "success" : "error"}
+        header={
+          res.success
+            ? t("message_header_fan_art_validation")
+            : t("UNEXPECTED_ERROR")
+        }
+        text={t(res.code)}
+        setMessage={setMessage}
+        toRedirect="/fanArts/toValidate"
+      />,
     );
   }
 
@@ -400,7 +430,13 @@ export default function ValidateFanArts() {
         header={t("reject_fan_art_header")}
         onCancel={() => setMessage(null)}
         onContinue={() => {
-          rejectFanart();
+          if (
+            incorrectLinkRef.current ||
+            lowResolutionRef.current ||
+            artistIssueRef.current ||
+            noYuyukoRef.current
+          )
+            rejectFanart();
         }}
       >
         <h2>{t("reject_fan_art_subheader")}</h2>
@@ -441,15 +477,21 @@ export default function ValidateFanArts() {
   }
 
   async function rejectFanart() {
-    console.log("Check", incorrectLinkRef, lowResolutionRef);
     const rejectMotivesObject = {
+      FanArtId: fanArt.id,
       incorrectLink: incorrectLinkRef.current,
       lowResolution: lowResolutionRef.current,
       artistIssue: artistIssueRef.current,
       noYuyuko: noYuyukoRef.current,
     };
-    /**const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/fanArt/reject`,
+
+    var fanArtTags = fanArt.tags.concat(fanArt.caracters, fanArt.artists);
+    var queryString: String = fanArtTags
+      .map((tag) => `toDelete=${encodeURIComponent(tag)}`)
+      .join("&");
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/fanArt/reject?${queryString}`,
       {
         method: "Post",
         headers: {
@@ -458,8 +500,21 @@ export default function ValidateFanArts() {
         },
         body: JSON.stringify(rejectMotivesObject),
       },
-    ); */
-    setMessage(null);
+    );
+    const res = (await response.json()) as response;
+    setMessage(
+      <Message
+        type={res.success ? "success" : "error"}
+        header={
+          res.success
+            ? t("message_header_fan_art_reject")
+            : t("UNEXPECTED_ERROR")
+        }
+        text={res.success ? t(res.code) : t("UNEXPECTED_ERROR")}
+        setMessage={setMessage}
+        toRedirect="/fanArts/toValidate"
+      />,
+    );
   }
 
   return (

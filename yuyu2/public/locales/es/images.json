@@ -127,5 +127,9 @@
   "reject_fan_art_incorrect_link_p": "Link de fuente de imagen incorrecto",
   "reject_fan_art_low_resolution_p": "FanArt en baja resolución",
   "reject_fan_art_artist_p": "Artista incorrecto / Sin identificar",
-  "reject_fan_art_no_yuyuko_p": "Sin Yuyuko"
+  "reject_fan_art_no_yuyuko_p": "Sin Yuyuko",
+  "message_header_fan_art_validation": "FanArt validado",
+  "FANART_EDITED": "FanArt validado y editado exitosamente",
+  "message_header_fan_art_reject": "FanArt rechazado",
+  "FANART_REJECTED": "FanArt rechazado y correo enviado al usuario"
 }

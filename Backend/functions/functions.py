@@ -27,13 +27,25 @@ def create_token(data: dict):
 def generate_verification_token():
     return secrets.token_urlsafe(6)
 
-def send_email(to,token, message, subject):
+def send_email_token(to,token, message, subject):
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = EMAIL
     msg["To"] = to
 
     msg.set_content(f"{message} {token}")
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(EMAIL, EMAIL_PASSWORD)
+        smtp.send_message(msg)
+
+def send_email_rejection_motive(to, message, subject):
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = EMAIL
+    msg["To"] = to
+
+    msg.set_content(f"{message}")
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(EMAIL, EMAIL_PASSWORD)

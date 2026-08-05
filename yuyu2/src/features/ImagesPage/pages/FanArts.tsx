@@ -99,7 +99,6 @@ export default function FanArts() {
 
     if (!response.ok) if (errorResonse()) return;
     const res = (await response.json()) as withFanArt;
-    console.log("SIBSUI", res);
     if (!res.success) if (errorResonse()) return;
 
     let data = res.fanArts;

@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from models.yuyus import (Tags, FanArts, Preferences, FanArtWithId, RejectionMotivesAndId)
 from config.database import (collection_name, collection_fanArts,collection_users)
 from schema.schemas import (list_serial , list_serial_fanArts,list_serial_user,individual_serial_user)
-from functions.functions import (create_token,generate_verification_token,send_email,get_current_user,get_optional_user,set_search_tags)
+from functions.functions import (create_token,generate_verification_token,send_email_token,get_current_user,get_optional_user,set_search_tags, send_email_rejection_motive)
 from bson import ObjectId
 from pydantic import EmailStr
 from typing import List
@@ -12,6 +12,7 @@ from fastapi import Depends, UploadFile, File, BackgroundTasks, Query, Form
 from config.cloudinary import(cloudinary)
 from config.i18n import(settings_internalization) 
 import os, json
+from bson.objectid import ObjectId
 from typing import Annotated, Optional
 #import bcrypt
 
@@ -55,7 +56,7 @@ async def post_user(userName:Annotated[str, Form()],email:Annotated[EmailStr, Fo
         settings_internalization
 
         verification_code = generate_verification_token()
-        background_tasks.add_task(send_email, email, verification_code, message=translations.get(lang, translations[settings_internalization.default_locale])["body_one"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
+        background_tasks.add_task(send_email_token, email, verification_code, message=translations.get(lang, translations[settings_internalization.default_locale])["body_one"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
         
         passw = password
         hased = pwd_context.hash(passw)
@@ -93,14 +94,14 @@ async def resend_code(background_tasks: BackgroundTasks, lang:str, user = Depend
     try:
         token = generate_verification_token()
 
-        await collection_users.update_one(
+        collection_users.update_one(
             {"email": user["user_data"]["email"]},
             {
                 "$set": {"verification_token":token},
             }
         )
 
-        background_tasks.add_task(send_email, user["user_data"]["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_two"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
+        background_tasks.add_task(send_email_token, user["user_data"]["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_two"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
 
         return {"code":"VERIFICATION_CODE_SENT","success":True}
     
@@ -114,7 +115,7 @@ async def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailS
     try:
         token = generate_verification_token()
 
-        await collection_users.update_one(
+        collection_users.update_one(
             {"email": user["user_data"]["email"]},
             {
                 "$set": {"verification_token":token,"email":email},
@@ -123,7 +124,7 @@ async def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailS
 
         newMail = collection_users.find_one({"email":email})
         newMail = newMail["email"]
-        background_tasks.add_task(send_email, newMail, token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_one"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
+        background_tasks.add_task(send_email_token, newMail, token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_one"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_one"])
 
         return {"code":"EMAIL_CHANGED","success":True}
     
@@ -153,14 +154,14 @@ async def reset_password_begin(email:Annotated[str, Form()], lang:Annotated[str,
         return {"code":"NOT_FOUND_USER","success":False}
     
     token = generate_verification_token()
-    await collection_users.update_one(
+    collection_users.update_one(
         {"_id":user["_id"]},
         {
             "$set":{"reset_password_token":token}
         }
     )
 
-    background_tasks.add_task(send_email, user["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_reset_password"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_reset_password"])
+    background_tasks.add_task(send_email_token, user["email"], token, message=translations.get(lang, translations[settings_internalization.default_locale])["body_reset_password"], subject=translations.get(lang, translations[settings_internalization.default_locale])["subject_reset_password"])
     return {"code":"PASSWORD_RESET_CODE_SENT","success":True}
 
 @router.post("/user/reset_password/change")
@@ -171,7 +172,7 @@ async def validate_reset_password(token:Annotated[str, Form()], password:Annotat
     
     hasedPassword = pwd_context.hash(password)
     
-    await collection_users.update_one(
+    collection_users.update_one(
         {"_id":user["_id"]},
         {
             "$set":{"password":hasedPassword},
@@ -189,7 +190,7 @@ async def verify_email(token: Annotated[str, Form()]):
     if not user:
         return {"code":"INVALID_VERIFICATION_TOKEN","success":False}
 
-    await collection_users.update_one(
+    collection_users.update_one(
         {"_id": user["_id"]},
         {
             "$set": {"verified": True},
@@ -219,7 +220,7 @@ async def login(userName:Annotated[str, Form()], password:Annotated[str, Form()]
 async def change_preferences( preferences:Preferences, user = Depends(get_current_user)):
     try:
         item = preferences.model_dump()
-        await collection_users.update_one(
+        collection_users.update_one(
             {"email": user["user_data"]["email"]},
             {
                 "$set": {"preferences":item},
@@ -285,7 +286,7 @@ async def validate_tag(tags: List[str], user = Depends(get_current_user)):
         return {"code":"INVALID_TOKEN","success":False}
     
     try:
-        result = await collection_name.update_many({"status":"pending","name":{"$in":tags}},{"$set":{"status":"accepted"}})
+        result = collection_name.update_many({"status":"pending","name":{"$in":tags}},{"$set":{"status":"accepted"}})
         return {"code":"TAGS_VALIDATED","success":True}
     
     except Exception:
@@ -322,15 +323,54 @@ async def get_fanArt():
 async def post_fanArt(fanArt: FanArts):
     collection_fanArts.insert_one(dict(fanArt))
 
+# Validate and register new tags
+@router.post("/fanArt/tags/validation")
+async def tags_validation(tags: List[Tags],toDelete: List[str] = Query(...), user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+
+    try: 
+        items = []
+        for tag in tags:
+            items.append(tag.model_dump())
+
+        # Deletes the tags
+        collection_name.delete_many({"name":{"$in":toDelete}})
+
+        # Adds or accept the validating tags
+        tagNames = []
+        for tag in items:
+            tagNames.append(tag["name"])
+
+        existing = list_serial(collection_name.find({"name":{"$in":tagNames}}))
+        toValidateNames = []
+        addedByAdmin = []
+        for tag in existing:
+            toValidateNames.append(tag["name"])
+        for tag in items:
+            if toValidateNames.count(tag["name"]) == 0:
+                addedByAdmin.append(tag)
+        # Validate / accept new tags
+        collection_name.update_many({"name":{"$in":toValidateNames}}, {"$set":{"status":"accepted"}})
+
+        if len(addedByAdmin) >= 1:
+            collection_name.insert_many(addedByAdmin)
+
+        return {"code":"TAGS_VALIDATED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False}
+
 # To validate/edit a fanArt
 @router.post("/fanArt/validate")
 async def validate_fanArt(fanArt: FanArtWithId, user = Depends(get_current_user)):
     item = fanArt.model_dump()
-    if user["type"] != "Success":
+    print("tutut",item)
+    if user["success"] == False:
         return {"code":"INVALID_TOKEN","success":False}
     
     try:
-        await collection_fanArts.update_one({"_id": item["id"]},{"$set":item})
+        collection_fanArts.update_one({"_id": ObjectId(item["id"])},{"$set":{"status":"accepted","clasification":item["clasification"],"tags":item["tags"],"artists":item["artists"],"caracters":item["caracters"]}})
         return{"code":"FANART_EDITED","success":True}
     
     except Exception:
@@ -338,18 +378,41 @@ async def validate_fanArt(fanArt: FanArtWithId, user = Depends(get_current_user)
 
 # To reject a fanArt
 @router.post("/fanArt/reject")
-async def reject_fanart(motives:RejectionMotivesAndId, user = Depends(get_current_user)):
+async def reject_fanart(background_tasks: BackgroundTasks, motives:RejectionMotivesAndId,toDelete: List[str] = Query(...), user = Depends(get_current_user)):
     item = motives.model_dump()
-    if user["type"] != "Success":
+    if user["success"] == False:
         return {"code":"INVALID_TOKEN","success":False}
 
     try:
-        await collection_fanArts.update_one({"_id":item["FanArtId"]},{"$set":{"status":"rejected"}})
+        # Reject pending tags
+        collection_name.update_many({"name":{"$in":toDelete},"status":"pending"},{"$set":{"status":"rejected"}})
+        # Get user data
+        fanart = collection_fanArts.find_one({"_id":ObjectId(item["FanArtId"])})
+        collection_fanArts.update_one({"_id":ObjectId(item["FanArtId"])},{"$set":{"status":"rejected"}})
+    
+        username = fanart["uploader"]["username"]
+        user_fanArt = collection_users.find_one({"userName":username})
+        if(user_fanArt):
+            lang = user_fanArt["preferences"]["language"]
+
+            # Build message of the email
+            message = translations.get(lang, translations[settings_internalization.default_locale])["fan_art_rejection_motive_body"]
+            if(item["incorrectLink"]):
+                message += " " + translations.get(lang, translations[settings_internalization.default_locale])["fan_art_rejection_motive_link"]
+            if(item["lowResolution"]):
+                message += " " + translations.get(lang, translations[settings_internalization.default_locale])["fan_art_rejection_motive_resolution"]
+            if(item["artistIssue"]):
+                message += " " + translations.get(lang, translations[settings_internalization.default_locale])["fan_art_rejection_motive_artist"]
+            if(item["noYuyuko"]):
+                message += " " + translations.get(lang, translations[settings_internalization.default_locale])["fan_art_rejection_motive_tutuko"]
+
+            background_tasks.add_task(send_email_rejection_motive, user_fanArt["email"], message, translations.get(lang, translations[settings_internalization.default_locale])["subject_fan_art_rejection"])
+    
         return{"code":"FANART_REJECTED","success":True}
     
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False}
-
+    
 @router.get("/fanArt/{num}")
 async def get_fanArtsNum(num:int):
     fanArts = list_serial_fanArts(collection_fanArts.find().skip((num-1)*8).limit(8))
@@ -358,7 +421,7 @@ async def get_fanArtsNum(num:int):
 @router.get("/fanArts/tags/{num}")
 async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[str] =  Depends(get_optional_user)):
     try:
-        search = {"clasification": {"$nin":["Explicit"]}}
+        search = {"clasification": {"$nin":["Explicit"]}, "status":"accepted"}
         if user["success"]:
             userPreferences = user["user_data"]["preferences"]
             
