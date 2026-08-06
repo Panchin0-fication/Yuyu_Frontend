@@ -6,13 +6,11 @@ import {
   TagsSearch,
   Message,
   TagLabel,
-  Profile,
   type tag,
   type userData,
   type preferences,
   type response,
   type simpleTag,
-  type withUserData,
 } from "@shared";
 import { useTranslation } from "react-i18next";
 import Select, { type StylesConfig } from "react-select";

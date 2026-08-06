@@ -8,7 +8,6 @@ import {
   Message,
   Profile,
   InfoMessage,
-  ValidateSesion,
   type tag,
   type response,
   type fanArt,
@@ -326,7 +325,6 @@ export default function PostFanArt() {
   }
   return (
     <>
-      <ValidateSesion />
       <div className={`${styles.all} ${message && "filterMsg"}`}>
         <HeaderPages
           image={"/staticImgs/generalUse/postFanArt.jpg"}

@@ -28,5 +28,11 @@
   "search_tags_not_found": "No tags were found...",
 
   "header_success": "Success",
-  "header_fail": "Failure"
+  "header_fail": "Failure",
+
+  "inaccesible_header": "inaccessible",
+  "inaccesible_login": "You must log in to access this page",
+  "inaccesible_admin": "You do not have authorization to access this page",
+  "inaccesible_button_login": "Login",
+  "inaccesible_button_return": "Return"
 }

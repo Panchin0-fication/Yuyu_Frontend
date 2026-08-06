@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { TagsInterface, FieldsFanArt, PreviewImage, FanArts } from "@features";
+import { TagsInterface, FieldsFanArt, PreviewImage } from "@features";
 import { HeaderPages, InfoMessage, Message, TagLabel } from "@shared";
 import type {
   response,
