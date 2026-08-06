@@ -34,5 +34,7 @@
   "inaccesible_login": "Debes iniciar sesión para acceder a esta pagina",
   "inaccesible_admin": "No tienes autorización para acceder a esta pagina",
   "inaccesible_button_login": "Iniciar sessión",
-  "inaccesible_button_return": "Regresar"
+  "inaccesible_button_return": "Regresar",
+  "not_found_header": "No encontrado",
+  "not_found_info": "La pagina a la que intentas acceder no existe o fue borrada"
 }

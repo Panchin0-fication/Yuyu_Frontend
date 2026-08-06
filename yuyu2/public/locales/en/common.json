@@ -34,5 +34,7 @@
   "inaccesible_login": "You must log in to access this page",
   "inaccesible_admin": "You do not have authorization to access this page",
   "inaccesible_button_login": "Login",
-  "inaccesible_button_return": "Return"
+  "inaccesible_button_return": "Return",
+  "not_found_header": "Not found",
+  "not_found_info": "The page you are trying to access does not exist or has been deleted"
 }

@@ -7,10 +7,12 @@ import {
   InfoMessage,
   Message,
   HoverInfo,
-  type fanArt,
-  type fanArtReducedQuality,
-  type returnedReducedQuality,
-  type withFanArt,
+} from "@shared";
+import type {
+  fanArt,
+  fanArtReducedQuality,
+  returnedReducedQuality,
+  withFanArt,
 } from "@shared";
 import styles from "./css/FanArts.module.css";
 export default function FanArts() {
@@ -21,6 +23,7 @@ export default function FanArts() {
   const [message, setMessage] = useState<ReactNode | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+  const [activeSearch, setActiveSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [tags, setTags] = useState<null | {
     general: string[];
@@ -62,16 +65,23 @@ export default function FanArts() {
     setLoading(false);
   }
 
-  async function render(): Promise<void> {
+  async function render(newActiveTags = false): Promise<void> {
     setLoading(true);
     setUnique(null);
     setShowOriginal(false);
 
-    const tags: string[] = search.split(" ");
-    const queryString: String = tags
-      .map((tag) => `tags=${encodeURIComponent(tag)}`)
-      .join("&");
-
+    var queryString: String;
+    if (!newActiveTags) {
+      queryString = activeSearch
+        .split(" ")
+        .map((tag) => `tags=${encodeURIComponent(tag)}`)
+        .join("&");
+    } else {
+      queryString = search
+        .split(" ")
+        .map((tag) => `tags=${encodeURIComponent(tag)}`)
+        .join("&");
+    }
     function errorResonse(): boolean {
       setMessage(
         <Message
@@ -240,7 +250,8 @@ export default function FanArts() {
                     onClick={async () => {
                       if (!loading) {
                         setPage(1);
-                        await render();
+                        setActiveSearch(search);
+                        await render(true);
                       }
                     }}
                   >

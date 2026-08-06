@@ -16,7 +16,11 @@ export default function RestrictedPage({
   const { t } = useTranslation("common");
   return (
     <div className={styles.mainContainer}>
-      <h2>{t("inaccesible_header")}</h2>
+      <h2>
+        {backgroundImg === "/staticImgs/generalUse/tewi_not_found.png"
+          ? t("not_found_header")
+          : t("inaccesible_header")}
+      </h2>
       <p>{info}</p>
 
       <button onClick={() => navigate(toRedirect)}>

@@ -89,6 +89,16 @@ function App() {
               />
             }
           />
+          <Route
+            path="*"
+            element={
+              <RestrictedPage
+                info={t("not_found_info")}
+                toRedirect="/"
+                backgroundImg="/staticImgs/generalUse/tewi_not_found.png"
+              />
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>
