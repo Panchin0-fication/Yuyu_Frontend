@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
-from models.yuyus import (Tags, FanArts, Preferences, FanArtWithId, RejectionMotivesAndId)
-from config.database import (collection_name, collection_fanArts,collection_users)
-from schema.schemas import (list_serial , list_serial_fanArts,list_serial_user,individual_serial_user)
+from models.yuyus import (Tags, FanArts, Preferences, FanArtWithId, RejectionMotivesAndId, MangaPage)
+from config.database import (collection_name, collection_fanArts,collection_users, collection_mangas)
+from schema.schemas import (list_serial , list_serial_fanArts,list_serial_user,list_serial_mangas)
 from functions.functions import (create_token,generate_verification_token,send_email_token,get_current_user,get_optional_user,set_search_tags, send_email_rejection_motive)
 from bson import ObjectId
 from pydantic import EmailStr
@@ -442,10 +442,37 @@ async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[
         fanArts = list_serial_fanArts(collection_fanArts.find(search).skip((num-1)*8).limit(9))
         return {"code":"FANARTS_COLLECTED","success":True, "fanArts":fanArts}
     
-    except Exception as e:
-        print("error",e)
+    except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False, "fanArts":None}
+
+@router.get("/manga")
+async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None = None, vol:int | None = None, lot:int = 1):
+    try:
+        search = {"name": name}
+        if page:
+            search["page"] = page
+        if chapter:
+            search["chapter"] = chapter
+        if vol:
+            search["vol"] = vol
+
+        pages = list_serial_mangas(collection_mangas.find(search).sort([("chapter",1),("page",1)]).skip((num-1)*lot).limit(lot + 1))
+
+        next = len(pages) > lot
+
+        if next:
+            pages = pages[:lot]
+
+        return {"code":"PAGES_COLLECTED","success":True, "next": next, "pages":pages}
     
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False, "fanArts":None}
+
+@router.get("/manga/data")
+async def get_manga_data(name:str, field:str):
+    items = collection_mangas.distinct(field, {"name":name})
+    return items
+
 @router.get("/admin/fanArt/{num}")
 async def get_to_validate_fanarts(num:int, user = Depends(get_current_user)):
     if(user):

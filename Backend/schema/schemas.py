@@ -48,3 +48,17 @@ def individual_serial_user(user) -> dict:
 
 def list_serial_user(users) -> list:
     return[individual_serial_user(user) for user in users]
+
+def individual_serial_mangas(mangas) -> dict:
+    return {
+        "id": str(mangas["_id"]),
+        "name": mangas.get("name"),
+        "vol": mangas.get("vol"),
+        "chapter": mangas.get("chapter"),
+        "page": mangas.get("page"),
+        "translator_group": mangas.get("translator_group"),
+        "src": mangas.get("src")
+    }
+
+def list_serial_mangas(mangas) -> list:
+    return[individual_serial_mangas(manga) for manga in mangas]

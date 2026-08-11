@@ -9,3 +9,4 @@ db = client.yuyu_db
 collection_name = db["yuyu_tags"]
 collection_fanArts = db["fanArts"]
 collection_users = db["users"]
+collection_mangas = db["mangas"]

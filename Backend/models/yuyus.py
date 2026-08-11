@@ -47,3 +47,11 @@ class User(BaseModel):
     verified:bool
     verification_token:str 
     preferences: Preferences
+
+class MangaPage(BaseModel):
+    name:str
+    vol:int
+    chapter:int | float
+    page:int
+    translator_group:str
+    src:str
