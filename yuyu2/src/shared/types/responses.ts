@@ -1,4 +1,4 @@
-import { type fanArt } from "@shared";
+import type { fanArt, mangaPage } from "@shared";
 export interface response {
   code: string;
   success: boolean;
@@ -40,4 +40,9 @@ export interface withUrl extends response {
 
 export interface withFanArt extends response {
   fanArts: fanArt[];
+}
+
+export interface mangaPages extends response {
+  next: boolean;
+  pages: mangaPage[];
 }

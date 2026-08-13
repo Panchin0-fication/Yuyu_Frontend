@@ -1,0 +1,22 @@
+.container {
+  width: 95%;
+  margin: auto;
+}
+.index {
+  display: flex;
+  flex-direction: column;
+}
+.index li {
+  transform: translateX(20px);
+}
+.paragraph1 {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  align-items: center;
+  gap: 40px;
+}
+.paragraphContainer {
+  height: 100%;
+  margin-top: 0px;
+}

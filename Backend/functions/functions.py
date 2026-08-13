@@ -80,7 +80,6 @@ def set_search_tags(search,tag_list, mode = "$all"):
     general = []
     caracter = []
     artist = []
-    print("DEPURATION",tag_list)
     for tag in tag_list:
         if(tag["category"] == "general"):
             general.append(tag["name"] )

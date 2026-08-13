@@ -28,6 +28,7 @@ export type { userData } from "./types/responses.js";
 export type { withFanArt } from "./types/responses.js";
 export type { preferences } from "./types/responses.js";
 export type { simpleTag } from "./types/responses.js";
+export type { mangaPages } from "./types/responses.js";
 
 export type { fanArt } from "./types/fanArts.js";
 export type { fanArtReducedQuality } from "./types/fanArts.js";
@@ -40,3 +41,5 @@ export type { endingSprite } from "./types/common.js";
 export type { previewImageDimensions } from "./types/common.js";
 export type { change } from "./types/common.js";
 export type { fieldsFanArtsInput } from "./types/common.js";
+export type { mangaPage } from "./types/common.js";
+export type { MyOption } from "./types/common.js";

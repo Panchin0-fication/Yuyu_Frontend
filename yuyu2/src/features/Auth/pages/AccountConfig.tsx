@@ -11,6 +11,7 @@ import {
   type preferences,
   type response,
   type simpleTag,
+  type MyOption,
 } from "@shared";
 import { useTranslation } from "react-i18next";
 import Select, { type StylesConfig } from "react-select";
@@ -98,11 +99,6 @@ export default function AccountConfig() {
       i18n.changeLanguage(language);
     }
     setLoading(false);
-  }
-
-  interface MyOption {
-    label: string;
-    value: string;
   }
 
   const options = [

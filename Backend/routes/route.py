@@ -446,7 +446,7 @@ async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[
         return {"code":"UNEXPECTED_ERROR","success":False, "fanArts":None}
 
 @router.get("/manga")
-async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None = None, vol:int | None = None, lot:int = 1):
+async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None = None, vol:int | None = None, lot:int = 10):
     try:
         search = {"name": name}
         if page:
@@ -466,7 +466,7 @@ async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None
         return {"code":"PAGES_COLLECTED","success":True, "next": next, "pages":pages}
     
     except Exception:
-        return {"code":"UNEXPECTED_ERROR","success":False, "fanArts":None}
+        return {"code":"UNEXPECTED_ERROR","success":False, "next": next, "pages":None}
 
 @router.get("/manga/data")
 async def get_manga_data(name:str, field:str):
