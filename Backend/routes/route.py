@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Request
 
 from models.yuyus import (Tags, FanArts, Preferences, FanArtWithId, RejectionMotivesAndId, MangaPage)
 from config.database import (collection_name, collection_fanArts,collection_users, collection_mangas)
@@ -14,6 +14,8 @@ from config.i18n import(settings_internalization)
 import os, json
 from bson.objectid import ObjectId
 from typing import Annotated, Optional
+from config.limiter import limiter
+
 #import bcrypt
 
 translations = {}
@@ -25,24 +27,17 @@ for lang in settings_internalization.supported_locales:
 
 router = APIRouter()
 
-@router.get("/")
-async def get_tags():
-    tags = list_serial(collection_name.find())
-    return tags
-
-@router.post("/")
-async def post_tag(tag: Tags):
-    collection_name.insert_one(dict(tag))
-
 # User related endpoints
 @router.get("/user")
-async def get_users():
+@limiter.limit("3/minute")
+async def get_users(request: Request):
     users = list_serial_user(collection_users.find())
     return users
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 @router.post("/user")
-async def post_user(userName:Annotated[str, Form()],email:Annotated[EmailStr, Form()],password:Annotated[str, Form()], lang:Annotated[str, Form()], background_tasks: BackgroundTasks):
+@limiter.limit("5/minute; 50/day")
+async def post_user(request: Request, userName:Annotated[str, Form()],email:Annotated[EmailStr, Form()],password:Annotated[str, Form()], lang:Annotated[str, Form()], background_tasks: BackgroundTasks):
 
     try:
         user = collection_users.find_one({"userName":userName})
@@ -85,9 +80,9 @@ async def post_user(userName:Annotated[str, Form()],email:Annotated[EmailStr, Fo
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False,"token":None}
     
-
 @router.get("/user/resendCode")
-async def resend_code(background_tasks: BackgroundTasks, lang:str, user = Depends(get_current_user)):
+@limiter.limit("5/minute; 50/day")
+async def resend_code(request: Request, background_tasks: BackgroundTasks, lang:str, user = Depends(get_current_user)):
     if user["type"] != "Success":
         return {"code":"UNEXPECTED_ERROR","success":False}
     
@@ -108,10 +103,9 @@ async def resend_code(background_tasks: BackgroundTasks, lang:str, user = Depend
     except Exception:
         return {"code":"EMAIL_NOT_FOUND","success":False}
 
-       
-
 @router.post("/user/changeEmail")
-async def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailStr, Form()], lang:Annotated[str, Form()], user = Depends(get_current_user)):
+@limiter.limit("5/minute; 50/day")
+async def change_email(request: Request, background_tasks: BackgroundTasks, email:Annotated[EmailStr, Form()], lang:Annotated[str, Form()], user = Depends(get_current_user)):
     try:
         token = generate_verification_token()
 
@@ -135,7 +129,8 @@ async def change_email(background_tasks: BackgroundTasks, email:Annotated[EmailS
         return {"code":"UNEXPECTED_ERROR","success":False}
     
 @router.post("/user/isDataRegistered")
-async def is_name_registerd(name:Annotated[str, Form()],email:Annotated[str, Form()]):
+@limiter.limit("60/minute")
+async def is_name_registerd(request: Request, name:Annotated[str, Form()],email:Annotated[str, Form()]):
     user = collection_users.find_one({"email":email})
     if user:
         return {"code":"EMAIL_ALREADY_REGISTERED","success":False}
@@ -147,7 +142,8 @@ async def is_name_registerd(name:Annotated[str, Form()],email:Annotated[str, For
     return {"code":"DATA_UNREGISTERED","success":True}
     
 @router.post("/user/reset_password/begin")
-async def reset_password_begin(email:Annotated[str, Form()], lang:Annotated[str, Form()], background_tasks: BackgroundTasks):
+@limiter.limit("5/minute; 50/day")
+async def reset_password_begin(request: Request, email:Annotated[str, Form()], lang:Annotated[str, Form()], background_tasks: BackgroundTasks):
     user = collection_users.find_one({"email":email})
 
     if not user:
@@ -165,7 +161,8 @@ async def reset_password_begin(email:Annotated[str, Form()], lang:Annotated[str,
     return {"code":"PASSWORD_RESET_CODE_SENT","success":True}
 
 @router.post("/user/reset_password/change")
-async def validate_reset_password(token:Annotated[str, Form()], password:Annotated[str, Form()]):
+@limiter.limit("5/minute; 50/day")
+async def validate_reset_password(request: Request, token:Annotated[str, Form()], password:Annotated[str, Form()]):
     user = collection_users.find_one({"reset_password_token":token})
     if not user:
         return {"code":"INVALID_RESET_PASSWORD_TOKEN","success":False}
@@ -183,7 +180,8 @@ async def validate_reset_password(token:Annotated[str, Form()], password:Annotat
     return {"code":"PASSWORD_CHANGED","success":True}
 
 @router.post("/user/verify-email")
-async def verify_email(token: Annotated[str, Form()]):
+@limiter.limit("100/hour")
+async def verify_email(request: Request, token: Annotated[str, Form()]):
 
     user = collection_users.find_one({"verification_token": token})
 
@@ -200,7 +198,8 @@ async def verify_email(token: Annotated[str, Form()]):
     return {"code":"EMAIL_VERIFIED","success":True}
 
 @router.post("/user/login")
-async def login(userName:Annotated[str, Form()], password:Annotated[str, Form()]):
+@limiter.limit("5/minute; 70/day")
+async def login(request: Request, userName:Annotated[str, Form()], password:Annotated[str, Form()]):
     foundUser = collection_users.find_one({"userName":userName})
     if not foundUser:
         return {"code":"USERNAME_NOT_FOUND","success":False,"token":None}
@@ -217,7 +216,8 @@ async def login(userName:Annotated[str, Form()], password:Annotated[str, Form()]
 
 #User preferences
 @router.post("/user/preferences")
-async def change_preferences( preferences:Preferences, user = Depends(get_current_user)):
+@limiter.limit("10/minute")
+async def change_preferences(request: Request, preferences:Preferences, user = Depends(get_current_user)):
     try:
         item = preferences.model_dump()
         collection_users.update_one(
@@ -230,102 +230,12 @@ async def change_preferences( preferences:Preferences, user = Depends(get_curren
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False}
 
-#Get user data from the token
-@router.get("/profile")
-def profile(user = Depends(get_current_user)):
-    return user
-
-@router.get("/tags")
-async def show_accepted_tags(num: int, numberTags:int, search: str | None = None):
-    if not search:
-        tags = list_serial(collection_name.find({"status":"accepted"}).skip((num-1)*numberTags).limit(numberTags + 1))
-    else:
-        tags = list_serial(collection_name.find({"status":"accepted","name":{"$regex": search, "$options": "i"} }).skip((num-1)*numberTags).limit(numberTags + 1))
-    return tags
-    
-@router.get("/tags/check")
-async def does_tag_already_exists(newTag: str):
-    tag = collection_name.find_one({"name":newTag, "status":"accepted"})
-    if not tag:
-        return {"code":"TAG_DOES_NOT_EXISTS","success":True}
-    else:
-        return {"code":"TAG_ALREADY_EXISTS","success":False}
-
-@router.post("/newTags")
-async def post_new_tags(tags: List[Tags], user = Depends(get_current_user)):
-    if user["success"] == False:
-        return {"code":"INVALID_TOKEN","success":False}
-    
-    try:
-        items = []
-        for tag in tags:
-            items.append(tag.model_dump())
-
-        tagNames = []
-        for tag in items:
-            tagNames.append(tag["name"])
-
-        repited = list_serial(collection_name.find({"name":{"$in":tagNames}}))
-        repited_without_id = []
-        for singular_repited in repited:
-            del singular_repited["id"]
-            repited_without_id.append(singular_repited)
-
-        for repitedTag in repited_without_id:
-            items.remove(repitedTag)
-    
-        collection_name.insert_many(items)
-        return {"code":"TAGS_ADDED","success":True}
-    
-    except Exception:
-        return {"code":"UNEXPECTED_ERROR","success":False}
-
-@router.post("/tags/validate")
-async def validate_tag(tags: List[str], user = Depends(get_current_user)):
-    if user["success"] == False:
-        return {"code":"INVALID_TOKEN","success":False}
-    
-    try:
-        result = collection_name.update_many({"status":"pending","name":{"$in":tags}},{"$set":{"status":"accepted"}})
-        return {"code":"TAGS_VALIDATED","success":True}
-    
-    except Exception:
-        return {"code":"UNEXPECTED_ERROR","success":False, "modified":result}
-    
-@router.post("/upload-image")
-async def upload_image(file: UploadFile = File(...)):
-    try:
-        result = cloudinary.uploader.upload(file.file)
-
-        return {"code":"IMAGE_UPLOAD_SUCCESSFUL","success":True, "url":result["secure_url"]}
-
-    except Exception:
-        return {"code":"UNEXPECTED_ERROR","success":False, "url":None}
-
-@router.post("/newFanArt")
-async def post_new_fanArt(fanArt: FanArts, user = Depends(get_current_user)):
-    if user["success"] == False:
-        return {"code":"INVALID_TOKEN","success":False}
-    try:
-        item = fanArt.model_dump()
-        collection_fanArts.insert_one(item)
-        return {"code":"CREATED_FANART","success":True}
-    
-    except Exception:
-        return {"code":"UNEXPECTED_ERROR","success":False}
-
-@router.get("/fanArt")
-async def get_fanArt():
-    fanArts = list_serial_fanArts(collection_fanArts.find())
-    return fanArts
-
-@router.post("/fanArt")
-async def post_fanArt(fanArt: FanArts):
-    collection_fanArts.insert_one(dict(fanArt))
+# *** Endpoint ment for admins ***
 
 # Validate and register new tags
 @router.post("/fanArt/tags/validation")
-async def tags_validation(tags: List[Tags],toDelete: List[str] = Query(...), user = Depends(get_current_user)):
+@limiter.limit("10/minute")
+async def tags_validation(request: Request, tags: List[Tags],toDelete: List[str] = Query(...), user = Depends(get_current_user)):
     if user["success"] == False:
         return {"code":"INVALID_TOKEN","success":False}
 
@@ -363,7 +273,8 @@ async def tags_validation(tags: List[Tags],toDelete: List[str] = Query(...), use
 
 # To validate/edit a fanArt
 @router.post("/fanArt/validate")
-async def validate_fanArt(fanArt: FanArtWithId, user = Depends(get_current_user)):
+@limiter.limit("10/minute")
+async def validate_fanArt(request: Request, fanArt: FanArtWithId, user = Depends(get_current_user)):
     item = fanArt.model_dump()
     print("tutut",item)
     if user["success"] == False:
@@ -378,7 +289,8 @@ async def validate_fanArt(fanArt: FanArtWithId, user = Depends(get_current_user)
 
 # To reject a fanArt
 @router.post("/fanArt/reject")
-async def reject_fanart(background_tasks: BackgroundTasks, motives:RejectionMotivesAndId,toDelete: List[str] = Query(...), user = Depends(get_current_user)):
+@limiter.limit("10/minute")
+async def reject_fanart(request: Request, background_tasks: BackgroundTasks, motives:RejectionMotivesAndId,toDelete: List[str] = Query(...), user = Depends(get_current_user)):
     item = motives.model_dump()
     if user["success"] == False:
         return {"code":"INVALID_TOKEN","success":False}
@@ -412,14 +324,119 @@ async def reject_fanart(background_tasks: BackgroundTasks, motives:RejectionMoti
     
     except Exception:
         return {"code":"UNEXPECTED_ERROR","success":False}
+
+@router.get("/admin/fanArt/{num}")
+@limiter.limit("60/minute")
+async def get_to_validate_fanarts(request: Request, num:int, user = Depends(get_current_user)):
+    if(user):
+        fanArts = list_serial_fanArts(collection_fanArts.find({"status":"pending"}).skip((num-1)*5).limit(6))
+        return fanArts
     
-@router.get("/fanArt/{num}")
-async def get_fanArtsNum(num:int):
-    fanArts = list_serial_fanArts(collection_fanArts.find().skip((num-1)*8).limit(8))
-    return fanArts
+@router.get("/admin/unverified_tags")
+@limiter.limit("90/minute")
+async def get_unverified_tags(request: Request, tags: List[str] = Query(...), user = Depends(get_current_user)):
+    if(user["user_data"]["role"] == "Admin"):
+        unver_tags = list_serial(collection_name.find({"name":{"$in":tags}, "status":"pending"}))
+        ver_tags = list_serial(collection_name.find({"name":{"$in":tags}, "status":"accepted"}))
+        return {"unverified_tags":unver_tags,"verified_tags":ver_tags}
+    else:
+        return {"unverified_tags":None,"verified_tags":None}
+
+# *** User experience ***
+
+#Get user data from the token
+@router.get("/profile")
+def profile(user = Depends(get_current_user)):
+    return user
+
+@router.get("/tags")
+@limiter.limit("120/minute")
+async def show_accepted_tags(request: Request, num: int, numberTags:int, search: str | None = None):
+    if not search:
+        tags = list_serial(collection_name.find({"status":"accepted"}).skip((num-1)*numberTags).limit(numberTags + 1))
+    else:
+        tags = list_serial(collection_name.find({"status":"accepted","name":{"$regex": search, "$options": "i"} }).skip((num-1)*numberTags).limit(numberTags + 1))
+    return tags
+    
+@router.get("/tags/check")
+@limiter.limit("60/minute")
+async def does_tag_already_exists(request: Request, newTag: str):
+    tag = collection_name.find_one({"name":newTag, "status":"accepted"})
+    if not tag:
+        return {"code":"TAG_DOES_NOT_EXISTS","success":True}
+    else:
+        return {"code":"TAG_ALREADY_EXISTS","success":False}
+
+@router.post("/newTags")
+@limiter.limit("5/minute; 75/day")
+async def post_new_tags(request: Request, tags: List[Tags], user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+    
+    try:
+        items = []
+        for tag in tags:
+            items.append(tag.model_dump())
+
+        tagNames = []
+        for tag in items:
+            tagNames.append(tag["name"])
+
+        repited = list_serial(collection_name.find({"name":{"$in":tagNames}}))
+        repited_without_id = []
+        for singular_repited in repited:
+            del singular_repited["id"]
+            repited_without_id.append(singular_repited)
+
+        for repitedTag in repited_without_id:
+            items.remove(repitedTag)
+    
+        collection_name.insert_many(items)
+        return {"code":"TAGS_ADDED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False}
+
+@router.post("/tags/validate")
+@limiter.limit("5/minute; 75/day")
+async def validate_tag(request: Request, tags: List[str], user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+    
+    try:
+        result = collection_name.update_many({"status":"pending","name":{"$in":tags}},{"$set":{"status":"accepted"}})
+        return {"code":"TAGS_VALIDATED","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False, "modified":result}
+    
+@router.post("/upload-image")
+@limiter.limit("5/minute; 75/day")
+async def upload_image(request: Request, file: UploadFile = File(...)):
+    try:
+        result = cloudinary.uploader.upload(file.file)
+
+        return {"code":"IMAGE_UPLOAD_SUCCESSFUL","success":True, "url":result["secure_url"]}
+
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False, "url":None}
+
+@router.post("/newFanArt")
+@limiter.limit("5/minute; 75/day")
+async def post_new_fanArt(request: Request, fanArt: FanArts, user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+    try:
+        item = fanArt.model_dump()
+        collection_fanArts.insert_one(item)
+        return {"code":"CREATED_FANART","success":True}
+    
+    except Exception:
+        return {"code":"UNEXPECTED_ERROR","success":False}
 
 @router.get("/fanArts/tags/{num}")
-async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[str] =  Depends(get_optional_user)):
+@limiter.limit("120/minute")
+async def get_fanArtsByTags(request: Request, num:int,tags: List[str] = Query(...),user: Optional[str] =  Depends(get_optional_user)):
     try:
         search = {"clasification": {"$nin":["Explicit"]}, "status":"accepted"}
         if user["success"]:
@@ -446,7 +463,8 @@ async def get_fanArtsByTags(num:int,tags: List[str] = Query(...),user: Optional[
         return {"code":"UNEXPECTED_ERROR","success":False, "fanArts":None}
 
 @router.get("/manga")
-async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None = None, vol:int | None = None, lot:int = 10):
+@limiter.limit("120/minute")
+async def get_manga(request: Request, num:int,name:str, page:int | None = None, chapter:int | float | None = None, vol:int | None = None, lot:int = 10):
     try:
         search = {"name": name}
         if page:
@@ -472,18 +490,3 @@ async def get_manga(num:int,name:str, page:int | None = None, chapter:int | None
 async def get_manga_data(name:str, field:str):
     items = collection_mangas.distinct(field, {"name":name})
     return items
-
-@router.get("/admin/fanArt/{num}")
-async def get_to_validate_fanarts(num:int, user = Depends(get_current_user)):
-    if(user):
-        fanArts = list_serial_fanArts(collection_fanArts.find({"status":"pending"}).skip((num-1)*5).limit(6))
-        return fanArts
-    
-@router.get("/admin/unverified_tags")
-async def get_unverified_tags(tags: List[str] = Query(...), user = Depends(get_current_user)):
-    if(user["user_data"]["role"] == "Admin"):
-        unver_tags = list_serial(collection_name.find({"name":{"$in":tags}, "status":"pending"}))
-        ver_tags = list_serial(collection_name.find({"name":{"$in":tags}, "status":"accepted"}))
-        return {"unverified_tags":unver_tags,"verified_tags":ver_tags}
-    else:
-        return {"unverified_tags":None,"verified_tags":None}
