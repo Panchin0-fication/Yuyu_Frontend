@@ -41,6 +41,12 @@ export default function MangaBrowser({ name }: props) {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/manga?${extra}`,
       );
+      if (!response.ok) {
+        if (response.status === 429) {
+          console.error(t("429_error_code"));
+        }
+        return;
+      }
       const data = (await response.json()) as mangaPages;
 
       let reduced: fanArtReducedQuality[] = [];

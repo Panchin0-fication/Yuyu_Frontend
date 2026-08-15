@@ -36,6 +36,9 @@ export default function Login() {
     callBackend();
   }, []);
   async function handleClick(): Promise<void> {
+    try {
+    } finally {
+    }
     if (inputs.name === "" || inputs.password === "") {
       setSmallMessage(
         <SmallMessage
@@ -53,9 +56,17 @@ export default function Login() {
       method: "POST",
       body: formData,
     });
+    setLoading(false);
+    if (!response.ok) {
+      if (response.status === 429) {
+        setSmallMessage(
+          <SmallMessage type="error" message={t("429_error_code")} />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as withToken;
 
-    setLoading(false);
     if (
       res.code === "LOGIN_SUCCESSFUL" ||
       res.code === "LOGIN_SUCCESSFUL_UNVERIFIED"

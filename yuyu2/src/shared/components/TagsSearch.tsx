@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { type tagWithId, type tag, TagLabel, type change } from "@shared";
+import { type tag, TagLabel, type change } from "@shared";
 import { useTranslation } from "react-i18next";
 import styles from "./css/TagsSearch.module.css";
 
@@ -29,14 +29,23 @@ export default function TagsSearch({
   const [page, setPage] = useState(1);
   const [tags, setTags] = useState<tag[]>();
   const [search, setSearch] = useState("");
-  async function getTags(num: number) {
-    setPage(1);
-    const dataFetch = await fetch(
-      `${import.meta.env.VITE_API_URL}/tags?num=${num}&numberTags=${numberTags}&search=${search}`,
-    );
-    const data = (await dataFetch.json()) as tag[];
-    setTags(data);
-    setLoading(false);
+  async function getTags(num: number): Promise<void> {
+    try {
+      setPage(1);
+      const dataFetch = await fetch(
+        `${import.meta.env.VITE_API_URL}/tags?num=${num}&numberTags=${numberTags}&search=${search}`,
+      );
+      if (!dataFetch.ok) {
+        if (dataFetch.status === 429) {
+          console.error(t("429_error_code"));
+        }
+        return;
+      }
+      const data = (await dataFetch.json()) as tag[];
+      setTags(data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const timerRef = useRef<number | null>(null);

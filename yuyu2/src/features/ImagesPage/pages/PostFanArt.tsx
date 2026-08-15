@@ -162,117 +162,165 @@ export default function PostFanArt() {
   }
 
   async function uploadFanart(): Promise<void> {
-    let fanArtObject = {} as fanArt;
-    setLoading(true);
+    try {
+      let fanArtObject = {} as fanArt;
+      setLoading(true);
 
-    const resUser = (await Profile(
-      localStorage.getItem("token"),
-    )) as withUserData;
-    if (resUser.success) {
-      fanArtObject["uploader"] = {
-        username: resUser.user_data.userName,
-        id: resUser.user_data.id,
-      };
-    } else {
-      setMessage(
-        <Message
-          header={t("message_header_no_loged_in")}
-          text={t("message_body_no_loged_in")}
-          setMessage={setMessage}
-          toRedirect={"/auth/login"}
-          type="error"
-          previus={{ state: { from: location.pathname } }}
-        />,
-      );
-      return;
-    }
-
-    //Upload new tags to the database
-    const newTags = fanArtTags.filter((tag) => tag.status === "pending");
-    if (newTags.length >= 1) {
-      const responseNewTags = await fetch(
-        `${import.meta.env.VITE_API_URL}/newTags`,
-        {
-          method: "Post",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(newTags),
-        },
-      );
-      const resNewTags = (await responseNewTags.json()) as response;
-      if (!resNewTags.success) {
-        handleMessage(
-          t("message_header_error_posting"),
-          t("message_body_unexpected_error_new_tags"),
-          "error",
+      const resUser = (await Profile(
+        localStorage.getItem("token"),
+      )) as withUserData;
+      if (resUser.success) {
+        fanArtObject["uploader"] = {
+          username: resUser.user_data.userName,
+          id: resUser.user_data.id,
+        };
+      } else {
+        setMessage(
+          <Message
+            header={t("message_header_no_loged_in")}
+            text={t("message_body_no_loged_in")}
+            setMessage={setMessage}
+            toRedirect={"/auth/login"}
+            type="error"
+            previus={{ state: { from: location.pathname } }}
+          />,
         );
         return;
       }
-    }
 
-    //Upload image to cloudinary
-    if (!fileRef.current) return;
-    const formData = new FormData();
-    formData.append("file", fileRef.current.files[0]);
-    formData.append("upload_preset", "images");
-
-    const responseCloudinary = await fetch(
-      `${import.meta.env.VITE_API_URL}/upload-image`,
-      {
-        method: "POST",
-        body: formData,
-      },
-    );
-
-    const resCloudinary = (await responseCloudinary.json()) as withUrl;
-    fanArtObject["src"] = resCloudinary.url;
-
-    //Filters tags to put them in the FanArt object
-    var filtered: { general: string[]; artist: string[]; character: string[] } =
-      { general: [], artist: [], character: [] };
-
-    for (var tag of fanArtTags) {
-      if (tag.category === "general") {
-        filtered.general.push(tag.name);
-      } else if (tag.category === "artist") {
-        filtered.artist.push(tag.name);
-      } else {
-        filtered.character.push(tag.name);
-      }
-    }
-    fanArtObject["tags"] = filtered.general;
-    fanArtObject["artists"] = filtered.artist;
-    fanArtObject["caracters"] = filtered.character;
-    fanArtObject["clasification"] = inputs.clasification;
-    fanArtObject["show"] = true;
-    fanArtObject["originalLink"] = inputs.originalLink;
-    fanArtObject["status"] = "pending";
-
-    const uploadFanArt = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/newFanArt`,
-        {
-          method: "Post",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //Upload new tags to the database
+      const newTags = fanArtTags.filter((tag) => tag.status === "pending");
+      if (newTags.length >= 1) {
+        const responseNewTags = await fetch(
+          `${import.meta.env.VITE_API_URL}/newTags`,
+          {
+            method: "Post",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(newTags),
           },
-          body: JSON.stringify(fanArtObject),
+        );
+        if (!responseNewTags.ok) {
+          if (responseNewTags.status === 429) {
+            setMessage(
+              <Message
+                header={t("429_error_code")}
+                type="error"
+                text={t("429_error_code")}
+                setMessage={setMessage}
+                toRedirect=""
+              />,
+            );
+          }
+          return;
+        }
+        const resNewTags = (await responseNewTags.json()) as response;
+        if (!resNewTags.success) {
+          handleMessage(
+            t("message_header_error_posting"),
+            t("message_body_unexpected_error_new_tags"),
+            "error",
+          );
+          return;
+        }
+      }
+
+      //Upload image to cloudinary
+      if (!fileRef.current) return;
+      const formData = new FormData();
+      formData.append("file", fileRef.current.files[0]);
+      formData.append("upload_preset", "images");
+
+      const responseCloudinary = await fetch(
+        `${import.meta.env.VITE_API_URL}/upload-image`,
+        {
+          method: "POST",
+          body: formData,
         },
       );
-      const res = (await response.json()) as response;
-      if (res.success) {
-        handleMessage(
-          t("message_header_success_posting"),
-          t("message_body_success"),
-          "success",
-        );
+      if (!responseCloudinary.ok) {
+        if (responseCloudinary.status === 429) {
+          setMessage(
+            <Message
+              header={t("429_error_code")}
+              type="error"
+              text={t("429_error_code")}
+              setMessage={setMessage}
+              toRedirect=""
+            />,
+          );
+        }
+        return;
       }
-    };
-    await uploadFanArt();
-    setLoading(false);
+
+      const resCloudinary = (await responseCloudinary.json()) as withUrl;
+      fanArtObject["src"] = resCloudinary.url;
+
+      //Filters tags to put them in the FanArt object
+      var filtered: {
+        general: string[];
+        artist: string[];
+        character: string[];
+      } = { general: [], artist: [], character: [] };
+
+      for (var tag of fanArtTags) {
+        if (tag.category === "general") {
+          filtered.general.push(tag.name);
+        } else if (tag.category === "artist") {
+          filtered.artist.push(tag.name);
+        } else {
+          filtered.character.push(tag.name);
+        }
+      }
+      fanArtObject["tags"] = filtered.general;
+      fanArtObject["artists"] = filtered.artist;
+      fanArtObject["caracters"] = filtered.character;
+      fanArtObject["clasification"] = inputs.clasification;
+      fanArtObject["show"] = true;
+      fanArtObject["originalLink"] = inputs.originalLink;
+      fanArtObject["status"] = "pending";
+
+      const uploadFanArt = async () => {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/newFanArt`,
+          {
+            method: "Post",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(fanArtObject),
+          },
+        );
+        if (!response.ok) {
+          if (response.status === 429) {
+            setMessage(
+              <Message
+                header={t("429_error_code")}
+                type="error"
+                text={t("429_error_code")}
+                setMessage={setMessage}
+                toRedirect=""
+              />,
+            );
+          }
+          return;
+        }
+        const res = (await response.json()) as response;
+        if (res.success) {
+          handleMessage(
+            t("message_header_success_posting"),
+            t("message_body_success"),
+            "success",
+          );
+        }
+      };
+      await uploadFanArt();
+    } finally {
+      setLoading(false);
+    }
   }
 
   function PreviewLoad() {

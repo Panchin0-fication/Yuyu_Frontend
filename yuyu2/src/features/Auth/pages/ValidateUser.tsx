@@ -55,27 +55,42 @@ export default function ValidateUser() {
   }, []);
 
   const resend = async (): Promise<void> => {
-    setSmallMessage(null);
-    setPosition("resend");
-    setLoading(true);
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/user/resendCode?lang=${i18n.language}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+    try {
+      setSmallMessage(null);
+      setPosition("resend");
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/resendCode?lang=${i18n.language}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
         },
-      },
-    );
-    const res = (await response.json()) as response;
-    setSmallMessage(
-      <SmallMessage
-        type={res.success ? "success" : "error"}
-        message={t(res.code)}
-      ></SmallMessage>,
-    );
-    setLoading(false);
+      );
+      if (!response.ok) {
+        if (response.status === 429) {
+          setSmallMessage(
+            <SmallMessage type="error" message={t("429_error_code")} />,
+          );
+        } else {
+          setSmallMessage(
+            <SmallMessage type="error" message={t("UNEXPECTED_ERROR")} />,
+          );
+        }
+        return;
+      }
+      const res = (await response.json()) as response;
+      setSmallMessage(
+        <SmallMessage
+          type={res.success ? "success" : "error"}
+          message={t(res.code)}
+        />,
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   async function changeEmail(): Promise<void> {
@@ -96,12 +111,21 @@ export default function ValidateUser() {
       },
     );
     if (!response.ok) {
-      setSmallMessage(
-        <SmallMessage
-          type={"error"}
-          message={t("small_message_not_email_format")}
-        ></SmallMessage>,
-      );
+      if (response.status === 429) {
+        setSmallMessage(
+          <SmallMessage
+            type={"error"}
+            message={t("429_error_code")}
+          ></SmallMessage>,
+        );
+      } else {
+        setSmallMessage(
+          <SmallMessage
+            type={"error"}
+            message={t("small_message_not_email_format")}
+          ></SmallMessage>,
+        );
+      }
     } else {
       const res = (await response.json()) as response;
       if (res.success) {
@@ -123,33 +147,44 @@ export default function ValidateUser() {
   }
 
   async function verifyAccount(code: string): Promise<void> {
-    setSmallMessage(null);
-    setPosition("validateCode");
-    setLoading(true);
+    try {
+      setSmallMessage(null);
+      setPosition("validateCode");
+      setLoading(true);
 
-    const formData = new FormData();
-    formData.append("token", code);
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/user/verify-email?token=${code}`,
-      {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const formData = new FormData();
+      formData.append("token", code);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/user/verify-email?token=${code}`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
-      },
-    );
-    const res = (await response.json()) as response;
-    setPopupMessage(
-      <Message
-        type={res.success ? "success" : "error"}
-        text={t(res.code)}
-        header={t("message_header_verified_account")}
-        setMessage={setPopupMessage}
-        toRedirect={from}
-      />,
-    );
-    setLoading(false);
+      );
+      if (!response.ok) {
+        if (response.status === 429) {
+          setSmallMessage(
+            <SmallMessage type="error" message={t("429_error_code")} />,
+          );
+        }
+        return;
+      }
+      const res = (await response.json()) as response;
+      setPopupMessage(
+        <Message
+          type={res.success ? "success" : "error"}
+          text={t(res.code)}
+          header={t("message_header_verified_account")}
+          setMessage={setPopupMessage}
+          toRedirect={from}
+        />,
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

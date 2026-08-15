@@ -264,6 +264,20 @@ export default function ValidateFanArts() {
         body: JSON.stringify(validatedTags),
       },
     );
+    if (!responseNewTags.ok) {
+      if (responseNewTags.status === 429) {
+        setMessage(
+          <Message
+            header={t("429_error_code")}
+            type="error"
+            text={t("429_error_code")}
+            setMessage={setMessage}
+            toRedirect=""
+          />,
+        );
+      }
+      return;
+    }
     const resNewTags = (await responseNewTags.json()) as response;
     if (!resNewTags.success) {
       console.log("Error");
@@ -296,6 +310,20 @@ export default function ValidateFanArts() {
         body: JSON.stringify(fanArtObject),
       },
     );
+    if (!response.ok) {
+      if (response.status === 429) {
+        setMessage(
+          <Message
+            header={t("429_error_code")}
+            type="error"
+            text={t("429_error_code")}
+            setMessage={setMessage}
+            toRedirect=""
+          />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as response;
     setMessage(
       <Message
@@ -501,6 +529,20 @@ export default function ValidateFanArts() {
         body: JSON.stringify(rejectMotivesObject),
       },
     );
+    if (!response.ok) {
+      if (response.status === 429) {
+        setMessage(
+          <Message
+            header={t("429_error_code")}
+            type="error"
+            text={t("429_error_code")}
+            setMessage={setMessage}
+            toRedirect=""
+          />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as response;
     setMessage(
       <Message

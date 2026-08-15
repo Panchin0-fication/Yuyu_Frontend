@@ -81,6 +81,20 @@ export default function AccountConfig() {
         body: JSON.stringify(newPreferences),
       },
     );
+    if (!response.ok) {
+      if (response.status === 429) {
+        setMessage(
+          <Message
+            header={t("429_error_code")}
+            type="error"
+            text={t("429_error_code")}
+            setMessage={setMessage}
+            toRedirect=""
+          />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as response;
     if (res.success) {
       setMessage(

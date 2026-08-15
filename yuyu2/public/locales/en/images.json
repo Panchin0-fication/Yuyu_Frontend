@@ -139,5 +139,7 @@
   "manga_info_chapter": "Chapter:",
   "manga_info_page": "Page:",
   "manga_no_pages": "No pages found...",
-  "manga_all_option": "All"
+  "manga_all_option": "All",
+
+  "429_error_code": "Request limit exceeded"
 }

@@ -50,6 +50,14 @@ export default function CreateAccount() {
           body: formData,
         },
       );
+      if (!response.ok) {
+        if (response.status === 429) {
+          setSmallMessage(
+            <SmallMessage type="error" message={t("429_error_code")} />,
+          );
+        }
+        return;
+      }
       const res = (await response.json()) as response;
 
       switch (res.code) {
@@ -108,7 +116,11 @@ export default function CreateAccount() {
         body: formData,
       });
       if (!response.ok) {
-        createMessage("error", t("invalid_email_string_error"));
+        if (response.status === 429) {
+          createMessage("error", t("429_error_code"));
+        } else {
+          createMessage("error", t("invalid_email_string_error"));
+        }
         return;
       }
       const res = (await response.json()) as withToken;

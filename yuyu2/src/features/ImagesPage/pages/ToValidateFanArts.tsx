@@ -62,6 +62,20 @@ export default function ToValidateFanArts() {
           },
         },
       );
+      if (!response.ok) {
+        if (response.status === 429) {
+          setMessage(
+            <Message
+              header={t("429_error_code")}
+              type="error"
+              text={t("429_error_code")}
+              setMessage={setMessage}
+              toRedirect=""
+            />,
+          );
+        }
+        return;
+      }
       const data = (await response.json()) as fanArt[];
       setFanArts(data);
 
@@ -106,7 +120,18 @@ export default function ToValidateFanArts() {
           },
         },
       );
-      if (!responseUnVer.ok) {
+      if (!response.ok) {
+        if (response.status === 429) {
+          setMessage(
+            <Message
+              header={t("429_error_code")}
+              type="error"
+              text={t("429_error_code")}
+              setMessage={setMessage}
+              toRedirect=""
+            />,
+          );
+        }
         setLoading(false);
         return;
       }

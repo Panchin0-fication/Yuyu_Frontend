@@ -36,5 +36,7 @@
   "inaccesible_button_login": "Iniciar sessión",
   "inaccesible_button_return": "Regresar",
   "not_found_header": "No encontrado",
-  "not_found_info": "La pagina a la que intentas acceder no existe o fue borrada"
+  "not_found_info": "La pagina a la que intentas acceder no existe o fue borrada",
+
+  "429_error_code": "Limite de solicitudes excedido"
 }

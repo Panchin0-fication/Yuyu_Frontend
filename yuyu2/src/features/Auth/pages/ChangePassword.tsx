@@ -34,6 +34,14 @@ export default function ChangePassword() {
         body: formData,
       },
     );
+    if (!response.ok) {
+      if (response.status === 429) {
+        setSmallMessage(
+          <SmallMessage type="error" message={t("429_error_code")} />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as response;
 
     setSmallMessage(
@@ -76,6 +84,14 @@ export default function ChangePassword() {
         body: formData,
       },
     );
+    if (!response.ok) {
+      if (response.status === 429) {
+        setSmallMessage(
+          <SmallMessage type="error" message={t("429_error_code")} />,
+        );
+      }
+      return;
+    }
     const res = (await response.json()) as response;
     if (res.success) {
       setMessage(

@@ -139,5 +139,7 @@
   "manga_info_chapter": "Capitulo:",
   "manga_info_page": "Pagina:",
   "manga_no_pages": "Sin paginas encontradas...",
-  "manga_all_option": "Todos"
+  "manga_all_option": "Todos",
+
+  "429_error_code": "Limite de solicitudes excedido"
 }
