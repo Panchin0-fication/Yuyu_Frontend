@@ -47,6 +47,8 @@
   "body_select_file_p_one": "Get the image in best quality resolution posible",
   "body_select_file_p_two": "Try to get the highest quality image possible and from an original source, not a re-upload (e.g., other image banks).",
   "button_select_file": "Upload",
+  "file_exceeds_size": "File too large",
+  "file_exceeds_size_text": "The file you are trying to upload exceeds the 5 MB limit",
   "header_select_clasification": "Clasification",
   "select_clasification_p_one": "Depending on what is shown in the fanart",
   "select_clasification_p_two": "<paragraph><bold>General:</bold> FanArt that shows nothing suggestive or explicit.</paragraph>",

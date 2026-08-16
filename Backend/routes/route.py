@@ -412,8 +412,29 @@ async def validate_tag(request: Request, tags: List[str], user = Depends(get_cur
     
 @router.post("/upload-image")
 @limiter.limit("5/minute; 75/day")
-async def upload_image(request: Request, file: UploadFile = File(...)):
+async def upload_image(request: Request, file: UploadFile = File(...), user = Depends(get_current_user)):
+    if user["success"] == False:
+        return {"code":"INVALID_TOKEN","success":False}
+
     try:
+        await file.seek(0)
+
+        file.file.seek(0,2)
+        file_size = file.file.tell()
+        file.file.seek(0)
+
+        ALLOWED_TYPES = {
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        }
+
+        if file.content_type not in ALLOWED_TYPES:
+            return {"code":"INCORRECT_FILE_TYPE","success":False, "url":None}
+
+        if file_size > (5 * 1024 * 1024):
+            return {"code":"MAX_LIMIT_EXCEDED","success":False, "url":None}
+
         result = cloudinary.uploader.upload(file.file)
 
         return {"code":"IMAGE_UPLOAD_SUCCESSFUL","success":True, "url":result["secure_url"]}

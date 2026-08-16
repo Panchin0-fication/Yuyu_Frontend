@@ -290,17 +290,15 @@ export default function FanArts() {
                   )}
                   {tags &&
                     tags.artist.map((tag) => (
-                      <>
-                        <p
-                          key={tag}
-                          className={`${styles.artistsTags} ${styles.tags}`}
-                          onClick={() => {
-                            addTag(tag);
-                          }}
-                        >
-                          {tag}
-                        </p>
-                      </>
+                      <p
+                        key={tag}
+                        className={`${styles.artistsTags} ${styles.tags}`}
+                        onClick={() => {
+                          addTag(tag);
+                        }}
+                      >
+                        {tag}
+                      </p>
                     ))}
                   {tags && unique && (
                     <>

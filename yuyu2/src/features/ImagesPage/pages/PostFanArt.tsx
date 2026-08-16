@@ -237,6 +237,9 @@ export default function PostFanArt() {
         `${import.meta.env.VITE_API_URL}/upload-image`,
         {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
           body: formData,
         },
       );
@@ -256,6 +259,10 @@ export default function PostFanArt() {
       }
 
       const resCloudinary = (await responseCloudinary.json()) as withUrl;
+      if (!resCloudinary.success) {
+        console.log("PUTO FERCHO", resCloudinary);
+        return;
+      }
       fanArtObject["src"] = resCloudinary.url;
 
       //Filters tags to put them in the FanArt object
