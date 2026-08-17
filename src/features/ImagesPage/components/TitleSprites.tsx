@@ -2,14 +2,13 @@ import { TextContainer, type endingSprite } from "@shared";
 import styles from "./css/TitleSprites.module.css";
 import { useState } from "react";
 type props = {
-  title:string;
-  info:string;
-  credits:string;
-  id:string;
-  endings?:endingSprite[] | null
-  setEndings?: React.Dispatch<React.SetStateAction<endingSprite[]>> | null
-  
-}
+  title: string;
+  info: string;
+  credits: string;
+  id: string;
+  endings?: endingSprite[] | null;
+  setEndings?: React.Dispatch<React.SetStateAction<endingSprite[]>> | null;
+};
 export default function TitleSprites({
   title,
   info,
@@ -17,13 +16,13 @@ export default function TitleSprites({
   id,
   endings = null,
   setEndings = null,
-}:props) {
+}: props) {
   const [arrow, setArrow] = useState(false);
 
   //This funtion remove the spoiler from any of the sprites in endings section
   function handleShowAll() {
-    if(!setEndings || !endings)return;
-    const newEndings:endingSprite[] = endings.map((end) => {
+    if (!setEndings || !endings) return;
+    const newEndings: endingSprite[] = endings.map((end) => {
       return { ...end, hidden: false };
     });
     setEndings(newEndings);
@@ -33,6 +32,7 @@ export default function TitleSprites({
       <div className={styles.titleSprites} id={id}>
         <h1>{title}</h1>
         <button
+          className={styles.button}
           onClick={() => {
             setArrow(!arrow);
           }}
@@ -45,7 +45,7 @@ export default function TitleSprites({
         </button>
         {/* if an ending is passed then it is because is the endings section */}
         {endings && (
-          <button onClick={() => handleShowAll()}>
+          <button className={styles.button} onClick={() => handleShowAll()}>
             <img src="icons/visibility_off.svg" />
           </button>
         )}

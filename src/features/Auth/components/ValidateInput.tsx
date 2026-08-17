@@ -1,6 +1,5 @@
-import { type ReactNode, useContext } from "react";
+import { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import styles from "./css/ValidateInput.module.css";
 type props = {
   verificationCode: string;
   setVerificationCode: React.Dispatch<React.SetStateAction<string>>;
@@ -23,16 +22,17 @@ export default function ValidateInput({
 }: props) {
   const { t } = useTranslation("auth");
   return (
-    <section className={styles.validation}>
-      <p className={styles.verificationCodeHeader}>{t(header)}</p>
-      <div className={styles.validationFields}>
+    <section className="grid place-items-center">
+      <p className="text-2xl font-medium w-max mt-3">{t(header)}</p>
+      <div className="mt-2 flex gap-2 items-center w-max">
         <input
+          className="w-96 rounded-sm border-2 border-black focus:border-pink-600"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
           type="text"
         />
         <button
-          className={styles.validateButton}
+          className="bg-gray-700 border-gray-700 text-white p-1.5 rounded-lg max-w-max cursor-pointer text-base hover:bg-pink-700 transition-colors"
           onClick={() => {
             if (!loading) {
               handleVerify(verificationCode);
@@ -44,7 +44,7 @@ export default function ValidateInput({
       </div>
 
       <img
-        className={styles.loadingImg}
+        className="h-32 w-36"
         src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
         style={{
           display: loading && position === "validateCode" ? "block" : "none",

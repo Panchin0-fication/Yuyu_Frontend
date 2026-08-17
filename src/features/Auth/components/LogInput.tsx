@@ -1,5 +1,4 @@
 import { type ChangeEvent } from "react";
-import styles from "./css/LogInput.module.css";
 type Inputs = {
   name: string;
   email?: string;
@@ -33,14 +32,14 @@ export default function LogInput({
 }: props) {
   return (
     <>
-      <div className={styles.label}>
+      <div className="flex gap-1.5 items-center text-lg mb-2.5">
         <img src={icon} alt="" />
         <p>{label}</p>
       </div>
 
-      {alert && <p className={styles.nameWarning}>{alert}</p>}
+      {alert && <p className="text-red-600">{alert}</p>}
       <input
-        className={styles.fieldInput}
+        className="rounded-xl text-base mb-2.5 border-black border-2 focus:border-pink-600"
         value={inputValue}
         onChange={async (e: ChangeEvent<HTMLInputElement>) => {
           setInputs({ ...inputs, [field]: e.target.value });

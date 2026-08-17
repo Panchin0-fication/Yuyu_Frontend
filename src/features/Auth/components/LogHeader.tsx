@@ -1,10 +1,9 @@
-import styles from "./css/LogHeader.module.css";
 export default function LogHeader({ title }: { title: string }) {
   return (
-    <header className={styles.loginHeader}>
+    <header className="flex items-center mb-2.5">
       <h1>{title}</h1>
       <img
-        className={styles.image}
+        className="ml-auto h-11 w-11"
         src="/staticImgs/generalUse/Yuyukokkuri.png"
         alt=""
       />

@@ -1,8 +1,9 @@
+@import "tailwindcss";
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  line-height: 1;
 }
+
 .body {
   background: #ffa0bd;
   color: #030000;
@@ -12,4 +13,29 @@
   font-optical-sizing: auto;
   font-weight: 375;
   font-style: normal;
+}
+
+@theme {
+  --font-yanone: "Yanone Kaffeesatz", sans-serif;
+}
+
+h1 {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0px;
+}
+h2 {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+input {
+  border: 2px solid black;
+  color: black;
+  background-color: white;
+}
+input:focus {
+  outline: none;
 }
