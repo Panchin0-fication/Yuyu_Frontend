@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaUser, FaLock } from "react-icons/fa";
 import { LogInput, LogHeader, LogContainer } from "@features";
 import {
   SmallMessage,
@@ -108,7 +109,7 @@ export default function Login() {
             inputValue={inputs.name}
             inputs={inputs}
             field="name"
-            icon="/icons/person.svg"
+            icon={<FaUser className="text-lg" />}
             type="text"
           />
           <LogInput
@@ -117,7 +118,7 @@ export default function Login() {
             inputValue={inputs.password}
             inputs={inputs}
             field="password"
-            icon="/icons/lock.svg"
+            icon={<FaLock className="text-lg" />}
             type="password"
           />
           <div className="flex flex-col gap-2.5">

@@ -1,7 +1,11 @@
 import { useState, type ReactNode, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { IoMdArrowDropdown } from "react-icons/io";
+import {
+  IoMdArrowDropdown,
+  IoMdMail,
+  IoIosInformationCircle,
+} from "react-icons/io";
 import { ValidateInput, ValidateContainerAndHeader } from "@features";
 import { Profile, SmallMessage, Message, type response } from "@shared";
 export default function ValidateUser() {
@@ -191,7 +195,7 @@ export default function ValidateUser() {
     <>
       <ValidateContainerAndHeader title={t("page_header_validate")}>
         <div className="flex gap-3.5 items-center mt-2.5">
-          <img src="/icons/info_circle.svg" alt="" />
+          <IoIosInformationCircle />
           <p className="text-lg">{t("page_paragraph_one_validate")}</p>
         </div>
 
@@ -232,11 +236,7 @@ export default function ValidateUser() {
                   }}
                 >
                   {t("page_button_resend_code")}
-                  <img
-                    className="invert-[.98] sepia-[0] saturate-[4.04] hue-rotate-354 brightness-[1.16] contrast-100"
-                    src="/icons/mail.svg"
-                    alt=""
-                  />
+                  <IoMdMail className="text-lg text-white" />
                 </button>
                 <img
                   className="h-32 w-36"
@@ -283,11 +283,7 @@ export default function ValidateUser() {
                   }}
                 >
                   {t("page_button_change_email")}
-                  <img
-                    className="invert-[.98] sepia-[0] saturate-[4.04] hue-rotate-354 brightness-[1.16] contrast-100"
-                    src="/icons/mail.svg"
-                    alt=""
-                  />
+                  <IoMdMail className="text-lg text-white" />
                 </button>
 
                 <img

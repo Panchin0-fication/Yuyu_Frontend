@@ -1,4 +1,4 @@
-import { type ChangeEvent } from "react";
+import { type ChangeEvent, type ReactNode } from "react";
 type Inputs = {
   name: string;
   email?: string;
@@ -15,7 +15,7 @@ type props = {
     confirmPass?: string;
   }) => void;
   inputs: Inputs;
-  icon: string;
+  icon: ReactNode;
   field: keyof Inputs;
   alert?: string | null;
   type?: string;
@@ -33,7 +33,7 @@ export default function LogInput({
   return (
     <>
       <div className="flex gap-1.5 items-center text-lg mb-2.5">
-        <img src={icon} alt="" />
+        {icon}
         <p>{label}</p>
       </div>
 

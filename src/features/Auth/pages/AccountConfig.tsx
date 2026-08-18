@@ -13,6 +13,7 @@ import {
   type MyOption,
 } from "@shared";
 import { useTranslation } from "react-i18next";
+import { IoMdArrowDropdown } from "react-icons/io";
 import Select, { type StylesConfig } from "react-select";
 
 export default function AccountConfig() {
@@ -170,10 +171,8 @@ export default function AccountConfig() {
               }
             >
               <h2 className={SECTION_CONFIG_H2}>{t("languaje_header")}</h2>
-              <img
-                src="/icons/arrow_down.svg"
-                alt=""
-                className={showConfigs.language ? "rotate-180" : ""}
+              <IoMdArrowDropdown
+                className={`${"text-lg"} ${showConfigs.language ? "rotate-180" : ""}`}
               />
             </header>
 
@@ -204,10 +203,8 @@ export default function AccountConfig() {
               }
             >
               <h2 className={SECTION_CONFIG_H2}>{t("hide_tags_header")}</h2>
-              <img
-                src="/icons/arrow_down.svg"
-                className={showConfigs.hideTags ? "rotate-180" : ""}
-                alt=""
+              <IoMdArrowDropdown
+                className={`${"text-lg"} ${showConfigs.hideTags ? "rotate-180" : ""}`}
               />
             </header>
 
@@ -255,10 +252,8 @@ export default function AccountConfig() {
               }
             >
               <h2 className={SECTION_CONFIG_H2}>{t("show_explicit_header")}</h2>
-              <img
-                src="/icons/arrow_down.svg"
-                alt=""
-                className={showConfigs.showExplicit ? "rotate-180" : ""}
+              <IoMdArrowDropdown
+                className={`${"text-lg"} ${showConfigs.showExplicit ? "rotate-180" : ""}`}
               />
             </header>
 

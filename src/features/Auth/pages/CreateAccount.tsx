@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { FaUser, FaLock, FaCheck } from "react-icons/fa";
+import { IoMdMail } from "react-icons/io";
 import { LogInput, LogHeader, LogContainer } from "@features";
 import { SmallMessage, Message, type response, type withToken } from "@shared";
 export default function CreateAccount() {
@@ -153,7 +155,7 @@ export default function CreateAccount() {
           inputValue={inputFields.name}
           inputs={inputFields}
           field="name"
-          icon="/icons/person.svg"
+          icon={<FaUser className="text-lg" />}
           alert={nameMessage}
           type="text"
         />
@@ -163,7 +165,7 @@ export default function CreateAccount() {
           inputValue={inputFields.email}
           inputs={inputFields}
           field="email"
-          icon="/icons/mail.svg"
+          icon={<IoMdMail className="text-lg" />}
           alert={emailMessage}
           type="text"
         />
@@ -173,7 +175,7 @@ export default function CreateAccount() {
           inputValue={inputFields.password}
           inputs={inputFields}
           field="password"
-          icon="/icons/lock.svg"
+          icon={<FaLock className="text-lg" />}
           type="password"
         />
         <LogInput
@@ -182,7 +184,7 @@ export default function CreateAccount() {
           inputValue={inputFields.confirmPass}
           inputs={inputFields}
           field="confirmPass"
-          icon="/icons/check.svg"
+          icon={<FaCheck className="text-lg" />}
           type="password"
         />
         {smallMessage}
