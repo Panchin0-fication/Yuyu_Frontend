@@ -1,62 +1,64 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import styles from "./css/Nav.module.css";
 import { UserLog } from "@shared";
+
+const TEXT_OPTION =
+  "font-normal text-4xl text-pink-800 hover:text-pink-950 hover:border-b-2 hover:border-pink-950";
 
 export default function Nav() {
   const { t } = useTranslation("home");
   return (
     <>
-      <nav className={styles.navMain}>
+      <nav className="text-4xl  flex gap-20 items-center h-16 pt-5 pb-5 pl-2.5 pr-2.5 mt-2.5">
         <img
           src="/staticImgs/generalUse/yuyuko-yuyukofumo.gif"
           alt="brand"
-          className={styles.brandYuyu}
+          className="w-16"
         />
 
-        <button className={styles.navOption}>
+        <button>
           <Link
             to={"/oficial"}
             style={{ color: "white", textDecoration: "none" }}
           >
-            <p className={styles.textOption}>{t("nav_oficial")}</p>
+            <p className={TEXT_OPTION}>{t("nav_oficial")}</p>
           </Link>
         </button>
-        <button className={styles.navOption}>
+        <button>
           <Link
             to={"/fanon"}
             style={{ color: "white", textDecoration: "none" }}
           >
-            <p className={styles.textOption}>{t("nav_fanon")}</p>
+            <p className={TEXT_OPTION}>{t("nav_fanon")}</p>
           </Link>
         </button>
-        <button className={styles.navOption}>
+        <button>
           <Link
             to={"/images"}
             style={{ color: "white", textDecoration: "none" }}
           >
-            <p className={styles.textOption}>{t("nav_images")}</p>
+            <p className={TEXT_OPTION}>{t("nav_images")}</p>
           </Link>
         </button>
-        <button className={styles.navOption}>
+        <button>
           <Link
             to={"/merch"}
             style={{ color: "white", textDecoration: "none" }}
           >
-            <p className={styles.textOption}>{t("nav_merch")}</p>
+            <p className={TEXT_OPTION}>{t("nav_merch")}</p>
           </Link>
         </button>
-        <button className={styles.navOption}>
+        <button>
           <Link
             to={"/featured"}
             style={{ color: "white", textDecoration: "none" }}
           >
-            <p className={styles.textOption}>{t("nav_highlight")}</p>
+            <p className={TEXT_OPTION}>{t("nav_highlight")}</p>
           </Link>
         </button>
         <UserLog />
       </nav>
-      <div className={styles.borderLine}></div>
+      <div className="max-w-full h-1 bg-pink-800"></div>
     </>
   );
 }

@@ -17,6 +17,7 @@
 
 @theme {
   --font-yanone: "Yanone Kaffeesatz", sans-serif;
+  --font-merri: "Merriweather", serif;
 }
 
 h1 {
@@ -25,11 +26,6 @@ h1 {
   font-weight: bold;
   padding: 0px;
   margin: 0px;
-}
-h2 {
-  display: block;
-  font-size: 1.5em;
-  font-weight: bold;
 }
 input {
   border: 2px solid black;
