@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { LogInput, LogHeader, LogContainer } from "@features";
 import { SmallMessage, Message, type response, type withToken } from "@shared";
-import styles from "./css/Login&Create.module.css";
 export default function CreateAccount() {
   interface fileds {
     name: string;
@@ -145,7 +144,7 @@ export default function CreateAccount() {
     createUser();
   }
   return (
-    <div className={styles.elements}>
+    <div className="flex flex-col gap-5 w-96 m-auto min-h-screen pt-20">
       <LogContainer>
         <LogHeader title={t("page_header_create_account")} />
         <LogInput
@@ -187,9 +186,9 @@ export default function CreateAccount() {
           type="password"
         />
         {smallMessage}
-        <div className={styles.buttonAndLoad}>
+        <div className="flex gap-5 items-center">
           <button
-            className={styles.createButton}
+            className="bg-black text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg hover:bg-pink-700"
             onClick={() => {
               if (!loading) {
                 createAccount();
@@ -200,7 +199,7 @@ export default function CreateAccount() {
           </button>
 
           <img
-            className={styles.loadingImage}
+            className="h-32 w-36"
             src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
             style={{ display: loading ? "block" : "none" }}
           />

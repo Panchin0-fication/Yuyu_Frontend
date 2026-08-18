@@ -1,9 +1,9 @@
 import { useState, type ReactNode, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { ValidateInput, ValidateContainerAndHeader } from "@features";
 import { Profile, SmallMessage, Message, type response } from "@shared";
-import styles from "./css/ValidateUser.module.css";
 export default function ValidateUser() {
   const { t, i18n } = useTranslation("auth");
   const location = useLocation();
@@ -190,11 +190,9 @@ export default function ValidateUser() {
   return (
     <>
       <ValidateContainerAndHeader title={t("page_header_validate")}>
-        <div className={styles.info}>
+        <div className="flex gap-3.5 items-center mt-2.5">
           <img src="/icons/info_circle.svg" alt="" />
-          <p className={styles.generalInfo}>
-            {t("page_paragraph_one_validate")}
-          </p>
+          <p className="text-lg">{t("page_paragraph_one_validate")}</p>
         </div>
 
         <ValidateInput
@@ -205,30 +203,28 @@ export default function ValidateUser() {
           position={positon}
           smallMessage={smallMessage}
         />
-        <section className={styles.options}>
-          <div className={styles.option}>
+        <section className="text-blue-700 mt-2.5">
+          <div>
             <header
+              className="flex gap-3.5 items-center cursor-pointer"
               onClick={() => {
                 displayOption === "resend"
                   ? setDisplayOption("")
                   : setDisplayOption("resend");
               }}
             >
-              <p className={styles.generalInfo}>
-                {t("page_subtitle_resend_code")}
-              </p>
-              <img
-                className={`${styles.iconOption} ${displayOption === "resend" && styles.iconInverted}`}
-                src="/icons/arrow_down.svg"
-                alt=""
+              <p className="text-lg">{t("page_subtitle_resend_code")}</p>
+
+              <IoMdArrowDropdown
+                className={`${"text-blue-700 text-xl"} ${displayOption === "resend" ? "rotate-180" : ""}`}
               />
             </header>
 
             {displayOption === "resend" && (
-              <div className={styles.extra}>
+              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
                 <p>{t("page_paragraph_resend_code_info")}</p>
                 <button
-                  className={styles.buttonInExtra}
+                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg text-base w-max mt-1"
                   onClick={() => {
                     if (!loading) {
                       resend();
@@ -236,10 +232,14 @@ export default function ValidateUser() {
                   }}
                 >
                   {t("page_button_resend_code")}
-                  <img src="/icons/mail.svg" alt="" />
+                  <img
+                    className="invert-[.98] sepia-[0] saturate-[4.04] hue-rotate-354 brightness-[1.16] contrast-100"
+                    src="/icons/mail.svg"
+                    alt=""
+                  />
                 </button>
                 <img
-                  className={styles.loadingImg}
+                  className="h-32 w-36"
                   src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
                   style={{
                     display: loading && positon === "resend" ? "block" : "none",
@@ -250,33 +250,32 @@ export default function ValidateUser() {
               </div>
             )}
           </div>
-          <div className={styles.option}>
+          <div className="text-blue-700 mt-3.5">
             <header
+              className="flex gap-3.5 items-center cursor-pointer"
               onClick={() => {
                 displayOption === "changeEmail"
                   ? setDisplayOption("")
                   : setDisplayOption("changeEmail");
               }}
             >
-              <p className={styles.generalInfo}>
-                {t("page_subtitle_change_email")}
-              </p>
-              <img
-                className={`${styles.iconOption} ${displayOption === "changeEmail" && styles.iconInverted}`}
-                src="/icons/arrow_down.svg"
+              <p className="text-lg">{t("page_subtitle_change_email")}</p>
+              <IoMdArrowDropdown
+                className={`${"text-blue-700 text-xl"} ${displayOption === "changeEmail" ? "rotate-180" : ""}`}
               />
             </header>
 
             {displayOption === "changeEmail" && (
-              <div className={styles.extra}>
+              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
                 <p>{t("page_input_label_change_email")}</p>
                 <input
+                  className="w-56"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   type="text"
                 />
                 <button
-                  className={styles.buttonInExtra}
+                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg text-base w-max mt-1"
                   onClick={() => {
                     if (!loading) {
                       changeEmail();
@@ -284,11 +283,15 @@ export default function ValidateUser() {
                   }}
                 >
                   {t("page_button_change_email")}
-                  <img src="/icons/mail.svg" alt="" />
+                  <img
+                    className="invert-[.98] sepia-[0] saturate-[4.04] hue-rotate-354 brightness-[1.16] contrast-100"
+                    src="/icons/mail.svg"
+                    alt=""
+                  />
                 </button>
 
                 <img
-                  className={styles.loadingImg}
+                  className="h-32 w-36"
                   src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
                   style={{
                     display:

@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ValidateContainerAndHeader, ValidateInput } from "@features";
 import { SmallMessage, Message, type response } from "@shared";
-import styles from "./css/ChangePassword.module.css";
 export default function ChangePassword() {
   const { t, i18n } = useTranslation("auth");
   const [email, setEmail] = useState<string>("");
@@ -121,11 +120,11 @@ export default function ChangePassword() {
           buttonLabel={"page_button_resend_code"}
         />
         {showInputs && (
-          <div className={styles.resetInputs}>
+          <div className="flex flex-col gap-2.5 items-center mt-3.5">
             <div>
               <h2>{t("input_label_reset_code")}</h2>
               <input
-                className={styles.inputCode}
+                className="border-2 border-black p-1 hover:border-pink-700"
                 value={inputs.code}
                 onChange={(e) => setInputs({ ...inputs, code: e.target.value })}
                 type="text"
@@ -134,7 +133,7 @@ export default function ChangePassword() {
             <div>
               <p>{t("input_label_new_password")}</p>
               <input
-                className={styles.inputPassword}
+                className="border-2 border-black p-1 hover:border-blue-700"
                 value={inputs.password}
                 onChange={(e) =>
                   setInputs({ ...inputs, password: e.target.value })
@@ -145,7 +144,7 @@ export default function ChangePassword() {
             <div>
               <p>{t("input_confirm_password_label")}</p>
               <input
-                className={styles.inputPassword}
+                className="border-2 border-black p-1 hover:border-blue-700"
                 value={inputs.confirmPassword}
                 type="password"
                 onChange={(e) =>
@@ -154,7 +153,7 @@ export default function ChangePassword() {
               />
             </div>
             <button
-              className={styles.changePasswordButton}
+              className="bg-blue-700 text-white p-1.5 rounded-md text-lg w-max hover:bg-blue-900"
               onClick={changePassword}
             >
               Cambiar contraseña

@@ -10,7 +10,6 @@ import {
   type withToken,
   type withUserData,
 } from "@shared";
-import styles from "./css/Login&Create.module.css";
 
 export default function Login() {
   const { t, i18n } = useTranslation("auth");
@@ -99,7 +98,7 @@ export default function Login() {
   }
   return (
     <>
-      <div className={styles.elements}>
+      <div className="flex flex-col gap-5 w-96 m-auto min-h-screen pt-20">
         {blockMessage}
         <LogContainer>
           <LogHeader title={t("page_header_login")} />
@@ -121,17 +120,17 @@ export default function Login() {
             icon="/icons/lock.svg"
             type="password"
           />
-          <div className={styles.links}>
+          <div className="flex flex-col gap-2.5">
             <Link to={"/auth/changePassword"}>
-              <p>{t("forgot_password")}</p>
+              <p className="text-blue-700">{t("forgot_password")}</p>
             </Link>
             <Link to={"/auth/create"}>
-              <p>{t("create_account")}</p>
+              <p className="text-blue-700">{t("create_account")}</p>
             </Link>
           </div>
 
           <button
-            className={styles.createButton}
+            className="bg-black text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg"
             onClick={() => {
               if (!loading) {
                 handleClick();

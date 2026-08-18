@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import styles from "./css/AccountConfig.module.css";
 import { LogHeader } from "@features";
 import {
   ValidateSesion,
@@ -139,23 +138,30 @@ export default function AccountConfig() {
       },
     }),
   };
+
+  const SECTION_CONFIG = "bg-white border-black border-2 p-1";
+  const SECTION_CONFIG_H = "flex cursor-pointer";
+  const SECTION_CONFIG_H2 = "text-2xl font-normal";
+  const CONTENT_CONFIG = "pl-2.5 pr-2.5 pt-1";
+
   return (
     <>
       <ValidateSesion setUserData={setUserData} />
       {message}
-      <div className={styles.accountConfig}>
+      <div className="min-h-screen">
         <br />
         <br />
         <br />
-        <div className={styles.configs}>
+        <div className="flex gap-2.5 flex-col bg-white rounded-lg border-white border-2 w-lg p-5 m-auto ">
           <LogHeader title={t("configuration_header")}></LogHeader>
-          <p className={styles.currentUser}>
+          <p className="text-xl pl-1 font-normal">
             {t("current_user_label")}
-            <span className={styles.username}>{userData?.userName}</span>
+            <span className="font-normal p-1">{userData?.userName}</span>
           </p>
           {/*Language*/}
-          <section className={styles.sectionConfig}>
+          <section className={SECTION_CONFIG}>
             <header
+              className={SECTION_CONFIG_H}
               onClick={() =>
                 setShowConfigs({
                   ...showConfigs,
@@ -163,21 +169,21 @@ export default function AccountConfig() {
                 })
               }
             >
-              <h2>{t("languaje_header")}</h2>
+              <h2 className={SECTION_CONFIG_H2}>{t("languaje_header")}</h2>
               <img
                 src="/icons/arrow_down.svg"
                 alt=""
-                className={showConfigs.language ? styles.rotatedArrow : ""}
+                className={showConfigs.language ? "rotate-180" : ""}
               />
             </header>
 
             <div
-              className={`${styles.contentConfig} ${styles.languageContainer}`}
+              className={`${CONTENT_CONFIG} ${"flex items-center gap-3.5"}`}
               style={{
                 display: showConfigs.language ? "flex" : "none",
               }}
             >
-              <p className={styles.regularParagrahp}>{t("current_language")}</p>
+              <p className={"text-lg"}>{t("current_language")}</p>
               <Select
                 styles={customStyles}
                 value={options.find((opt) => opt.value === language) || null}
@@ -187,8 +193,9 @@ export default function AccountConfig() {
             </div>
           </section>
           {/*Hide tags*/}
-          <section className={`${styles.sectionConfig}`}>
+          <section className={`${SECTION_CONFIG}`}>
             <header
+              className={SECTION_CONFIG_H}
               onClick={() =>
                 setShowConfigs({
                   ...showConfigs,
@@ -196,26 +203,24 @@ export default function AccountConfig() {
                 })
               }
             >
-              <h2>{t("hide_tags_header")}</h2>
+              <h2 className={SECTION_CONFIG_H2}>{t("hide_tags_header")}</h2>
               <img
                 src="/icons/arrow_down.svg"
-                className={showConfigs.hideTags ? styles.rotatedArrow : ""}
+                className={showConfigs.hideTags ? "rotate-180" : ""}
                 alt=""
               />
             </header>
 
             <div
-              className={`${styles.contentConfig} ${styles.contentHideTags}`}
+              className={`${CONTENT_CONFIG} ${"flex flex-col gap-1"}`}
               style={{
                 display: showConfigs.hideTags ? "flex" : "none",
               }}
             >
-              <p className={styles.regularParagrahp}>
-                {t("hide_tags_current")}
-              </p>
-              <div className={styles.tagsContainer}>
+              <p className="text-lg">{t("hide_tags_current")}</p>
+              <div className="bg-white border-2 border-black flex gap-1 p-2.5 flex-wrap">
                 {hideTags.length === 0 && (
-                  <p className={styles.noFountTags}>
+                  <p className="text-[#656565] p-1 flex gap-1">
                     {t("hide_tags_current_empty")}
                   </p>
                 )}
@@ -228,7 +233,7 @@ export default function AccountConfig() {
                   />
                 ))}
               </div>
-              <h2 className={styles.searchTagLabel}>{t("hide_tags_search")}</h2>
+              <h2 className="m-auto">{t("hide_tags_search")}</h2>
               <TagsSearch
                 numberTags={10}
                 addedTags={hideTags}
@@ -239,8 +244,9 @@ export default function AccountConfig() {
             </div>
           </section>
           {/*Show explicit*/}
-          <section className={styles.sectionConfig}>
+          <section className={SECTION_CONFIG}>
             <header
+              className={SECTION_CONFIG_H}
               onClick={() =>
                 setShowConfigs({
                   ...showConfigs,
@@ -248,31 +254,29 @@ export default function AccountConfig() {
                 })
               }
             >
-              <h2>{t("show_explicit_header")}</h2>
+              <h2 className={SECTION_CONFIG_H2}>{t("show_explicit_header")}</h2>
               <img
                 src="/icons/arrow_down.svg"
                 alt=""
-                className={showConfigs.showExplicit ? styles.rotatedArrow : ""}
+                className={showConfigs.showExplicit ? "rotate-180" : ""}
               />
             </header>
 
             <div
-              className={`${styles.contentConfig}`}
+              className={`${CONTENT_CONFIG}`}
               style={{
                 display: showConfigs.showExplicit ? "block" : "none",
               }}
             >
-              <div className={styles.showExplicitInput}>
-                <p className={styles.showExplicitP}>
-                  {t("show_explicit_label")}
-                </p>
+              <div className="flex gap-2.5 ">
+                <p className="text-lg">{t("show_explicit_label")}</p>
                 <input
                   checked={explicitBox}
                   onChange={() => setExplicitBox(!explicitBox)}
                   type="checkbox"
                 />
               </div>
-              <p className={styles.regularParagrahp}>
+              <p className="text-lg">
                 {explicitBox
                   ? t("show_explicit_info_yes")
                   : t("show_explicit_info_no")}
@@ -280,7 +284,7 @@ export default function AccountConfig() {
             </div>
           </section>
           <button
-            className={styles.saveChanges}
+            className="bg-pink-600 text-white w-max p-1 text-lg rounded-sm m-auto hover:bg-pink-800"
             onClick={() => {
               if (
                 (originalPref?.hideTags !== auxTag ||
