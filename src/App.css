@@ -18,6 +18,7 @@
 @theme {
   --font-yanone: "Yanone Kaffeesatz", sans-serif;
   --font-merri: "Merriweather", serif;
+  --font-ibm: "IBM Plex Sans JP";
 }
 
 h1 {

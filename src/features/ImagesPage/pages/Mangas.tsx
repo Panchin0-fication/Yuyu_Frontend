@@ -14,18 +14,18 @@ export default function Mangas() {
       <div className="barra"></div>
       <div className="pt-5 grid grid-cols-[1fr_5fr] items-center gap-10">
         <ContentTable className="flex flex-col ">
-          <ul className="w-max">
+          <ul className="w-max flex flex-col gap-1.5">
             <h3>Contenido</h3>
-            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
+            <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#silent">1-Silent Sinner in Blue</a>
             </li>
-            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
+            <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#foul">2-Foul Detective Satori</a>
             </li>
-            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
+            <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#oriental">3-Oriental Sacred Place</a>
             </li>
-            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
+            <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#visionary">4-Visionary Fairies in Shrine</a>
             </li>
           </ul>

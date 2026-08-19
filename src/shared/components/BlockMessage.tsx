@@ -1,27 +1,30 @@
-import styles from "./css/BlockMessage.module.css";
+import { FaCheck } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 type props = {
   type: "error" | "success" | "info";
   message: string;
 };
 export default function BlockMessage({ type, message }: props) {
   var icon;
-  var style;
+
   switch (type) {
     case "error":
-      icon = "/icons/error_circle.svg";
-      style = styles.errorBlock;
+      icon = <FaXmark className="text-white" />;
+
       break;
 
     case "success":
-      icon = "/icons/check.svg";
-      style = styles.successBlock;
+      icon = <FaCheck text-white />;
+
       break;
     default:
       break;
   }
   return (
-    <div className={`${style} ${styles.blockContainer}`}>
-      <img src={icon} alt="" />
+    <div
+      className={`${"p-5 gap-3 border-black border-[3px] bg-white rounded-3.75 flex items-center text-2xl"}`}
+    >
+      {icon}
       <p>{message}</p>
     </div>
   );

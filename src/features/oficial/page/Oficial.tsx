@@ -6,51 +6,96 @@ import {
   TextContainer,
   ImagesWiki,
 } from "@shared";
-import styles from "./Oficial.module.css";
 export default function Oficial() {
   const { t } = useTranslation("wikis");
   return (
-    <div className="container">
+    <div className="flex flex-col pb-5">
       <HeaderPages
         image="/staticImgs/generalUse/touhou-saigyouji-yuyuko.gif"
         header={t("header_official")}
       />
 
-      <div className={styles.content}>
+      <div className="w-[95%] m-auto">
         <NavSecondary actualPage="oficial" />
 
-        <div className={styles.sectionOne}>
-          <ContentTable className={styles.container}>
+        <div className="flex gap-10 items-center pt-4">
+          <ContentTable className="flex flex-col gap-1 w-60">
             <h3 className="titulo">Contenido</h3>
 
-            <a href="#seccion1">1-Información general</a>
-            <a className={styles.subContent} href="#seccion1.1">
+            <a
+              className="text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion1"
+            >
+              1-Información general
+            </a>
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion1.1"
+            >
               1.1-Diseño
             </a>
-            <a className={styles.subContent} href="#seccion1.2">
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion1.2"
+            >
               1.2-Habilidades
             </a>
-            <a className={styles.subContent} href="#seccion1.3">
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion1.3"
+            >
               1.3-Personalidad
             </a>
-            <a href="#seccion2">2-Transfondo</a>
-            <a href="#seccion3">3-Apariciones</a>
-            <a className={styles.subContent} href="#seccion3.1">
+            <a
+              className="text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion2"
+            >
+              2-Transfondo
+            </a>
+            <a
+              className="text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion3"
+            >
+              3-Apariciones
+            </a>
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion3.1"
+            >
               3.1-Juegos
             </a>
-            <a className={styles.subContent} href="#seccion3.2">
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion3.2"
+            >
               3.2-Mangas/Literatura
             </a>
-            <a href="#seccion4">4-Relaciones con personajes</a>
-            <a className={styles.subContent} href="#seccion4.1">
+            <a
+              className="text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion4"
+            >
+              4-Relaciones con personajes
+            </a>
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion4.1"
+            >
               4.1-Youmu Konpaku
             </a>
-            <a className={styles.subContent} href="#seccion4.2">
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion4.2"
+            >
               4.2-Yukari Yakumo
             </a>
-            <a href="#seccion5">5-Imagenes destacadas</a>
+            <a
+              className="text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion5"
+            >
+              5-Imagenes destacadas
+            </a>
           </ContentTable>
-          <TextContainer>
+          <TextContainer className="h-max w-[65%]">
             <h1 id="seccion1">Informacion general</h1>
             <h2 id="seccion1.1">Diseño</h2>
             <p>
@@ -90,13 +135,14 @@ export default function Oficial() {
             text="Sprite de Perfect Cherry Blossom"
           ></ImagesWiki>
         </div>
-        <div className={styles.sectionTwo}>
+        <div className="flex gap-11.75">
           <ImagesWiki
             src="/staticImgs/generalUse/Th07ayakashi01.png"
             text="Saigyou Ayakashi"
-            classImage={styles.saigyouAyakashi}
+            classImage="h-50 w-auto"
           ></ImagesWiki>
-          <TextContainer>
+
+          <TextContainer className={"w-[85%]"}>
             <h1 id="seccion2">Transfondo</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
@@ -110,8 +156,8 @@ export default function Oficial() {
             </p>
           </TextContainer>
         </div>
-        <div className={styles.sectionThree}>
-          <TextContainer>
+        <div className="flex gap-10">
+          <TextContainer className="w-[85%]">
             <h1 id="seccion3">Apariciones</h1>
             <h2 id="seccion3.1">Juegos</h2>
             <p>
@@ -206,7 +252,7 @@ export default function Oficial() {
               deserunt quia perspiciatis!
             </p>
           </TextContainer>
-          <div className={styles.twoImagesContainer}>
+          <div>
             <ImagesWiki
               src="/staticImgs/generalUse/MV5BOGViZjY3ZTgtNzhiYS00NjEyLWFkMGEtNTgwZDFkMDgyODYxXkEyXkFqcGc@._V1_QL75_UY207_CR35,0,140,207_.jpg"
               text="Touhou 7: Perfect Cherry Blossom"
@@ -214,22 +260,22 @@ export default function Oficial() {
             <ImagesWiki
               src="/staticImgs/generalUse/Th08.png"
               text="Touhou 8: Imperishable Night"
-              classImage={styles.touhou8}
+              classImage="h-60 w-auto "
             />
           </div>
         </div>
-        <div className={styles.sectionFour}>
+        <div className="flex gap-10">
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Youmu.png"
             text="Sprite de Youmu en Touhou 7"
-            classImage={styles.youmu}
+            classImage="h-62.5 w-auto"
           />
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Yukari.png"
             text="Sprite de Yukari en Touhou 7"
-            classImage={styles.yukari}
+            classImage="h-62.5 w-auto"
           />
-          <TextContainer>
+          <TextContainer className="w-[70%]">
             <h1 id="seccion4">Relaciones</h1>
             <h2 id="seccion4.1">Youmu Konpaku</h2>
             <p>
@@ -253,31 +299,31 @@ export default function Oficial() {
             </p>
           </TextContainer>
         </div>
-        <div className={styles.sectionFive}>
+        <div>
           <TextContainer>
             <h1 id="seccion5">Imagenes destacadas</h1>
           </TextContainer>
-          <div className={styles.sectionFiveImages}>
+          <div className="flex gap-10">
             <ImagesWiki
               src="/staticImgs/generalUse/actual-drawings-made-by-zuns-wife-v0-faha70qce0ae1.jpg"
               text="Yuyuko dibujada en Gartic Phone durante un stream entre Zun y sus
             amigotes"
-              classImage={styles.garticOne}
+              classImage="w-72 h-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/Captura de pantalla 2025-07-09 163832.png"
               text="Yuyuko dibujada por la esposa de Zun en Gartic Phone"
-              classImage={styles.garticTwo}
+              classImage="w-72 h-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/Th08Yuyuko.png"
               text="Sprite de Yuyuko en Touhou 8:Imperishable Night"
-              classImage={styles.yuyukoth08}
+              classImage="h-73 w-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/yuyukoYyoumu.png"
               text="Yuyuko y Youmu en Strange and Bright Nature Deity"
-              classImage={styles.yuyukoYoumu}
+              classImage="h-73 w-auto"
             />
           </div>
         </div>
