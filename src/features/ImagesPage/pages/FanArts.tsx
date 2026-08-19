@@ -14,7 +14,12 @@ import type {
   returnedReducedQuality,
   withFanArt,
 } from "@shared";
-import styles from "./css/FanArts.module.css";
+import {
+  MdAddBox,
+  MdSearch,
+  MdArrowBack,
+  MdArrowForward,
+} from "react-icons/md";
 export default function FanArts() {
   //Used in all the page
   const { t } = useTranslation("images");
@@ -215,23 +220,23 @@ export default function FanArts() {
     reducedData && (
       <>
         {message}
-        <div className={styles.fanArtsPage}>
+        <div className="min-h-screen">
           <HeaderPages
             image="staticImgs/generalUse/__saigyouji_yuyuko_touhou_drawn_by_dounaga_nuko__sample-2fd9d01a7877ab582bb7da7d425263dd.jpg"
             isInPage={true}
             header={t("header_fanarts")}
           />
-          <div className={styles.container}>
-            <div className={styles.content}>
-              <div className={styles.leftSection}>
-                <div className={styles.search}>
+          <div className="w-[95%] mx-auto">
+            <div className="mt-5 grid grid-cols-[20%_80%] gap-7.5">
+              <div className="">
+                <div className="flex items-center justify-center gap-2.5 mb-1.25">
                   <div
-                    className={styles.addFanartButton}
+                    className="flex items-center justify-center bg-white p-0.75 rounded-xm cursor-pointer hover:bg-[#e8e7e7]"
                     onClick={() => addFanartButtonClick()}
                     onMouseOverCapture={() => setAddFanartHover(true)}
                     onMouseOut={() => setAddFanartHover(false)}
                   >
-                    <img src="/icons/add_box.svg" alt="" />
+                    <MdAddBox size={24} />
                     <HoverInfo
                       info={t("add_tag_span")}
                       hover={addFanartHover}
@@ -245,6 +250,7 @@ export default function FanArts() {
                     placeholder="All"
                     value={search}
                     type="text"
+                    className="p-1"
                   />
                   <button
                     onClick={async () => {
@@ -255,16 +261,18 @@ export default function FanArts() {
                       }
                     }}
                   >
-                    <img src="icons/search.svg" alt="" />
+                    <MdSearch size={24} />
                   </button>
                 </div>
-                <div className={styles.tagsList}>
-                  <h3>{t("tag_header_general")}</h3>
+                <div className="bg-white/80 flex flex-col justify-start h-max py-2.5 px-3.75">
+                  <h3 className="text-[26px] pl-1.75">
+                    {t("tag_header_general")}
+                  </h3>
                   {tags &&
                     tags.general.map((tag) => (
                       <p
                         key={tag}
-                        className={`${styles.generalTags} ${styles.tags}`}
+                        className="text-[#305091] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}
@@ -272,12 +280,14 @@ export default function FanArts() {
                         {tag}
                       </p>
                     ))}
-                  <h3>{t("tag_header_characters")}</h3>
+                  <h3 className="text-[26px] pl-1.75">
+                    {t("tag_header_characters")}
+                  </h3>
                   {tags &&
                     tags.caracters.map((tag) => (
                       <p
                         key={tag}
-                        className={`${styles.caractersTags} ${styles.tags}`}
+                        className="text-[#c72d2d] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}
@@ -286,13 +296,15 @@ export default function FanArts() {
                       </p>
                     ))}
                   {tags && tags.artist.length >= 1 && (
-                    <h3>{t("tag_header_artist")}</h3>
+                    <h3 className="text-[26px] pl-1.75">
+                      {t("tag_header_artist")}
+                    </h3>
                   )}
                   {tags &&
                     tags.artist.map((tag) => (
                       <p
                         key={tag}
-                        className={`${styles.artistsTags} ${styles.tags}`}
+                        className="text-[#b144ca] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}
@@ -302,13 +314,15 @@ export default function FanArts() {
                     ))}
                   {tags && unique && (
                     <>
-                      <h3>{t("tag_header_link")}</h3>
+                      <h3 className="text-[26px] pl-1.25">
+                        {t("tag_header_link")}
+                      </h3>
                       <p
                         onClick={() => {
                           if (data)
                             window.open(data[unique.index].originalLink);
                         }}
-                        className={`${styles.tags} ${styles.link}`}
+                        className="text-[#f0d046] text-wrap whitespace-normal wrap-break-word max-w-full w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
                       >
                         {data && data[unique.index].originalLink}
                       </p>
@@ -318,9 +332,9 @@ export default function FanArts() {
               </div>
 
               {!unique && (
-                <div className={styles.fanArts}>
+                <div className="grid grid-cols-2 gap-7.5 justify-items-center">
                   <div
-                    className={styles.loadingGif}
+                    className="flex justify-center absolute"
                     style={{ display: loading ? "block" : "none" }}
                   >
                     <img src="/staticImgs/generalUse/kfc-kfcyuyuko.gif" />
@@ -328,6 +342,7 @@ export default function FanArts() {
                   {!loading &&
                     reducedData.map((fanArt) => (
                       <button
+                        className="cursor-pointer"
                         key={fanArt.src}
                         onClick={() => {
                           renderUnique(fanArt);
@@ -336,8 +351,8 @@ export default function FanArts() {
                         <img
                           src={fanArt.src}
                           style={{
-                            width: fanArt.width / 3,
-                            height: fanArt.height / 3,
+                            width: fanArt.width / 2.5,
+                            height: fanArt.height / 2.5,
                           }}
                           alt=""
                         />
@@ -346,15 +361,17 @@ export default function FanArts() {
                 </div>
               )}
               {data && unique && (
-                <div className={styles.uniqueFanArt}>
+                <div className="">
                   {unique.wasReduced && !showOriginal && (
-                    <div className={styles.showOriginal}>
+                    <div className="bg-[rgba(253,113,197,0.859)] py-2.5 px-3.75 w-[40vw] rounded-[15px] items-center mb-3.75">
                       <button
                         onClick={() => {
                           setShowOriginal(true);
                         }}
                       >
-                        <p>{t("show_original")}</p>
+                        <p className="text-[19px] hover:text-[#3e3eff] cursor-pointer">
+                          {t("show_original")}
+                        </p>
                       </button>
                     </div>
                   )}
@@ -368,7 +385,7 @@ export default function FanArts() {
               )}
             </div>
             {!unique && (
-              <div className={styles.pages}>
+              <div className="flex gap-6.25 items-center mt-11.25 pb-5 ml-[50vw]">
                 <button
                   onClick={() => {
                     if (leftArrow && !loading) {
@@ -376,13 +393,11 @@ export default function FanArts() {
                     }
                   }}
                 >
-                  <img
-                    className={`${leftArrow ? styles.arrowActive : ""} ${styles.arrow}`}
-                    src="icons/arrow_back.svg"
-                    alt=""
+                  <MdArrowBack
+                    className={`${leftArrow ? "text-blue-400 text-lg cursor-pointer" : ""} h-10 w-13.75`}
                   />
                 </button>
-                <p className={styles.pageNumber}>{page}</p>
+                <p className="text-[23px]">{page}</p>
 
                 <button
                   onClick={() => {
@@ -391,10 +406,8 @@ export default function FanArts() {
                     }
                   }}
                 >
-                  <img
-                    className={`${rightArrow ? styles.arrowActive : ""} ${styles.arrow}`}
-                    src="icons/arrow_forward.svg"
-                    alt=""
+                  <MdArrowForward
+                    className={`${rightArrow ? "text-blue-400 text-lg cursor-pointer" : ""} h-10 w-13.75`}
                   />
                 </button>
               </div>

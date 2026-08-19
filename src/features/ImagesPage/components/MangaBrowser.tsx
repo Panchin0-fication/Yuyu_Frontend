@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Select, { type StylesConfig } from "react-select";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+
 import type {
   mangaPages,
   mangaPage,
@@ -9,7 +11,6 @@ import type {
   MyOption,
 } from "@shared";
 import { ReduceQuality } from "@shared";
-import styles from "./css/MangaBrowser.module.css";
 
 type props = {
   name: string;
@@ -143,24 +144,24 @@ export default function MangaBrowser({ name }: props) {
 
   return (
     <div>
-      <div className={styles.search}>
-        <h2>Volumen:</h2>
+      <div className="flex gap-3.5 mt-2.5 items-center">
+        <h2 className="text-3xl">Volumen:</h2>
         <Select
           styles={customStyles}
           options={optionsVol}
           defaultValue={optionsVol[0] || null}
           onChange={(value) => setVol(value?.value)}
         ></Select>
-        <h2>{t("mangas_searcher_chapter")} </h2>
+        <h2 className="text-3xl">{t("mangas_searcher_chapter")} </h2>
         <Select
           styles={customStyles}
           options={optionsChapter}
           defaultValue={optionsVol[0] || null}
           onChange={(value) => setChapter(value?.value)}
         ></Select>
-        <h2>{t("mangas_searcher_num")}</h2>
+        <h2 className="text-3xl">{t("mangas_searcher_num")}</h2>
         <input
-          className={styles.input}
+          className="p-2.5 border-2 border-gray-400 hover:border-black w-15"
           placeholder="3"
           type="text"
           value={lot}
@@ -171,10 +172,13 @@ export default function MangaBrowser({ name }: props) {
       {pages && pages.length >= 1 && (
         <>
           <div
-            className={`${styles.multiplePages} ${loading ? styles.loading : ""}`}
+            className={`${"grid grid-cols-3 place-items-center"} ${loading ? "relative after:absolute after:content-[''] after:top-0 after:left-0 after:w-full after:h-full after:bg-[#030000] after:opacity-30 after:z-10" : ""}`}
           >
             {reduced?.map((page) => (
-              <div className={`${styles.mangaPage}`} key={page.index}>
+              <div
+                className="p-3.5 flex flex-col items-center justify-center"
+                key={page.index}
+              >
                 <img
                   height={page.height / 1.5}
                   width={page.width / 1.5}
@@ -187,43 +191,38 @@ export default function MangaBrowser({ name }: props) {
               </div>
             ))}
             <img
-              style={{
-                display: loading ? "block" : "none",
-                position: "absolute",
-              }}
+              className={`${loading ? "block" : "hidden"} ${"absolute"}`}
               src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
               alt=""
             />
           </div>
-          <div className={styles.numSelection}>
-            <img
+          <div className="pt-5 flex gap-2.5 items-center justify-center">
+            <FaArrowLeft
               onClick={() => {
                 if (num > 1 && !loading) {
                   setNum(num - 1);
                   getPages(num - 1);
                 }
               }}
-              className={num > 1 ? styles.arrowActive : ""}
-              src="/icons/arrow_back.svg"
-              alt=""
+              className={num > 1 ? "text-blue-400 cursor-pointer" : ""}
             />
             <p>{num}</p>
-            <img
+            <FaArrowRight
               onClick={() => {
                 if (next && !loading) {
                   setNum(num + 1);
                   getPages(num + 1);
                 }
               }}
-              className={next ? styles.arrowActive : ""}
-              src="/icons/arrow_forward.svg"
-              alt=""
+              className={next ? "text-blue-400 cursor-pointer" : ""}
             />
           </div>
         </>
       )}
       {pages && pages.length === 0 && (
-        <p className={styles.notFoundPages}>{t("manga_no_pages")}</p>
+        <p className="flex justify-center text-center text-3xl pt-5">
+          {t("manga_no_pages")}
+        </p>
       )}
     </div>
   );

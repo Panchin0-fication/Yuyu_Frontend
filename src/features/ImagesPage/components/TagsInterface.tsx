@@ -1,5 +1,10 @@
 import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { FaCheck } from "react-icons/fa";
+import { MdInsertPhoto } from "react-icons/md";
+import { IoIosBrush } from "react-icons/io";
+import { BsFillFilePersonFill } from "react-icons/bs";
+import { MdRefresh } from "react-icons/md";
 import {
   SmallMessage,
   TagLabel,
@@ -10,7 +15,6 @@ import {
   type tag,
   type change,
 } from "@shared";
-import styles from "./css/TagsInterface.module.css";
 
 type props = {
   fanArtTags: tag[];
@@ -283,37 +287,42 @@ export default function TagsInterface({
     }
   }
 
+  const INTERFACE_SECTION = "flex flex-col w-full items-center overflow-scroll";
+
   return (
     <>
       {message}
-      <div className={`${styles.tagInterface}`}>
-        <div className={`${styles.actualTags} ${styles.interfaceSection}`}>
-          <header className={styles.headerSection}>
+      <div className="grid grid-cols-3 bg-white border-[3px] border-black rounded-[5px] h-87.5 bg-[url(data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239f9aa6' fill-opacity='0.55' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E)]">
+        <div
+          className={`${"border-r-[3px] border-black"} ${INTERFACE_SECTION}`}
+        >
+          <header className="flex items-center justify-center gap-2.5 pt-5">
             <h3>{t("header_interface_tags_added_tags")}</h3>
             {changesRecords &&
               setDefault &&
               setChangesRecords &&
               changesRecords.length > 0 && (
                 <div>
-                  <div className={styles.correctSpan}>
+                  <div className="w-max -translate-y-12.5">
                     <HoverInfo
                       info={t("span_restart_tags")}
                       hover={hoverRestart}
                     />
                   </div>
-                  <img
-                    src="/icons/refresh.svg"
+                  <MdRefresh
+                    size={24}
+                    className="cursor-pointer"
                     onMouseOverCapture={() => setHoverRestart(true)}
                     onMouseOut={() => setHoverRestart(false)}
                     onClick={() => {
                       setDefault();
                       setChangesRecords([]);
                     }}
-                  ></img>
+                  />
                 </div>
               )}
           </header>
-          <section className={styles.tagsContainer}>
+          <section className="my-7.5 flex flex-wrap gap-2.5 px-3.5">
             {fanArtTags.map((tag, id) => (
               <TagLabel
                 key={tag.name || id}
@@ -323,19 +332,19 @@ export default function TagsInterface({
               />
             ))}
             {fanArtTags.length === 0 && (
-              <p className={styles.emptyTags}>
+              <p className="opacity-70 text-2xl">
                 {t("text_interface_tags_add_tags")}
               </p>
             )}
           </section>
           {unVerTags && setUnVerTags && (
             <>
-              <header className={styles.headerSection}>
+              <header className="flex items-center justify-center gap-2.5 pt-5">
                 <h3>{t("text_interface_tags_unverified_tags")}</h3>
               </header>
-              <section className={styles.tagsContainer}>
+              <section className="my-7.5 flex flex-wrap gap-2.5 px-3.5">
                 {unVerTags.map((tag, id) => (
-                  <div className={styles.editableTag}>
+                  <div className="relative">
                     <TagLabel
                       key={tag.name || id}
                       tag={tag}
@@ -346,21 +355,20 @@ export default function TagsInterface({
                       changeShowEdit={changeShowEdit}
                     />
                     {showEdit === tag.name && (
-                      <div className={styles.changeContainer}>
+                      <div className="bg-white p-1.5 absolute translate-y-1 justify-self-center top-full left-0 m-auto border-2 border-black z-10">
                         <p>
                           {t("rename_objetive")} {tag.name}
                         </p>
-                        <div className={styles.changeActions}>
+                        <div className="flex items-center">
                           <input
                             type="text"
                             value={nameChange}
                             onChange={(e) => setNameChange(e.target.value)}
                           />
-                          <div className={styles.iconContainer}>
-                            <img
-                              src="/icons/check.svg"
+                          <div className="flex items-center cursor-pointer hover:bg-gray-200">
+                            <FaCheck
+                              className="text-white text-lg"
                               onClick={() => changeTagName(tag)}
-                              alt=""
                             />
                           </div>
                         </div>
@@ -369,13 +377,17 @@ export default function TagsInterface({
                   </div>
                 ))}
                 {unVerTags.length === 0 && (
-                  <p className={styles.emptyTags}>{t("no_tags_to_validate")}</p>
+                  <p className="opacity-70 text-2xl">
+                    {t("no_tags_to_validate")}
+                  </p>
                 )}
               </section>
             </>
           )}
         </div>
-        <div className={`${styles.searchTags} ${styles.interfaceSection}`}>
+        <div
+          className={`${"border-black border-[3px] w-full"} ${INTERFACE_SECTION}`}
+        >
           <header>
             <br />
             <h3>{t("header_interface_tags_search_tags")}</h3>
@@ -390,45 +402,48 @@ export default function TagsInterface({
             setChangesRecords={setChangesRecords}
           />
         </div>
-        <div className={`${styles.addTags} ${styles.interfaceSection}`}>
+        <div className={INTERFACE_SECTION}>
           <header>
             <br />
             <h3>{t("header_interface_tags_add_new_tags")}</h3>
           </header>
           <section>
-            <div className={styles.buttons}>
+            <div className="my-7.5 flex gap-6 items-center">
               <button
-                className={`${styles.general} ${addButtonState === "general" && styles.inactiveButton}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#305091]"} ${addButtonState === "general" && "cursor-no-drop opacity-70"}`}
                 onClick={() => setAddButtonState("general")}
               >
                 <p>{t("header_interface_tags_button_category_general")}</p>
-                <img src="/icons/photo.svg" alt="" />
+                <MdInsertPhoto className="text-lg text-white" />
               </button>
               <button
-                className={`${styles.artist} ${addButtonState === "artist" && styles.inactiveButton}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#b144ca]"} ${addButtonState === "artist" && "cursor-no-drop opacity-70"}`}
                 onClick={() => setAddButtonState("artist")}
               >
                 <p>{t("header_interface_tags_button_category_artist")}</p>
-                <img src="/icons/brush.svg" alt="" />
+                <IoIosBrush className="text-lg text-white" />
               </button>
               <button
-                className={`${styles.character} ${addButtonState === "character" && styles.inactiveButton}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#c72d2d]"} ${addButtonState === "character" && "cursor-no-drop opacity-70"}`}
                 onClick={() => setAddButtonState("character")}
               >
                 <p>{t("header_interface_tags_button_category_character")}</p>
-                <img src="/icons/person_book.svg" alt="" />
+                <BsFillFilePersonFill className="text-white text-lg" />
               </button>
             </div>
-            <div className={styles.sectionNewTag}>
+            <div className="flex flex-col gap-2.5 items-center">
               <input
                 type="text"
-                className={styles.input}
+                className="flex m-auto border-[3px] border-black text-2xl p-1"
                 value={inputs.addTag}
                 onChange={(e) =>
                   setInputs({ addTag: e.target.value, search: inputs.search })
                 }
               />
-              <button className={styles.buttonNewTag} onClick={addTagFromNew}>
+              <button
+                className="bg-black text-white p-3 rounded-lg w-max text-lg hover:bg-[#3e3e3e]"
+                onClick={addTagFromNew}
+              >
                 {t("header_interface_tags_button_add_new_tag")}{" "}
                 {addButtonState === "general" && t("button_add_tag_general")}
                 {addButtonState === "artist" && t("button_add_tag_artist")}

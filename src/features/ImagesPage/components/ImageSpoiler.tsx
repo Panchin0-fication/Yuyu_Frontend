@@ -1,15 +1,19 @@
 import { useTranslation } from "react-i18next";
-import {type endingSprite} from "@shared"
-import styles from "./css/ImageSpoiler.module.css";
+import { type endingSprite } from "@shared";
 
 type props = {
-  src:string;
-  endings:endingSprite[]
-  ending:endingSprite
-  setEndings: React.Dispatch<React.SetStateAction<endingSprite[]>>
-}
-export default function ImageSpoiler({ src, endings, ending, setEndings }:props) {
-  const {t} = useTranslation("images");
+  src: string;
+  endings: endingSprite[];
+  ending: endingSprite;
+  setEndings: React.Dispatch<React.SetStateAction<endingSprite[]>>;
+};
+export default function ImageSpoiler({
+  src,
+  endings,
+  ending,
+  setEndings,
+}: props) {
+  const { t } = useTranslation("images");
   function handleClick() {
     const newEndings = endings.map((end) => {
       if (end.id === ending.id) {
@@ -22,16 +26,16 @@ export default function ImageSpoiler({ src, endings, ending, setEndings }:props)
   }
 
   return (
-    <div className={styles.ending}>
+    <div className="flex flex-col justify-center">
       <img
         src={src}
-        className={`${ending.hidden ? styles.spoiler : ""} ${styles.imageEnding}`}
+        className={`${ending.hidden ? "brightness-0" : ""} ${"w-160 h-117.5"}`}
       ></img>
       <button
-        className={!ending.hidden ? styles.hide : ""}
+        className={`${"bg-gray-400 flex absolute items-center m-72 cursor-pointer text-white p-2.5 rounded-lg h-max w-max text-2xl justify-center"} ${!ending.hidden ? "cursor-none opacity-0" : ""}`}
         onClick={() => handleClick()}
       >
-        <p className={styles.spoilerTag}>{t("spoiler_label")}</p>
+        <p className={"  "}>{t("spoiler_label")}</p>
       </button>
     </div>
   );

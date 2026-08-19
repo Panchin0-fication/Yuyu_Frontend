@@ -13,7 +13,7 @@ import {
   type tag,
 } from "@shared";
 import { useTranslation } from "react-i18next";
-import styles from "./css/ToValidateFanArts.module.css";
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 export default function ToValidateFanArts() {
   const { t } = useTranslation("images");
@@ -176,38 +176,34 @@ export default function ToValidateFanArts() {
   return (
     <>
       {message}
-      <div className={styles.toValidateFanArts}>
+      <div className="min-h-screen">
         <HeaderPages
           image="/staticImgs/generalUse/__saigyouji_yuyuko_touhou_drawn_by_y75zei__sample-9f89b813ebba2f314ea98108f9069cda.png"
           header={t("header_to_validate")}
         />
 
-        <div className={styles.arrows}>
-          <img
-            src="/icons/arrow_back.svg"
-            className={page > 1 ? styles.active : ""}
+        <div className="flex gap-5 items-center justify-center pt-5">
+          <MdArrowBack
+            className={`w-6 h-6 ${page > 1 ? "text-blue-400 text-lg cursor-pointer" : ""}`}
             onClick={() => {
               if (page > 1 && !loading) {
                 setLoading(true);
                 setPage(page - 1);
               }
             }}
-            alt=""
           />
           <p>{page}</p>
-          <img
-            src="/icons/arrow_forward.svg"
-            className={fanArts.length > 5 ? styles.active : ""}
+          <MdArrowForward
+            className={`w-6 h-6 ${fanArts.length > 5 ? "text-blue-400 text-lg cursor-pointer" : ""}`}
             onClick={() => {
               if (fanArts.length > 5 && !loading) {
                 setLoading(true);
                 setPage(page + 1);
               }
             }}
-            alt=""
           />
         </div>
-        <div className={styles.fanArts}>
+        <div className="flex gap-5 justify-center items-center pt-5">
           {fanArts &&
             reduced
               .slice(0, 5)
@@ -221,9 +217,9 @@ export default function ToValidateFanArts() {
                 />
               ))}
         </div>
-        <div className={styles.tagsContainer}>
-          <h2 className={styles.headerTags}>{t("unverified_tags_label")}</h2>
-          <div className={styles.unverifiedTags}>
+        <div className="bg-[rgb(255,250,250)] p-2.5 m-3.75 mt-11.25">
+          <h2 className="font-normal pb-2.5">{t("unverified_tags_label")}</h2>
+          <div className="flex gap-2.5">
             {unverTags.length < 1 && <p>{t("no_unverified_tags")}</p>}
             {unverTags.length >= 1 &&
               unverTags.map((tag) => (
@@ -231,8 +227,8 @@ export default function ToValidateFanArts() {
               ))}
           </div>
           <br />
-          <h2 className={styles.headerTags}>{t("verified_tags_label")}</h2>
-          <div className={styles.unverifiedTags}>
+          <h2 className="font-normal pb-2.5">{t("verified_tags_label")}</h2>
+          <div className="flex gap-2.5">
             {verTags &&
               verTags.length >= 1 &&
               verTags.map((tag) => (

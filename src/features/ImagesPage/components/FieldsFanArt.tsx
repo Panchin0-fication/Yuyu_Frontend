@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { Message } from "@shared";
-import styles from "./css/FieldsFanArt.module.css";
+import { MdEdit, MdAddBox, MdIndeterminateCheckBox } from "react-icons/md";
 import {
   type previewImageDimensions,
   type fieldsFanArtsInput,
@@ -44,13 +44,13 @@ export default function FieldsFanArt({
     console.log("ESE FER", fileRef?.current.files);
   }, []);
   const [message, setMessage] = useState<ReactNode | null>(null);
-  const BOLD_CONFIG = <span className={styles.boldText}></span>;
+  const BOLD_CONFIG = <span className="font-medium whitespace-nowrap"></span>;
 
   return (
     <>
-      <div className={styles.inputsGrid}>
+      <div className="grid grid-cols-3 place-items-center">
         {/*File div */}
-        <div className={styles.field}>
+        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
           {mode === "upload" &&
             fileRef &&
             setFile &&
@@ -95,13 +95,13 @@ export default function FieldsFanArt({
                     }
                   }}
                   ref={fileRef}
-                  className={styles.inputFile}
+                  className="hidden"
                   type="file"
                   accept=".png, .jpg, .jpeg"
                 />
-                <div className={`${styles.uploadFanArtButtons}`}>
+                <div className="mt-2.5 flex g-5 justify-center items-center place-items-center">
                   <button
-                    className={`${styles.button} ${styles.buttonLoad}`}
+                    className={`${"w-max py-1 px-2.5 text-base flex items-center"} ${"bg-white border-[3px] border-black hover:bg-gray-200"}`}
                     onClick={async () => {
                       await fileRef.current.click();
                     }}
@@ -111,16 +111,10 @@ export default function FieldsFanArt({
                   {file && (
                     <button onClick={() => setShow(!show)}>
                       {show && (
-                        <img
-                          className={` ${styles.preview}`}
-                          src="/icons/minus_box.svg"
-                        />
+                        <MdIndeterminateCheckBox className="flex items-center w-7.5 h-auto" size={30} />
                       )}
                       {!show && (
-                        <img
-                          className={`${styles.preview}`}
-                          src="/icons/add_box.svg"
-                        />
+                        <MdAddBox className="flex items-center w-7.5 h-auto" size={30} />
                       )}
                     </button>
                   )}
@@ -130,21 +124,21 @@ export default function FieldsFanArt({
           {mode === "verify" && fanArt && (
             <>
               <h3>{t("header_uploaded_file")}</h3>
-              <div className={styles.mySpace} />
+              <div className="h-2.5" />
               <Trans
                 t={t}
                 i18nKey={"provided_image_p"}
                 components={{
-                  bold: <span className={styles.boldText}></span>,
+                  bold: <span className="font-medium whitespace-nowrap"></span>,
                   paragraph: <p></p>,
                 }}
                 values={{
                   username: fanArt.uploader.username,
                 }}
               />
-              <div className={styles.mySpace} />
+              <div className="h-2.5" />
               <button
-                className={`${styles.button} ${styles.buttonLoad}`}
+                className={`${"w-max py-1 px-2.5 text-base flex items-center"} ${"bg-white border-[3px] border-black hover:bg-gray-200"}`}
                 onClick={() => {
                   setShow(!show);
                 }}
@@ -155,7 +149,7 @@ export default function FieldsFanArt({
           )}
         </div>
         {/*Clasification div */}
-        <div className={styles.field}>
+        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
           <h3>{t("header_select_clasification")}</h3>
           {mode === "upload" && <p>{t("select_clasification_p_one")}</p>}
           <Trans
@@ -194,7 +188,7 @@ export default function FieldsFanArt({
                   | "explicit",
               });
             }}
-            className={`${styles.button} ${styles.buttonLoad}`}
+            className={`${"w-max py-1 px-2.5 text-base flex items-center"} ${"bg-white border-[3px] border-black hover:bg-gray-200"}`}
           >
             <option>General</option>
             <option>Sensitive</option>
@@ -202,14 +196,14 @@ export default function FieldsFanArt({
           </select>
         </div>
         {/*Original Link div */}
-        <div className={styles.field}>
+        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
           <h3>{t("header_enter_link")}</h3>
           <p>{t("body_enter_link_p_one")}</p>
           <p>{t("body_enter_link_p_two")}</p>
           <p>{t("body_enter_link_p_three")}</p>
-          <div className={styles.linkInput}>
+          <div className="flex gap-1.25">
             <input
-              className={styles.originalLink}
+              className={`${"border-[3px] w-87"} ${!editLink ? "text-gray-400" : ""}`}
               value={inputs.originalLink}
               onChange={(e) =>
                 setInputs({ ...inputs, originalLink: e.target.value })
@@ -219,13 +213,10 @@ export default function FieldsFanArt({
             />
             {mode === "verify" && (
               <div
-                className={`${styles.editLinkButton} ${editLink ? styles.enableEdit : ""}`}
+                onClick={() => setEditLink(!editLink)}
+                className={`${"flex px-1 items-center border-2 border-black rounded-sm cursor-pointer"} ${editLink ? "bg-black" : ""}`}
               >
-                <img
-                  onClick={() => setEditLink(!editLink)}
-                  src="/icons/edit.svg"
-                  alt=""
-                />
+                <MdEdit className={editLink ? "text-white" : ""} />
               </div>
             )}
           </div>

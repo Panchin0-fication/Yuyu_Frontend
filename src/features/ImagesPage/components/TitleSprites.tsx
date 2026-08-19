@@ -1,5 +1,10 @@
 import { TextContainer, type endingSprite } from "@shared";
-import styles from "./css/TitleSprites.module.css";
+import {
+  MdKeyboardArrowDown,
+  MdVisibilityOff,
+  MdInfo,
+  MdPerson,
+} from "react-icons/md";
 import { useState } from "react";
 type props = {
   title: string;
@@ -29,34 +34,37 @@ export default function TitleSprites({
   }
   return (
     <>
-      <div className={styles.titleSprites} id={id}>
+      <div className="flex text-[20px] items-center gap-7.5 mt-3.75" id={id}>
         <h1>{title}</h1>
         <button
-          className={styles.button}
+          className="bg-transparent border-none cursor-pointer"
           onClick={() => {
             setArrow(!arrow);
           }}
         >
-          <img
-            className={arrow ? styles.inverted : ""}
-            src="/icons/arrow_down.svg"
-            alt=""
+          <MdKeyboardArrowDown
+            className={`w-12.5 h-12.5 transition-transform duration-300 ${arrow ? "rotate-180" : ""}`}
           />
         </button>
         {/* if an ending is passed then it is because is the endings section */}
         {endings && (
-          <button className={styles.button} onClick={() => handleShowAll()}>
-            <img src="icons/visibility_off.svg" />
+          <button
+            className="bg-transparent border-none cursor-pointer"
+            onClick={() => handleShowAll()}
+          >
+            <MdVisibilityOff className="w-12.5 h-12.5" />
           </button>
         )}
       </div>
       <TextContainer
-        className={`${styles.infoSprites} ${arrow ? styles.hidden : ""}`}
+        className={`grid grid-cols-[3%_97%] text-lg items-center gap-2.5 transition-opacity duration-300 ease-out ${arrow ? "opacity-0" : ""}`}
       >
-        <img src="/icons/info_circle.svg" alt="" />
-        <p>{info}</p>
-        <img src="/icons/person.svg" alt="" />
-        <p>{credits}</p>
+        <MdInfo className="w-7.5 h-7.5" />
+        <p className="font-['Yanone_Kaffeesatz'] font-normal text-[18px]">
+          {info}
+        </p>
+        <MdPerson className="w-7.5 h-7.5" />
+        <p className="font-yanone font-normal text-lg">{credits}</p>
       </TextContainer>
     </>
   );

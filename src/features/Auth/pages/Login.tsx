@@ -131,7 +131,7 @@ export default function Login() {
           </div>
 
           <button
-            className="bg-black text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg"
+            className="bg-black hover:bg-pink-700 transition-colors duration-300 cursor-pointer text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg"
             onClick={() => {
               if (!loading) {
                 handleClick();

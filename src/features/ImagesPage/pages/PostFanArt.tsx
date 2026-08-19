@@ -1,7 +1,6 @@
 import { useState, startTransition, useRef, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
-import styles from "./css/PostFanArt.module.css";
 import { TagsInterface, FieldsFanArt, PreviewImage } from "@features";
 import {
   HeaderPages,
@@ -380,13 +379,13 @@ export default function PostFanArt() {
   }
   return (
     <>
-      <div className={`${styles.all} ${message && "filterMsg"}`}>
+      <div className={`w-screen min-h-screen ${message && "filterMsg"}`}>
         <HeaderPages
           image={"/staticImgs/generalUse/postFanArt.jpg"}
           header={t("header_post_fanart")}
         />
         <br />
-        <div className={styles.content}>
+        <div className="w-[95%] mx-auto">
           {/*Divs of inputs for FanArt fields */}
           <FieldsFanArt
             fileRef={fileRef}
@@ -404,13 +403,17 @@ export default function PostFanArt() {
             setfanArtTags={setfanArtTags}
           />
           <br />
-          <div className={styles.buttonAndLoad}>
-            <button onClick={uploadValidations} className={styles.buttonUpload}>
+          <div className="flex gap-5 items-center">
+            <button
+              onClick={uploadValidations}
+              className="flex items-center bg-[#e83ea9] text-white py-2.5 px-3.75 rounded-xl ml-5 text-[22px] hover:bg-[#db2e9c]"
+            >
               {t("button_upload_fanart")}
             </button>
             <img
               style={{ display: loading ? "block" : "none" }}
               src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
+              className="h-21.25 w-21.25"
             />
           </div>
         </div>

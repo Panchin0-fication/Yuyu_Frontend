@@ -11,7 +11,7 @@ import type {
   change,
   fieldsFanArtsInput,
 } from "@shared";
-import styles from "./css/ValidateFanArts.module.css";
+import { MdArrowForward, MdCheck, MdClose } from "react-icons/md";
 export default function ValidateFanArts() {
   const { t } = useTranslation("images");
   const location = useLocation();
@@ -78,7 +78,7 @@ export default function ValidateFanArts() {
       .map((current) => (
         <TagLabel key={current.name} tag={current} errorTag={""} />
       ));
-    return <div className={styles.tagContainer}>{findTags}</div>;
+    return <div className="items-center flex gap-2.5">{findTags}</div>;
   }
 
   function getAddedTags(): ReactNode {
@@ -91,7 +91,7 @@ export default function ValidateFanArts() {
       .map((current) => (
         <TagLabel key={current.name} tag={current} errorTag={""} />
       ));
-    return <div className={styles.tagContainer}>{findTags}</div>;
+    return <div className="items-center flex gap-2.5">{findTags}</div>;
   }
 
   function eliminatedTags() {
@@ -106,7 +106,7 @@ export default function ValidateFanArts() {
     const findTags = eliminatedTags.map((current) => (
       <TagLabel key={current.name} tag={current} errorTag={""} />
     ));
-    return <div className={styles.tagContainer}>{findTags}</div>;
+    return <div className="items-center flex gap-2.5">{findTags}</div>;
   }
 
   function getNewEliminatedTags() {
@@ -120,7 +120,7 @@ export default function ValidateFanArts() {
     const findTags = eliminatedNewTags.map((current) => (
       <TagLabel key={current.name} tag={current} errorTag={""} />
     ));
-    return <div className={styles.tagContainer}>{findTags}</div>;
+    return <div className="items-center flex gap-2.5">{findTags}</div>;
   }
 
   function renamedTags(): ReactNode {
@@ -143,14 +143,14 @@ export default function ValidateFanArts() {
     var toReturn: ReactNode[] = [];
     for (var i = 0; i < actual.length; i++) {
       toReturn.push(
-        <div className={styles.tagContainer}>
+        <div className="items-center flex gap-2.5">
           <TagLabel tag={previus[i]} errorTag={""} />
-          <img src="/icons/arrow_forward.svg" alt="" />
+          <MdArrowForward size={24} />
           <TagLabel tag={actual[i]} errorTag={""} />
         </div>,
       );
     }
-    return <div className={styles.tagContainer}>{toReturn}</div>;
+    return <div className="items-center flex gap-2.5">{toReturn}</div>;
   }
 
   function getToValidate() {
@@ -165,7 +165,7 @@ export default function ValidateFanArts() {
       .map((current) => (
         <TagLabel key={current.name} tag={current} errorTag={""} />
       ));
-    return <div className={styles.tagContainer}>{findTags}</div>;
+    return <div className="items-center flex gap-2.5">{findTags}</div>;
   }
 
   async function validateFanart(): Promise<void> {
@@ -352,7 +352,7 @@ export default function ValidateFanArts() {
           <h2>{t("message_unverified_tags_h2")}</h2>
           <p>{t("message_validation_error_info")}</p>
           <p>{t("message_unverified_tags_p")}</p>
-          <div className={styles.tagContainer}>
+          <div className="items-center flex gap-2.5">
             {unVerTags.map((tag) => (
               <TagLabel key={tag.name} tag={tag} errorTag={""} />
             ))}
@@ -468,7 +468,7 @@ export default function ValidateFanArts() {
         }}
       >
         <h2>{t("reject_fan_art_subheader")}</h2>
-        <div className={styles.tagContainer}>
+        <div className="items-center flex gap-2.5">
           <input
             onChange={() => {
               incorrectLinkRef.current = !incorrectLinkRef.current;
@@ -477,7 +477,7 @@ export default function ValidateFanArts() {
           />
           <p>{t("reject_fan_art_incorrect_link_p")}</p>
         </div>
-        <div className={styles.tagContainer}>
+        <div className="items-center flex gap-2.5">
           <input
             onChange={() => {
               lowResolutionRef.current = !lowResolutionRef.current;
@@ -486,14 +486,14 @@ export default function ValidateFanArts() {
           />
           <p>{t("reject_fan_art_low_resolution_p")}</p>
         </div>
-        <div className={styles.tagContainer}>
+        <div className="items-center flex gap-2.5">
           <input
             onChange={() => (artistIssueRef.current = !artistIssueRef.current)}
             type="checkbox"
           />
           <p>{t("reject_fan_art_artist_p")}</p>
         </div>
-        <div className={styles.tagContainer}>
+        <div className="items-center flex gap-2.5">
           <input
             onChange={() => (noYuyukoRef.current = !noYuyukoRef.current)}
             type="checkbox"
@@ -560,7 +560,7 @@ export default function ValidateFanArts() {
   }
 
   return (
-    <div className={styles.validateFanArts}>
+    <div className="min-h-screen mx-auto px-2.5">
       <HeaderPages
         image="/staticImgs/generalUse/__saigyouji_yuyuko_touhou_drawn_by_y75zei__sample-9f89b813ebba2f314ea98108f9069cda.png"
         header={t("header_validate_fanart")}
@@ -602,20 +602,20 @@ export default function ValidateFanArts() {
         setChangesRecords={setChangesRecords}
         setDefault={setDefault}
       />
-      <div className={styles.buttons}>
+      <div className="flex gap-5 justify-center pt-3.75 pb-2.5">
         <button
           onClick={validateButton}
-          className={`${styles.validateButton} ${styles.actionButton}`}
+          className="bg-[#e83ea9] transition-colors duration-300 hover:bg-[#cd1589] flex gap-2.5 items-center text-white p-2.25 rounded-2.5"
         >
-          <p>{t("validate_fan_art_button")}</p>
-          <img src="/icons/check.svg" alt="" />
+          <p className="text-[24px]">{t("validate_fan_art_button")}</p>
+          <MdCheck size={24} className="text-white" />
         </button>
         <button
           onClick={rejectButton}
-          className={`${styles.rejectButton} ${styles.actionButton}`}
+          className="bg-[#dc2a2a] hover:bg-[#830a0a] flex gap-2.5 items-center text-white p-2.25 rounded-2.5"
         >
-          <p>{t("reject_fan_art_button")}</p>
-          <img src="/icons/close.svg" alt="" />
+          <p className="text-[24px]">{t("reject_fan_art_button")}</p>
+          <MdClose size={24} className="text-white" />
         </button>
         {message}
       </div>

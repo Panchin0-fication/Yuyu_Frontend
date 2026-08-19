@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Draggable from "react-draggable";
 import { type fanArt } from "@shared";
-import styles from "./css/PreviewImage.module.css";
+import { MdAddBox, MdIndeterminateCheckBox } from "react-icons/md";
 
 type props = {
   closeFunc: () => void;
@@ -32,28 +32,36 @@ export default function PreviewImage({
   const nodeRef = useRef(null);
   return (
     <Draggable nodeRef={nodeRef}>
-      <div ref={nodeRef} className={styles.dragItem}>
+      <div
+        ref={nodeRef}
+        className="absolute right-90 top-40 bg-white w-75 max-h-[80vh] cursor-move z-50"
+      >
         {show && (
           <>
-            <header className={styles.dragHeader}>
-              <p>{t("fanart_preview_text")}</p>
-              <label onClick={closeFunc}>X</label>
+            <header className="flex justify-between items-center py-3 pl-4 select-none">
+              <p className="text-xl">{t("fanart_preview_text")}</p>
+              <label
+                className="absolute r-4 cursor-pointer"
+                onClick={closeFunc}
+              >
+                X
+              </label>
             </header>
-            <div className={styles.resizeButtons}>
-              <button onClick={increaseFunc}>
-                <img src="/icons/add_box.svg" alt="" />
+            <div className="pl-3">
+              <button className="w-max" onClick={increaseFunc}>
+                <MdAddBox size={24} />
               </button>
-              <button onClick={decreaseFunc}>
-                <img src="/icons/minus_box.svg" alt="" />
+              <button className="w-max" onClick={decreaseFunc}>
+                <MdIndeterminateCheckBox size={24} />
               </button>
             </div>
-            <div className={styles.containerImg}>
+            <div className="flex justify-center items-center bg-white min-h-50 overflow-scroll max-h-[60vh]">
               {PreviewLoad && file && (
                 <img
                   onLoad={PreviewLoad}
                   ref={previewRef}
                   src={file}
-                  className={styles.draggableImg}
+                  className="object-contain"
                 />
               )}
 
@@ -62,7 +70,7 @@ export default function PreviewImage({
                   height={dimensions.height}
                   width={dimensions.width}
                   src={fanArt.src}
-                  className={styles.draggableImg}
+                  className="object-contain"
                 />
               )}
             </div>

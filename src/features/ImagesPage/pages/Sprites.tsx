@@ -7,7 +7,7 @@ import {
   type endingSprite,
 } from "@shared";
 import { TitleSprites, ImageSpoiler } from "@features";
-import styles from "./css/Sprites.module.css";
+import { MdKeyboardArrowUp } from "react-icons/md";
 export default function Sprites() {
   const { t } = useTranslation("images");
   const [endings, setEndings] = useState<endingSprite[]>([
@@ -34,22 +34,50 @@ export default function Sprites() {
           header={t("header_sprites")}
         ></HeaderPages>
         <a href="#inicio" className="flecha-inicio">
-          <img className={styles.arrow} src="/icons/arrow_warm_up.svg" alt="" />
+          <MdKeyboardArrowUp className="fixed transform translate-y-[-16vh] ml-[95vw] w-10 h-12.5 text-black" />
         </a>
       </header>
       <br />
-      <div className={styles.pageContents}>
-        <div className={styles.sectionOne}>
-          <ContentTable className={styles.container}>
+      <div className="w-[95%] mx-auto">
+        <div className="grid grid-cols-[1fr_5fr] gap-10">
+          <ContentTable className="flex flex-col">
             <h3>{t("header_content_table")}</h3>
-            <a href="#gameplay">{t("option_content_table_gameplay")}</a>
-            <a href="#seleccion">
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#gameplay"
+            >
+              {t("option_content_table_gameplay")}
+            </a>
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#seleccion"
+            >
               {t("option_content_table_character_selection")}
             </a>
-            <a href="#dialogos">{t("option_content_table_dialogues")}</a>
-            <a href="#finales">{t("option_content_table_endings")}</a>
-            <a href="#fondos">{t("option_content_table_backgrounds")}</a>
-            <a href="#otros">{t("option_content_table_other")}</a>
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#dialogos"
+            >
+              {t("option_content_table_dialogues")}
+            </a>
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#finales"
+            >
+              {t("option_content_table_endings")}
+            </a>
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#fondos"
+            >
+              {t("option_content_table_backgrounds")}
+            </a>
+            <a
+              className="text-blue-500 pl-1.5 hover:border-b-2 border-blue-500 w-max"
+              href="#otros"
+            >
+              {t("option_content_table_other")}
+            </a>
           </ContentTable>
           <TextContainer>
             <h1>{t("header_section_general_informarion")}</h1>
@@ -66,7 +94,7 @@ export default function Sprites() {
               dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
               voluptates! Sapiente illum nisi unde placeat"
         ></TitleSprites>
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <img
             src="staticImgs/generalUse/Sprites-touhou7-enemigos-EDIT.png"
             alt=""
@@ -91,7 +119,7 @@ export default function Sprites() {
               dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
               voluptates! Sapiente illum nisi unde placeat"
         ></TitleSprites>
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <img
             src="staticImgs/generalUse/Sprites-touhou8-seleccion-EDIT1.png"
             alt=""
@@ -116,7 +144,7 @@ export default function Sprites() {
               dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
               voluptates! Sapiente illum nisi unde placeat"
         />
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <img
             src="staticImgs/generalUse/Sprites-touhou7-portadas-EDIT.png"
             alt=""
@@ -126,7 +154,7 @@ export default function Sprites() {
             alt=""
           />
           <img
-            className={styles.imgBig}
+            className="w-[90vw] h-auto self-start"
             src="staticImgs/generalUse/Sprites.touhou10.5-portadas.png"
             alt=""
           />
@@ -149,7 +177,7 @@ export default function Sprites() {
           setEndings={setEndings}
         />
 
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT1.png"
             endings={endings}
@@ -234,7 +262,7 @@ export default function Sprites() {
               dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
               voluptates! Sapiente illum nisi unde placeat"
         />
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <img
             src="staticImgs/generalUse/Sprites-touhou7-fondos-EDIT.png"
             alt=""
@@ -260,7 +288,7 @@ export default function Sprites() {
               dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
               voluptates! Sapiente illum nisi unde placeat"
         />
-        <div className={styles.sprites}>
+        <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <img
             src="staticImgs/generalUse/Sprites-touhou8-loading-EDIT.png"
             alt=""

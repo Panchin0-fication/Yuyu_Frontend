@@ -1,37 +1,36 @@
 import { useTranslation } from "react-i18next";
 import { HeaderPages, ContentTable, TextContainer } from "@shared";
 import { TitleSprites, MangaBrowser } from "@features";
-import styles from "./css/Mangas.module.css";
 
 export default function Mangas() {
   const { t } = useTranslation("images");
   return (
-    <div className={styles.container}>
+    <div className="w-[95%] mx-auto">
       <HeaderPages
         image="staticImgs/generalUse/__saigyouji_yuyuko_touhou_drawn_by_dounaga_nuko__sample-2fd9d01a7877ab582bb7da7d425263dd.jpg"
         isInPage={true}
         header={t("header_fanarts")}
       />
       <div className="barra"></div>
-      <div className={styles.paragraph1}>
-        <ContentTable className={styles.index}>
-          <ul>
+      <div className="pt-5 grid grid-cols-[1fr_5fr] items-center gap-10">
+        <ContentTable className="flex flex-col ">
+          <ul className="w-max">
             <h3>Contenido</h3>
-            <li>
+            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#silent">1-Silent Sinner in Blue</a>
             </li>
-            <li>
+            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#foul">2-Foul Detective Satori</a>
             </li>
-            <li>
+            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#oriental">3-Oriental Sacred Place</a>
             </li>
-            <li>
+            <li className="translate-x-5 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#visionary">4-Visionary Fairies in Shrine</a>
             </li>
           </ul>
         </ContentTable>
-        <TextContainer className={styles.paragraphContainer}>
+        <TextContainer className="h-full mt-0">
           <h1>Mangas oficiales</h1>
           <p>
             texto explicando como esta organizados los mangas Lorem ipsum dolor
