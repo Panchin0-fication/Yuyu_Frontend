@@ -1,39 +1,42 @@
 import { useTranslation } from "react-i18next";
-import styles from "./css/SmallMessage.module.css";
-
+import { FaCheck } from "react-icons/fa";
+import { MdOutlineErrorOutline } from "react-icons/md";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 type props = {
   type: "info" | "error" | "success";
   message: string;
 };
 export default function SmallMessage({ type, message }: props) {
-  var image, textStyle, iconColor, headerText;
+  var image, textStyle, headerText;
   const { t } = useTranslation("common");
   switch (type) {
     case "error":
-      image = "/icons/error_circle.svg";
-      textStyle = styles.errorText;
-      iconColor = styles.iconRed;
+      image = <MdOutlineErrorOutline className="text-red-500 text-lg" />;
+      textStyle = "text-red-500";
       headerText = t("header_fail");
       break;
     case "success":
-      image = "/icons/check.svg";
-      textStyle = styles.successText;
-      iconColor = styles.iconGreen;
+      image = <FaCheck className="text-green-600 text-lg" />;
+      textStyle = "text-green-600";
       headerText = t("header_success");
       break;
     default:
       headerText = "Info";
-      image = "/icons/info_circle.svg";
+      image = <IoMdInformationCircleOutline className="text-white text-lg" />;
       break;
   }
   return (
-    <div className={styles.loginMessage}>
-      <header className={styles.messageHeader}>
-        <img className={iconColor} src={image} alt="" />
-        <p className={`${textStyle} ${styles.messageHeader}`}>{headerText}</p>
+    <div className="mt-2.5 min-w-37.5">
+      <header className="flex gap-3.75 items-center text-lg font-medium">
+        {image}
+        <p
+          className={`${textStyle} ${"flex gap-3.75 items-center text-lg font-medium"}`}
+        >
+          {headerText}
+        </p>
       </header>
-      <hr className={`${styles.downBar} ${textStyle}`} />
-      <p className={`${textStyle} ${styles.space}`}>{message}</p>
+      <hr className={`${"mt-1.25"} ${textStyle}`} />
+      <p className={`${textStyle} ${"mt-2.5"}`}>{message}</p>
     </div>
   );
 }

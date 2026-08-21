@@ -118,10 +118,10 @@ export default function TagsSearch({
   }
   return (
     <section className={extraStyles}>
-      <div className={styles.inputField}>
+      <div className="flex gap-2.5 justify-center">
         <input
           type="text"
-          className={styles.input}
+          className="flex border-[3px] text-xl border-black p-1.25"
           value={search}
           placeholder={"All"}
           onChange={(e) => {
@@ -137,7 +137,7 @@ export default function TagsSearch({
 
       {tags && (
         <>
-          <section className={styles.tagsContainer}>
+          <section className="my-7.5 flex flex-wrap gap-2.5 px-3.75 overflow-scroll">
             {tags.slice(0, numberTags).map((tag, index) => (
               <TagLabel
                 key={tag.name || index}
@@ -147,12 +147,14 @@ export default function TagsSearch({
               />
             ))}
             {tags.length === 0 && (
-              <p className={styles.emptyTags}>{t("search_tags_not_found")}</p>
+              <p className="opacity-70 text-2xl">
+                {t("search_tags_not_found")}
+              </p>
             )}
           </section>
 
           {tags.length >= 1 && (
-            <div className={styles.pages}>
+            <div className="grid grid-cols-3 place-items-center">
               <img
                 className={page > 1 ? styles.arrowActive : ""}
                 onClick={() => arrow("backward")}

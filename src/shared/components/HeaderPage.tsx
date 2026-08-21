@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import styles from "./css/HeaderPage.module.css";
+import { FaHouse } from "react-icons/fa6";
+import { FaDoorOpen } from "react-icons/fa";
 type props = {
   image: string;
   isInPage?: boolean;
@@ -12,25 +13,23 @@ export default function HeaderPage({
 }: props) {
   return (
     <>
-      <div className={styles.headerPages}>
-        <img className={styles.headerImage} src={image} alt="" />
-        <h2 className={styles.title}>{header}</h2>
-        <button className={styles.iconHouse}>
+      <div className="flex gap-12.5 items-center ml-7.5 pt-2.5">
+        <img className="h-22.5 w-auto" src={image} alt="" />
+        <h2 className="text-pink-700 text-6xl font-bold">{header}</h2>
+        <div className="flex gap-10 items-center">
           {isInPage && (
-            <Link
-              to={"/images"}
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              <img className={styles.icon} src="/icons/door_open.svg" alt="" />
+            <Link to={"/images"}>
+              <FaDoorOpen className="text-pink-700 text-5xl" />
             </Link>
           )}
-          <Link to={"/"} style={{ color: "white", textDecoration: "none" }}>
-            <img className={styles.icon} src="/icons/home.svg" alt="" />
+
+          <Link to={"/"}>
+            <FaHouse className="text-pink-700 text-5xl" />
           </Link>
-        </button>
+        </div>
       </div>
 
-      <div className={styles.borderBottom}></div>
+      <div className="bg-pink-700 w-full h-1 mt-2"></div>
     </>
   );
 }

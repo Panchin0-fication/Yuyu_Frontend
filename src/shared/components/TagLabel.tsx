@@ -1,6 +1,7 @@
 import { type tag } from "@shared";
-import styles from "./css/TagLabel.module.css";
-
+import { FaCheck } from "react-icons/fa";
+import { RiPencilFill } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
 type props = {
   tag: tag;
   errorTag: string | null;
@@ -23,45 +24,39 @@ export default function TagLabel({
 }: props) {
   return (
     <div
-      className={`${tag.category === "general" && styles.general} ${tag.category === "character" && styles.character} ${tag.category === "artist" && styles.artist}`}
+      className={`${tag.category === "general" && "bg-[#305091]"} ${tag.category === "character" && "bg-[#c72d2d]"} ${tag.category === "artist" && "bg-[#b144ca]"}`}
       onClick={addTagFromSearch && (() => addTagFromSearch(tag))}
     >
       <div
-        className={`${tag.name === errorTag && styles.blinkAnimation} ${styles.label}`}
+        className={`${tag.name === errorTag && "animate-blinkAni"} ${"text-white p-1.25 flex items-center w-max gap-1.25"}`}
       >
         <p
-          className={`${tag.name === errorTag && styles.blinkAnimation}  ${styles.clickableLabel}`}
+          className={`${tag.name === errorTag && "animate-blinkAni"}  ${"cursor-pointer"}`}
         >
           {tag.name}
         </p>
         {validation && verifiedTag && changeShowEdit && (
           <>
-            <div className={styles.iconContainer}>
-              <img
+            <div className="flex items-center">
+              <RiPencilFill
                 onClick={() => changeShowEdit(tag)}
-                className={`${styles.clickableLabel} ${styles.icon}`}
-                src="/icons/edit.svg"
-                alt=""
+                className="cursor-pointer text-white h-5 w-5"
               />
             </div>
 
-            <div className={styles.iconContainer}>
-              <img
+            <div className="flex items-center">
+              <FaCheck
                 onClick={() => verifiedTag(tag)}
-                className={`${styles.clickableLabel} ${styles.icon}`}
-                src="/icons/check.svg"
-                alt=""
+                className="cursor-pointer text-white h-4 w-4"
               />
             </div>
           </>
         )}
         {removeTag && (
-          <div className={styles.iconContainer}>
-            <img
-              className={`${styles.clickableLabel} ${styles.icon}`}
+          <div className="flex items-center">
+            <IoClose
               onClick={() => removeTag(tag)}
-              src="/icons/close.svg"
-              alt=""
+              className="cursor-pointer text-white h-5 w-5"
             />
           </div>
         )}

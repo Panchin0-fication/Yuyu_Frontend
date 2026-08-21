@@ -293,9 +293,7 @@ export default function TagsInterface({
     <>
       {message}
       <div className="grid grid-cols-3 bg-white border-[3px] border-black rounded-[5px] h-87.5 bg-[url(data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239f9aa6' fill-opacity='0.55' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E)]">
-        <div
-          className={`${"border-r-[3px] border-black"} ${INTERFACE_SECTION}`}
-        >
+        <div className={`${"border-black"} ${INTERFACE_SECTION}`}>
           <header className="flex items-center justify-center gap-2.5 pt-5">
             <h3>{t("header_interface_tags_added_tags")}</h3>
             {changesRecords &&
@@ -386,7 +384,7 @@ export default function TagsInterface({
           )}
         </div>
         <div
-          className={`${"border-black border-[3px] w-full"} ${INTERFACE_SECTION}`}
+          className={`${"border-black border-r-[3px] border-l-[3px] w-full"} ${INTERFACE_SECTION}`}
         >
           <header>
             <br />
