@@ -406,7 +406,7 @@ export default function PostFanArt() {
           <div className="flex gap-5 items-center">
             <button
               onClick={uploadValidations}
-              className="flex items-center bg-[#e83ea9] text-white py-2.5 px-3.75 rounded-xl ml-5 text-[22px] hover:bg-[#db2e9c]"
+              className="flex cursor-pointer items-center bg-[#e83ea9] text-white py-2.5 px-3.75 rounded-xl ml-5 text-[22px] hover:bg-[#db2e9c]"
             >
               {t("button_upload_fanart")}
             </button>

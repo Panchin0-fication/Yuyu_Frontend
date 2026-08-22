@@ -130,7 +130,7 @@ export default function TagsSearch({
         />
         <img
           src="/icons/autorenew.svg"
-          style={{ visibility: loading ? "visible" : "hidden" }}
+          className={`animate-spin ${loading ? "visible" : "hidden"}`}
           alt=""
         />
       </div>

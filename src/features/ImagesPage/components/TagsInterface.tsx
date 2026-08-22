@@ -408,21 +408,21 @@ export default function TagsInterface({
           <section>
             <div className="my-7.5 flex gap-6 items-center">
               <button
-                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#305091]"} ${addButtonState === "general" && "cursor-no-drop opacity-70"}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#305091]"} ${addButtonState === "general" ? "cursor-no-drop opacity-70" : "cursor-pointer"}`}
                 onClick={() => setAddButtonState("general")}
               >
                 <p>{t("header_interface_tags_button_category_general")}</p>
                 <MdInsertPhoto className="text-lg text-white" />
               </button>
               <button
-                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#b144ca]"} ${addButtonState === "artist" && "cursor-no-drop opacity-70"}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#b144ca]"} ${addButtonState === "artist" ? "cursor-no-drop opacity-70" : "cursor-pointer"}`}
                 onClick={() => setAddButtonState("artist")}
               >
                 <p>{t("header_interface_tags_button_category_artist")}</p>
                 <IoIosBrush className="text-lg text-white" />
               </button>
               <button
-                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#c72d2d]"} ${addButtonState === "character" && "cursor-no-drop opacity-70"}`}
+                className={`${"flex items-center gap-2.5 rounded-lg p-1.5 text-white text-base"} ${"bg-[#c72d2d]"} ${addButtonState === "character" ? "cursor-no-drop opacity-70" : "cursor-pointer"}`}
                 onClick={() => setAddButtonState("character")}
               >
                 <p>{t("header_interface_tags_button_category_character")}</p>
@@ -439,7 +439,7 @@ export default function TagsInterface({
                 }
               />
               <button
-                className="bg-black text-white p-3 rounded-lg w-max text-lg hover:bg-[#3e3e3e]"
+                className="bg-black cursor-pointer text-white p-3 rounded-lg w-max text-lg hover:bg-[#3e3e3e]"
                 onClick={addTagFromNew}
               >
                 {t("header_interface_tags_button_add_new_tag")}{" "}

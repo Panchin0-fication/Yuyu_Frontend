@@ -605,14 +605,14 @@ export default function ValidateFanArts() {
       <div className="flex gap-5 justify-center pt-3.75 pb-2.5">
         <button
           onClick={validateButton}
-          className="bg-[#e83ea9] transition-colors duration-300 hover:bg-[#cd1589] flex gap-2.5 items-center text-white p-2.25 rounded-2.5"
+          className="bg-[#e83ea9] cursor-pointer rounded-md transition-colors duration-300 hover:bg-[#cd1589] flex gap-2.5 items-center text-white p-2.25 rounded-2.5"
         >
           <p className="text-[24px]">{t("validate_fan_art_button")}</p>
           <MdCheck size={24} className="text-white" />
         </button>
         <button
           onClick={rejectButton}
-          className="bg-[#dc2a2a] hover:bg-[#830a0a] flex gap-2.5 items-center text-white p-2.25 rounded-2.5"
+          className="bg-[#dc2a2a] hover:bg-[#830a0a] rounded-md flex gap-2.5 items-center text-white p-2.25 rounded-2.5 cursor-pointer"
         >
           <p className="text-[24px]">{t("reject_fan_art_button")}</p>
           <MdClose size={24} className="text-white" />

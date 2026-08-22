@@ -50,13 +50,15 @@ export default function FieldsFanArt({
     <>
       <div className="grid grid-cols-3 place-items-center">
         {/*File div */}
-        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
+        <div className="bg-white leading-4.5 border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
           {mode === "upload" &&
             fileRef &&
             setFile &&
             setPreviewImageDimensions && (
               <>
-                <h3>{t("header_select_file")}</h3>
+                <h3 className="font-bold text-2xl">
+                  {t("header_select_file")}
+                </h3>
                 <p>{t("body_select_file_p_one")}</p>
                 <p>{t("body_select_file_p_two")}</p>
                 <input
@@ -111,10 +113,16 @@ export default function FieldsFanArt({
                   {file && (
                     <button onClick={() => setShow(!show)}>
                       {show && (
-                        <MdIndeterminateCheckBox className="flex items-center w-7.5 h-auto" size={30} />
+                        <MdIndeterminateCheckBox
+                          className="flex items-center w-7.5 h-auto"
+                          size={30}
+                        />
                       )}
                       {!show && (
-                        <MdAddBox className="flex items-center w-7.5 h-auto" size={30} />
+                        <MdAddBox
+                          className="flex items-center w-7.5 h-auto"
+                          size={30}
+                        />
                       )}
                     </button>
                   )}
@@ -123,7 +131,9 @@ export default function FieldsFanArt({
             )}
           {mode === "verify" && fanArt && (
             <>
-              <h3>{t("header_uploaded_file")}</h3>
+              <h3 className="text-2xl font-bold">
+                {t("header_uploaded_file")}
+              </h3>
               <div className="h-2.5" />
               <Trans
                 t={t}
@@ -149,8 +159,10 @@ export default function FieldsFanArt({
           )}
         </div>
         {/*Clasification div */}
-        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
-          <h3>{t("header_select_clasification")}</h3>
+        <div className="bg-white border-2 leading-4.5 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
+          <h3 className="text-2xl font-bold">
+            {t("header_select_clasification")}
+          </h3>
           {mode === "upload" && <p>{t("select_clasification_p_one")}</p>}
           <Trans
             t={t}
@@ -196,14 +208,14 @@ export default function FieldsFanArt({
           </select>
         </div>
         {/*Original Link div */}
-        <div className="bg-white border-2 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
-          <h3>{t("header_enter_link")}</h3>
+        <div className="bg-white border-2 leading-4.5 border-black rounded-lg p-1 w-113 flex flex-col gap-0.5 items-center">
+          <h3 className="text-2xl font-bold">{t("header_enter_link")}</h3>
           <p>{t("body_enter_link_p_one")}</p>
           <p>{t("body_enter_link_p_two")}</p>
           <p>{t("body_enter_link_p_three")}</p>
           <div className="flex gap-1.25">
             <input
-              className={`${"border-[3px] w-87"} ${!editLink ? "text-gray-400" : ""}`}
+              className={`${"border-[3px] w-87 p-1.5"} ${!editLink ? "text-gray-400" : ""}`}
               value={inputs.originalLink}
               onChange={(e) =>
                 setInputs({ ...inputs, originalLink: e.target.value })
