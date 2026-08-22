@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Profile, InfoMessage, type withUserData } from "@shared";
 import { useEffect, useState } from "react";
-import styles from "./css/UserLog.module.css";
+import { MdPerson } from "react-icons/md";
 
 export default function UserLog() {
   const { t } = useTranslation("common");
@@ -30,7 +30,7 @@ export default function UserLog() {
   }
   return (
     <>
-      <div style={{ display: showInfo ? "block" : "none" }}>
+      <div className={showInfo ? "block" : "hidden"}>
         <InfoMessage
           header={t("log_info_header")}
           onCancel={() => setShowInfo(false)}
@@ -48,36 +48,27 @@ export default function UserLog() {
           <p>{t("log_info_p_three")}</p>
         </InfoMessage>
       </div>
-      <div className={styles.userLogContainer}>
+      <div className="m-auto">
         <div
-          className={styles.hoverInfo}
-          style={{
-            display: showOptions ? "flex" : "none",
-          }}
+          className={`${"absolute flex flex-col gap-0.5 p-0.5 bg-gray-600 -translate-y-25"} ${showOptions ? "flex" : "hidden"}`}
           onMouseOut={() => setOptionHover("")}
         >
           <span
-            style={{
-              backgroundColor: optionHover === "login" ? "blue" : "black",
-            }}
+            className={`${optionHover === "login" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("login")}
             onClick={goToLogin}
           >
             {t("log_login_button")}
           </span>
           <span
-            style={{
-              backgroundColor: optionHover === "config" ? "blue" : "black",
-            }}
+            className={`${optionHover === "config" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("config")}
             onClick={() => navigate("/auth/accountConfig")}
           >
             {t("log_config_button")}
           </span>
           <span
-            style={{
-              backgroundColor: optionHover === "info" ? "blue" : "black",
-            }}
+            className={`${optionHover === "info" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("info")}
             onClick={() => setShowInfo(true)}
           >
@@ -86,17 +77,14 @@ export default function UserLog() {
         </div>
 
         <div
-          className={styles.userLog}
+          className="flex gap-2.5 items-center cursor-pointer text-2xl "
           onClick={() => setShowOptions(!showOptions)}
         >
-          <img src="/icons/person.svg"></img>
+          <MdPerson className="text-2xl text-black" />
           {username ? (
-            <p className={styles.username}>{username}</p>
+            <p>{username}</p>
           ) : (
-            <p
-              className={styles.username}
-              style={{ color: "rgb(45, 45, 45) " }}
-            >
+            <p className="leading-1 text-2xl text-black">
               {t("log_not_loged_name")}
             </p>
           )}

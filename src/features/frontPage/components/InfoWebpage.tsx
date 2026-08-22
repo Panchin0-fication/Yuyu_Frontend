@@ -6,7 +6,7 @@ export default function InfoWebPage() {
   const SECTION_H1 =
     "text-4xl group-hover:text-pink-700 text-[#69abd2] transition-colors duration-500 text-shadow-[-0.5px_-0.5px_0_#ffffff,0.5px_-0.5px_0_#ffffff,-0.5px_0.5px_0_#ffffff,0.5px_0.5px_0_#ffffff]";
   const SECTION_P =
-    "text-xl text-white mt-2.5 font-normal text-shadow-[-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000]";
+    "text-xl/6 text-white mt-2.5 font-normal text-shadow-[-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000]";
   return (
     <>
       <div className="bg-white h-max border-4 border-pink-700 flex items-center rounded-md w-11/12 m-auto">

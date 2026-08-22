@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { type tag, TagLabel, type change } from "@shared";
 import { useTranslation } from "react-i18next";
-import styles from "./css/TagsSearch.module.css";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 type props = {
   numberTags?: number;
@@ -155,18 +155,14 @@ export default function TagsSearch({
 
           {tags.length >= 1 && (
             <div className="grid grid-cols-3 place-items-center">
-              <img
-                className={page > 1 ? styles.arrowActive : ""}
+              <FaArrowLeft
                 onClick={() => arrow("backward")}
-                src="/icons/arrow_back.svg"
-                alt=""
+                className={`${page > 1 ? "text-blue-500 cursor-pointer" : ""} ${"text-lg"}`}
               />
               <h3>{page}</h3>
-              <img
-                className={tags.length > numberTags ? styles.arrowActive : ""}
+              <FaArrowRight
                 onClick={() => arrow("foward")}
-                src="/icons/arrow_forward.svg"
-                alt=""
+                className={`${tags.length > numberTags ? "text-blue-500 cursor-pointer" : ""} ${"text-lg"}`}
               />
             </div>
           )}

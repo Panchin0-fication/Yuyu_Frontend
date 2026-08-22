@@ -36,7 +36,7 @@ export default function FrontImages() {
             className="h-125 w-80"
           />
           {over === "sprites" && (
-            <p className="absolute text-[20px] p-3 text-white w-[320px] z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
+            <p className="absolute text-xl/6 p-3 text-white w-[320px] z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
               {t("sprites_page_info")}
             </p>
           )}
@@ -54,7 +54,7 @@ export default function FrontImages() {
             className="h-125 w-80"
           />
           {over === "mangas" && (
-            <p className="absolute text-[20px] p-3 text-white w-80 z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
+            <p className="absolute text-xl/6 p-3 text-white w-80 z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
               {t("mangas_page_info")}
             </p>
           )}
@@ -72,11 +72,11 @@ export default function FrontImages() {
             className="h-125 w-80"
           />
           {over === "fanArts" && (
-            <p className="absolute text-[20px] p-3 text-white w-[320px] z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
+            <p className="absolute text-xl/6 p-3 text-white w-[320px] z-20 cursor-pointer top-12.5 left-0 pointer-events-none">
               {t("fanarts_page_info")}
             </p>
           )}
-          <p className="text-[23px]">{t("fanarts_page_header")}</p>
+          <p className="text-2xl">{t("fanarts_page_header")}</p>
         </button>
       </div>
     </div>

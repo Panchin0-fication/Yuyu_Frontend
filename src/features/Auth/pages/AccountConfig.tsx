@@ -141,7 +141,7 @@ export default function AccountConfig() {
   };
 
   const SECTION_CONFIG = "bg-white border-black border-2 p-1";
-  const SECTION_CONFIG_H = "flex cursor-pointer";
+  const SECTION_CONFIG_H = "flex cursor-pointer items-center";
   const SECTION_CONFIG_H2 = "text-2xl font-normal";
   const CONTENT_CONFIG = "pl-2.5 pr-2.5 pt-1";
 
@@ -172,7 +172,7 @@ export default function AccountConfig() {
             >
               <h2 className={SECTION_CONFIG_H2}>{t("languaje_header")}</h2>
               <IoMdArrowDropdown
-                className={`${"text-lg"} ${showConfigs.language ? "rotate-180" : ""}`}
+                className={`${"text-2xl"} ${showConfigs.language ? "rotate-180" : ""}`}
               />
             </header>
 
@@ -204,7 +204,7 @@ export default function AccountConfig() {
             >
               <h2 className={SECTION_CONFIG_H2}>{t("hide_tags_header")}</h2>
               <IoMdArrowDropdown
-                className={`${"text-lg"} ${showConfigs.hideTags ? "rotate-180" : ""}`}
+                className={`${"text-2xl"} ${showConfigs.hideTags ? "rotate-180" : ""}`}
               />
             </header>
 
@@ -217,7 +217,7 @@ export default function AccountConfig() {
               <p className="text-lg">{t("hide_tags_current")}</p>
               <div className="bg-white border-2 border-black flex gap-1 p-2.5 flex-wrap">
                 {hideTags.length === 0 && (
-                  <p className="text-[#656565] p-1 flex gap-1">
+                  <p className="text-[#656565]  p-1 flex gap-1">
                     {t("hide_tags_current_empty")}
                   </p>
                 )}
@@ -253,7 +253,7 @@ export default function AccountConfig() {
             >
               <h2 className={SECTION_CONFIG_H2}>{t("show_explicit_header")}</h2>
               <IoMdArrowDropdown
-                className={`${"text-lg"} ${showConfigs.showExplicit ? "rotate-180" : ""}`}
+                className={`${"text-2xl"} ${showConfigs.showExplicit ? "rotate-180" : ""}`}
               />
             </header>
 
@@ -279,7 +279,7 @@ export default function AccountConfig() {
             </div>
           </section>
           <button
-            className="bg-pink-600 text-white w-max p-1 text-lg rounded-sm m-auto hover:bg-pink-800"
+            className="bg-pink-600 text-white w-max py-4 px-1 cursor-pointer text-lg rounded-sm m-auto hover:bg-pink-800"
             onClick={() => {
               if (
                 (originalPref?.hideTags !== auxTag ||

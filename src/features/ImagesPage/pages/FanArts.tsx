@@ -272,7 +272,7 @@ export default function FanArts() {
                     tags.general.map((tag) => (
                       <p
                         key={tag}
-                        className="text-[#305091] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
+                        className="text-[#305091] w-max text-lg/5 hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}
@@ -287,7 +287,7 @@ export default function FanArts() {
                     tags.caracters.map((tag) => (
                       <p
                         key={tag}
-                        className="text-[#c72d2d] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
+                        className="text-[#c72d2d] w-max text-lg/5 hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}
@@ -304,7 +304,7 @@ export default function FanArts() {
                     tags.artist.map((tag) => (
                       <p
                         key={tag}
-                        className="text-[#b144ca] w-max text-[17px] hover:brightness-50 pl-3 cursor-pointer"
+                        className="text-[#b144ca] w-max text-lg/5 hover:brightness-50 pl-3 cursor-pointer"
                         onClick={() => {
                           addTag(tag);
                         }}

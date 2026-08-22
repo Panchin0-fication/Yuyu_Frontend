@@ -52,7 +52,7 @@ export default function Message({
         {toRedirect !== "" && (
           <div className="flex justify-center">
             <button
-              className="bg-blue-600 p-2.5 rounded-sm mt-2.5"
+              className="bg-blue-600 px-2.5 py-1 rounded-sm mt-2.5 cursor-pointer"
               onClick={onClick}
             >
               <p className="text-white text-lg">{t("button_continue")}</p>

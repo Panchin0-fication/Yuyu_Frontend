@@ -121,12 +121,12 @@ export default function Login() {
             icon={<FaLock className="text-lg" />}
             type="password"
           />
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2.5 leading-3">
             <Link to={"/auth/changePassword"}>
-              <p className="text-blue-700">{t("forgot_password")}</p>
+              <p className="text-blue-700 ">{t("forgot_password")}</p>
             </Link>
             <Link to={"/auth/create"}>
-              <p className="text-blue-700">{t("create_account")}</p>
+              <p className="text-blue-700 ">{t("create_account")}</p>
             </Link>
           </div>
 

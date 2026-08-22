@@ -39,7 +39,7 @@ export default function LogInput({
 
       {alert && <p className="text-red-600">{alert}</p>}
       <input
-        className="rounded-lg p-1.5 text-lg mb-2.5 border-black border-2 focus:border-pink-600"
+        className="rounded-lg p-0.5 text-lg mb-2.5 border-black border-2 focus:border-pink-600"
         value={inputValue}
         onChange={async (e: ChangeEvent<HTMLInputElement>) => {
           setInputs({ ...inputs, [field]: e.target.value });

@@ -201,9 +201,8 @@ export default function CreateAccount() {
           </button>
 
           <img
-            className="h-32 w-36"
+            className={`${"h-32 w-36"} ${loading ? "block" : "hidden"}`}
             src="/staticImgs/generalUse/kfc-kfcyuyuko.gif"
-            style={{ display: loading ? "block" : "none" }}
           />
         </div>
 

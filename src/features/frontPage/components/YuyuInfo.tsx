@@ -5,7 +5,7 @@ export default function YuyuInfo() {
     "bg-[url(/staticImgs/generalUse/yuyuko-saigyouji-cute.gif)] bg-center bg-cover hover:bg-[url(/staticImgs/generalUse/yuyuko-yuyuko-touhou.gif)] w-50 rounded-xl h-125";
 
   const BODY_TEXT =
-    "pt-5 pl-2.5 pr-2.5 text-xl font-medium text-shadow-[-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000]";
+    "pt-5 pl-2.5 pr-2.5 text-xl/6 font-medium text-shadow-[-0.5px_-0.5px_0_#000,0.5px_-0.5px_0_#000,-0.5px_0.5px_0_#000,0.5px_0.5px_0_#000]";
   return (
     <div className="grid grid-cols-3 place-items-center mt-3.5 mb-3.5">
       <div className={IMAGE_INFO}></div>

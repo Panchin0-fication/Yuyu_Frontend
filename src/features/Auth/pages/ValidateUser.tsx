@@ -250,7 +250,7 @@ export default function ValidateUser() {
               </div>
             )}
           </div>
-          <div className="text-blue-700 mt-3.5">
+          <div className="text-blue-700 mt-3.5 ">
             <header
               className="flex gap-3.5 items-center cursor-pointer"
               onClick={() => {
@@ -269,7 +269,7 @@ export default function ValidateUser() {
               <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
                 <p>{t("page_input_label_change_email")}</p>
                 <input
-                  className="w-56"
+                  className="w-56 p-1"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   type="text"
