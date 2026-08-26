@@ -25,6 +25,7 @@ export { default as TagsInterface } from "./ImagesPage/components/TagsInterface.
 export { default as FieldsFanArt } from "./ImagesPage/components/FieldsFanArt.js";
 export { default as PreviewImage } from "./ImagesPage/components/PreviewImage.js";
 export { default as MangaBrowser } from "./ImagesPage/components/MangaBrowser.js";
+export { default as Sprite } from "./ImagesPage/components/Sprite.js";
 
 //Auth pages
 export { default as CreateAccount } from "./Auth/pages/CreateAccount.js";

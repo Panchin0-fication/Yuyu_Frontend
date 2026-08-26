@@ -6,7 +6,7 @@ import {
   TextContainer,
   type endingSprite,
 } from "@shared";
-import { TitleSprites, ImageSpoiler } from "@features";
+import { TitleSprites, ImageSpoiler, Sprite } from "@features";
 import { MdKeyboardArrowUp } from "react-icons/md";
 export default function Sprites() {
   const { t } = useTranslation("images");
@@ -95,17 +95,17 @@ export default function Sprites() {
               voluptates! Sapiente illum nisi unde placeat"
         ></TitleSprites>
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
-          <img
+          <Sprite
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             src="staticImgs/generalUse/Sprites-touhou7-enemigos-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (8) Eiyashou  ~ Imperishable Night"
             src="staticImgs/generalUse/Sprites-touhou8-juagable-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (10.5) Hisouten ~ Scarlet Weather Rhapsody | Touhou (12.3) Hisoutensoku ~  Choudokyuu Ginyoru no Nazo o Oe"
             src="staticImgs/generalUse/Sprites-touhou10.5-juego-EDIT.png"
-            alt=""
           />
         </div>
 
@@ -120,17 +120,17 @@ export default function Sprites() {
               voluptates! Sapiente illum nisi unde placeat"
         ></TitleSprites>
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
-          <img
+          <Sprite
+            info="Touhou (8) Eiyashou  ~ Imperishable Night"
             src="staticImgs/generalUse/Sprites-touhou8-seleccion-EDIT1.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (10.5) Hisouten ~ Scarlet Weather Rhapsody"
             src="staticImgs/generalUse/Sprites-touhou10.5-seleccion-EDIT2.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (10.5) Hisouten ~ Scarlet Weather Rhapsody"
             src="staticImgs/generalUse/Sprites-touhou10.5-seleccion-EDIT1.png"
-            alt=""
           />
         </div>
 
@@ -145,22 +145,21 @@ export default function Sprites() {
               voluptates! Sapiente illum nisi unde placeat"
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
-          <img
+          <Sprite
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             src="staticImgs/generalUse/Sprites-touhou7-portadas-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             src="staticImgs/generalUse/Sprites-touhou8-dialogos-EDIT.png"
-            alt=""
           />
-          <img
-            className="w-[90vw] h-auto self-start"
+          <Sprite
+            info="Touhou (10.5) Hisouten ~ Scarlet Weather Rhapsody | Touhou (12.3) Hisoutensoku ~  Choudokyuu Ginyoru no Nazo o Oe"
             src="staticImgs/generalUse/Sprites.touhou10.5-portadas.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (13) Shinreibyoun ~ Ten Desires"
             src="staticImgs/generalUse/Sprites-touhou13-dialogos-EDIT.png"
-            alt=""
           />
         </div>
 
@@ -180,72 +179,84 @@ export default function Sprites() {
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT1.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[0]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT2.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[1]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT3.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[2]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT4.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[3]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT5.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[4]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT6.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[5]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT7.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[6]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-touhou7-finales-EDIT8.png"
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             endings={endings}
             setEndings={setEndings}
             ending={endings[7]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-Touhou8-finales-EDIT1.png"
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             endings={endings}
             setEndings={setEndings}
             ending={endings[8]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-Touhou8-finales-EDIT2.png"
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             endings={endings}
             setEndings={setEndings}
             ending={endings[9]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-Touhou8-finales-EDIT3.png"
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             endings={endings}
             setEndings={setEndings}
             ending={endings[10]}
           />
           <ImageSpoiler
             src="staticImgs/generalUse/Sprites-Touhou8-finales-EDIT4.png"
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             endings={endings}
             setEndings={setEndings}
             ending={endings[11]}
@@ -263,19 +274,22 @@ export default function Sprites() {
               voluptates! Sapiente illum nisi unde placeat"
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
-          <img
+          <Sprite
+            info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             src="staticImgs/generalUse/Sprites-touhou7-fondos-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (10.5) Hisouten ~ Scarlet Weather Rhapsody"
             src="staticImgs/generalUse/Sprites-touhou10.5-fondo.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou (12.3) Hisoutensoku ~  Choudokyuu Ginyoru no Nazo o Oe"
             src="staticImgs/generalUse/Sprites-touhou12.3-fondo.png"
-            alt=""
           />
-          <img src="staticImgs/generalUse/Th13Netherworld.jpg" alt="" />
+          <Sprite
+            info="Touhou (13) Shinreibyoun ~ Ten Desires"
+            src="staticImgs/generalUse/Th13Netherworld.jpg"
+          />
         </div>
 
         <TitleSprites
@@ -289,17 +303,17 @@ export default function Sprites() {
               voluptates! Sapiente illum nisi unde placeat"
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
-          <img
+          <Sprite
+            info="Touhou (8) Eiyashou ~ Imperishable Night"
             src="staticImgs/generalUse/Sprites-touhou8-loading-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou  Shinkirou ~ Hopeless Masquerade"
             src="staticImgs/generalUse/sprites-touhou13.5-defondo-EDIT.png"
-            alt=""
           />
-          <img
+          <Sprite
+            info="Touhou Hisouten ~ Scarlet Weather Rhapsody"
             src="staticImgs/generalUse/Sprites-touhou10.5-efectos.png"
-            alt=""
           />
         </div>
       </div>

@@ -142,6 +142,17 @@
   "manga_info_page": "Page:",
   "manga_no_pages": "No pages found...",
   "manga_all_option": "All",
+  "index_header": "Content",
+  "general_info_header": "Official Mangas",
+  "general_info_p": "In this section you can see pages of the official Touhou mangas in which Yuyuko appears, regularly as a secondary or tertiary character. The English translations shown are not official, corresponding credits will be listed.",
+  "silent_info": "A story which involves the moon and its inhabitants; the lunarians. The plot consists of the girls of the Scarlet Devil Mansion building a spaceship to go to the moon, meanwhile Yukari Yakumo hatches a plan against the Lunarians.",
+  "silent_credits": "Writer: ZUN | Illustrator: Aki★Eda | Translation group: Gaku Gaku Animal Land",
+  "foul_info": "Incidents in which a vengeful spirit is involved affect the residents of Gensokyo, Detective Satori must investigate.",
+  "foul_credits": "Writer: ZUN | Illustrators: Ginmokusei y Akimaki Yuu | Translation group: DB Scans",
+  "oriental_info": "A 'slide of life' that focuses on the three fairies of light getting into mischief.",
+  "oriental_credits": "Writer: ZUN | Illustrator: Makoto Hirasaka | Translation groups: Unknown (teesh)[Chapter 3], UMAD SCANS[Remaining chapters]",
+  "visionary_info": "The hell fairy Clownpiece joins the group of fairies of light, apart from that, there is an incident in which strange crystals appear in Gensokyo",
+  "visionary_credits": "Writer: ZUN | Illustrator: Makoto Hirasaka | Translation group: Alpha Beta Kappa",
 
   "429_error_code": "Request limit exceeded"
 }

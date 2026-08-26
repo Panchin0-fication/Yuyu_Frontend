@@ -142,6 +142,17 @@
   "manga_info_page": "Pagina:",
   "manga_no_pages": "Sin paginas encontradas...",
   "manga_all_option": "Todos",
+  "index_header": "Contenido",
+  "general_info_header": "Mangas oficiales",
+  "general_info_p": "En este apartado se podran ver paginas de los mangas oficiales de Touhou en los que aparezca Yuyuko, apareciendo como personaje secundario o terciario. Las traducciones al ingles que se muestran no son oficiales, creditos correspondientes seran listados.",
+  "silent_info": "Una historia la cual invlolucra a la luna y a sus habitantes; los lunarian. La trama consiste en que las chicas de la mansión escarlata construyen una nave espacial para ir a la luna, mientras tanto Yukari Yakumo trama un plan en contra de los lunarian.",
+  "silent_credits": "Escritor: ZUN | Ilustrador: Aki★Eda | Grupo de traducción: Gaku Gaku Animal Land",
+  "foul_info": "Incidentes en los que se ve involucrado un espiritu vengativo afectan a los recidentes de gensokyo, la detective Satori debere investigar al respecto",
+  "foul_credits": "Escritor: ZUN | Ilustradores: Ginmokusei y Akimaki Yuu | Grupo de traducción: DB Scans",
+  "oriental_info": "Un 'slide of life' que se enfoca en las tres hadas de la luz haciendo trabesuras.",
+  "oriental_credits": "Escritor: ZUN | Ilustrador: Makoto Hirasaka | Grupos de traducción: Desconocido (teesh)[Capitulo 3], UMAD SCANS[Resto de capitulos]",
+  "visionary_info": "La hada del infierno Clownpiece se une al grupo de las hadas de la luz, aparte, hay un incidente en el que aparecen cristales extraños en gensokyo",
+  "visionary_credits": "Escritor: ZUN | Ilustrador: Makoto Hirasaka | Grupo de traducción: Alpha Beta Kappa",
 
   "429_error_code": "Limite de solicitudes excedido"
 }

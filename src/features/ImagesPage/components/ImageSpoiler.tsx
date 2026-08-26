@@ -3,6 +3,7 @@ import { type endingSprite } from "@shared";
 
 type props = {
   src: string;
+  info: string;
   endings: endingSprite[];
   ending: endingSprite;
   setEndings: React.Dispatch<React.SetStateAction<endingSprite[]>>;
@@ -11,6 +12,7 @@ export default function ImageSpoiler({
   src,
   endings,
   ending,
+  info,
   setEndings,
 }: props) {
   const { t } = useTranslation("images");
@@ -37,6 +39,7 @@ export default function ImageSpoiler({
       >
         <p className={"  "}>{t("spoiler_label")}</p>
       </button>
+      <p>{info}</p>
     </div>
   );
 }

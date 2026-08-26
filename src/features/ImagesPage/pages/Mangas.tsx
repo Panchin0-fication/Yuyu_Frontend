@@ -15,7 +15,7 @@ export default function Mangas() {
       <div className="pt-5 grid grid-cols-[1fr_5fr] items-center gap-10">
         <ContentTable className="flex flex-col ">
           <ul className="w-max flex flex-col gap-1.5">
-            <h3>Contenido</h3>
+            <h3>{t("index_header")}</h3>
             <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
               <a href="#silent">1-Silent Sinner in Blue</a>
             </li>
@@ -30,27 +30,17 @@ export default function Mangas() {
             </li>
           </ul>
         </ContentTable>
-        <TextContainer className="h-full mt-0">
-          <h1>Mangas oficiales</h1>
-          <p>
-            texto explicando como esta organizados los mangas Lorem ipsum dolor
-            sit, amet consectetur adipisicing elit. Accusantium, beatae
-            voluptates! Sapiente illum nisi unde placeat nemo odio rerum autem
-            amet? Provident ratione aliquam laborum possimus, nihil unde iusto
-            hic.
-          </p>
+        <TextContainer className="h-full mt-0 text-">
+          <h1>{t("general_info_header")}</h1>
+          <p className="text-lg pt-2">{t("general_info_p")}</p>
         </TextContainer>
       </div>
 
       <TitleSprites
         id="silent"
         title={"Silent Sinner in Blue"}
-        info="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
-        credits="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
+        info={t("silent_info")}
+        credits={t("silent_credits")}
       ></TitleSprites>
 
       <MangaBrowser name="silent sinner in blue" />
@@ -58,12 +48,8 @@ export default function Mangas() {
       <TitleSprites
         id="foul"
         title={"Foul Detective Satori"}
-        info="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
-        credits="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
+        info={t("foul_info")}
+        credits={t("foul_credits")}
       ></TitleSprites>
 
       <MangaBrowser name="foul detective satori" />
@@ -71,12 +57,8 @@ export default function Mangas() {
       <TitleSprites
         id="oriental"
         title={"Oriental Sacred Place"}
-        info="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
-        credits="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
+        info={t("oriental_info")}
+        credits={t("oriental_credits")}
       ></TitleSprites>
 
       <MangaBrowser name="oriental sacred place" />
@@ -84,12 +66,8 @@ export default function Mangas() {
       <TitleSprites
         id="visionary"
         title={"Visionary Fairies in Shrine"}
-        info="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
-        credits="Lorem ipsum
-                    dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-                    voluptates! Sapiente illum nisi unde placeat"
+        info={t("visionary_info")}
+        credits={t("visionary_credits")}
       ></TitleSprites>
 
       <MangaBrowser name="visionary fairies in shrine" />
