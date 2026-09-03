@@ -56,6 +56,8 @@ export default function Mangas() {
         credits={t("foul_credits")}
       ></TitleSprites>
 
+      <MangaBrowser name="foul detective satori" />
+
       <TitleSprites
         id="strange"
         title={"Strange and Bright Nature Deity"}
@@ -64,8 +66,6 @@ export default function Mangas() {
       ></TitleSprites>
 
       <MangaBrowser name="strange and bright nature deity" />
-
-      <MangaBrowser name="foul detective satori" />
 
       <TitleSprites
         id="oriental"

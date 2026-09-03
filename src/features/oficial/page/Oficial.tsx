@@ -140,40 +140,40 @@ export default function Oficial() {
             <h1 id="seccion3">{t("official_info_appearances_header")}</h1>
             <h2 id="seccion3.1">{t("official_info_games_header")}</h2>
             <p>
-              -<a href="">Perfect Cherry Blossom</a>: {t("official_info_games_th7_p")}
+              -<a href="" className="font-bold">Perfect Cherry Blossom</a>: {t("official_info_games_th7_p")}
             </p>
             <p>
-              -<a href="">Imperishable Night</a>: {t("official_info_games_th8_p")}
+              -<a href="" className="font-bold">Imperishable Night</a>: {t("official_info_games_th8_p")}
             </p>
             <p>
-              -<a href="">Ten Desires</a>: {t("official_info_games_th13_p")}
+              -<a href="" className="font-bold">Ten Desires</a>: {t("official_info_games_th13_p")}
             </p>
             <p>
-              -<a href="">Immaterial and Missing Power</a>: Lorem ipsum dolor
+              -<a href="" className="font-bold">Immaterial and Missing Power</a>: Lorem ipsum dolor
               sit amet, consectetur adipisicing elit. Repellat nobis dignissimos
               unde tenetur! Eaque, corrupti alias consequuntur quisquam
               voluptate asperiores adipisci nulla consectetur tempore totam.
               Quia, veniam odio porro sunt sequi nulla sint repellendus magnam!
             </p>
             <p>
-              -<a href="">Shoot the Bullet</a>: Lorem ipsum dolor sit amet
+              -<a href="" className="font-bold">Shoot the Bullet</a>: Lorem ipsum dolor sit amet
               consectetur adipisicing elit. Eum quas, quisquam minima illo
               tenetur cumque commodi ab neque. Assumenda, sequi?
             </p>
             <p>
-              -<a href="">Scarlet Weather Rhapsody</a>: Lorem ipsum dolor sit
+              -<a href="" className="font-bold">Scarlet Weather Rhapsody</a>: Lorem ipsum dolor sit
               amet consectetur adipisicing elit. Dolor cum culpa consequatur ut
               voluptatibus reiciendis totam! Modi amet placeat excepturi unde
               rerum officia error numquam.
             </p>
             <p>
-              -<a href="">Touhou Hisoutensoku</a>: Lorem ipsum dolor sit, amet
+              -<a href="" className="font-bold">Touhou Hisoutensoku</a>: Lorem ipsum dolor sit, amet
               consectetur adipisicing elit. Aperiam, optio corporis consequatur
               voluptates, odit quas non ad delectus, quae nihil illo quam
               tempore minus odio?
             </p>
             <p>
-              -<a href="">Hopeless Masquerade</a>: Lorem, ipsum dolor sit amet
+              -<a href="" className="font-bold">Hopeless Masquerade</a>: Lorem, ipsum dolor sit amet
               consectetur adipisicing elit. Dicta non omnis itaque, veniam qui,
               deserunt ut delectus sunt nisi unde quae tempora repellat
               consectetur voluptate!
@@ -185,31 +185,19 @@ export default function Oficial() {
             </p>
             <h2 id="seccion3.2">{t("official_info_literature_header")}</h2>
             <p>
-              - <a href="">Silent Sinner in Blue</a>: {t("official_info_literature_ssib_p")}
+              - <a href="" className="font-bold">Silent Sinner in Blue</a>: {t("official_info_literature_ssib_p")}
             </p>
             <p>
-              -<a href="">Foul Detective Satori</a>: Parte de los primeros 
-              incidentes cayendo victima incluso pero luego despertando y 
-              tomando parte de ayudar en investigación pero solo durante el 
-              primer volumen del manga.
+              -<a href="" className="font-bold">Foul Detective Satori</a>: {t("official_info_literature_fds_p")}
             </p>
             <p>
-              -<a href="">Strange and Bright Nature Deity</a>: Solo aparece 
-              como personaje cameo en algunos capítulos
+              -<a href="" className="font-bold">Strange and Bright Nature Deity</a>: {t("official_info_literature_sbnd_p")}
             </p>
             <p>
-              -<a href="">Oriental Sacred Place.</a>: Aparece como personaje 
-              secundario en el 'test de coraje' organizado por el Santuario
-              Hakurei y las hadas de la luz donde manda a Youmu a participal
-              en el.
+              -<a href="" className="font-bold">Oriental Sacred Place.</a>: {t("official_info_literature_osp_p")}
             </p>
             <p>
-              -<a href="">Visionary Fairies in Shrine</a>: Aparece como terciario
-              en un capitu para observar el florecimiento de los arboles de 
-              cerezo junto a Youmu en el Santuario Hakurei, las tres hadas de
-              la luz junto a Clownpiece le juegan una broma a Youmu con la 
-              antorcha de la locura. Tambien aparece como personaje de fondo 
-              otros capitulos
+              -<a href="" className="font-bold">Visionary Fairies in Shrine</a>: {t("official_info_literature_vfs_p")}
             </p>
           </TextContainer>
           <div>
@@ -227,60 +215,53 @@ export default function Oficial() {
         <div className="flex gap-10">
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Youmu.png"
-            text="Sprite de Youmu en Touhou 7"
+            text={t("youmu_sprite_th7")}
             classImage="h-62.5 w-auto"
           />
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Yukari.png"
-            text="Sprite de Yukari en Touhou 7"
+            text={t("yukari_sprite_th7")}
             classImage="h-62.5 w-auto"
           />
           <TextContainer className="w-[70%]">
-            <h1 id="seccion4">Relaciones</h1>
-            <h2 id="seccion4.1">Youmu Konpaku</h2>
+            <h1 id="seccion4">{t("official_info_relationships_header")}</h1>
+            <h2 id="seccion4.1">{t("official_info_youmu_header")}</h2>
             <p>
-              Jardinera personal y secuaz de Yuyuko, muchas veces apareciendo
-              juntas y otras veces es enviada a hacer ciertas tareas fuera del
-              inframundo.
+              {t("official_info_youmu_p")}
             </p>
-            <h2 id="seccion4.2">Yukari Yakumo</h2>
+            <h2 id="seccion4.2">{t("official_info_yukari_header")}</h2>
             <p>
-              Amiga cercana de Yuyuko incluso antes de su muerte. Yukari le, 
-              permite conocer e incluso formar parte de sus planes con los que
-              es normalmente muy secretiva.
+              {t("official_info_yukari_p")}
             </p>
-            <h2 id="seccion4.3">Eiki Shiki</h2>
+            <h2 id="seccion4.3">{t("official_info_eiki_header")}</h2>
             <p>
-              El rol de Administradora de las almas de los muertos fue otorgado
-              por la Yama (Eiki), por lo que es conocida por Yuyuko y esta le tiene
-              respeto a Eiki
+             {t("official_info_eiki_p")}
             </p>
           </TextContainer>
         </div>
         <div>
           <TextContainer>
-            <h1 id="seccion5">Imagenes destacadas</h1>
+            <h1 id="seccion5">{t("official_info_highlights_header")}</h1>
           </TextContainer>
           <div className="flex gap-10">
             <ImagesWiki
               src="/staticImgs/generalUse/actual-drawings-made-by-zuns-wife-v0-faha70qce0ae1.jpg"
-              text="Yuyuko dibujada en Gartic Phone durante un stream entre Zun y sus
-            amigotes"
+              text={t("official_info_highlights_one")}
               classImage="w-72 h-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/Captura de pantalla 2025-07-09 163832.png"
-              text="Yuyuko dibujada por la esposa de Zun en Gartic Phone"
+              text={t("official_info_highlights_two")}
               classImage="w-72 h-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/Th08Yuyuko.png"
-              text="Sprite de Yuyuko en Touhou 8:Imperishable Night"
+              text={t("official_info_highlights_three")}
               classImage="h-73 w-auto"
             />
             <ImagesWiki
               src="/staticImgs/generalUse/yuyukoYyoumu.png"
-              text="Yuyuko y Youmu en Strange and Bright Nature Deity"
+              text={t("official_info_highlights_four")}
               classImage="h-73 w-auto"
             />
           </div>
