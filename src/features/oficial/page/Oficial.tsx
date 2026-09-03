@@ -20,172 +20,133 @@ export default function Oficial() {
 
         <div className="flex gap-10 items-center pt-4">
           <ContentTable className="flex flex-col gap-1 w-60">
-            <h3 className="titulo">Contenido</h3>
+            <h3 className="titulo">{t("official_index_header")}</h3>
 
             <a
               className="text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion1"
             >
-              1-Información general
+              {t("official_index_general_info")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion1.1"
             >
-              1.1-Diseño
+              {t("official_index_design")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion1.2"
             >
-              1.2-Habilidades
+              {t("official_index_abilities")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion1.3"
             >
-              1.3-Personalidad
+              {t("official_index_personality")}
             </a>
             <a
               className="text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion2"
             >
-              2-Transfondo
+              {t("official_index_lore")}
             </a>
             <a
               className="text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion3"
             >
-              3-Apariciones
+              {t("official_index_appearances")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion3.1"
             >
-              3.1-Juegos
+              {t("official_index_games")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion3.2"
             >
-              3.2-Mangas/Literatura
+              {t("official_index_literature")}
             </a>
             <a
               className="text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion4"
             >
-              4-Relaciones con personajes
+              {t("official_index_relationships")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion4.1"
             >
-              4.1-Youmu Konpaku
+              {t("official_index_youmu")}
             </a>
             <a
               className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion4.2"
             >
-              4.2-Yukari Yakumo
+              {t("official_index_yukari")}
+            </a>
+            <a
+              className="ml-3.75 text-blue-500 hover:border-b-2 border-b-blue-500"
+              href="#seccion4.2"
+            >
+              {t("official_index_eiki")}
             </a>
             <a
               className="text-blue-500 hover:border-b-2 border-b-blue-500"
               href="#seccion5"
             >
-              5-Imagenes destacadas
+              {t("official_index_highlights")}
             </a>
           </ContentTable>
           <TextContainer className="h-max w-[65%]">
-            <h1 id="seccion1">Informacion general</h1>
-            <h2 id="seccion1.1">Diseño</h2>
+            <h1 id="seccion1">{t("official_info_general_info_header")}</h1>
+            <h2 id="seccion1.1">{t("official_info_design_header")}</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-              aspernatur dolorum voluptates, doloremque impedit quas
-              exercitationem! Maiores deserunt vero quisquam in nisi porro nulla
-              accusamus repellat quos sequi. Ullam quis non suscipit expedita
-              ut! Suscipit ipsum ea aperiam recusandae enim quas nesciunt
-              impedit esse eos in? Ipsa aliquid molestiae temporibus possimus
-              iste suscipit accusantium culpa sint maiores quod, mollitia
-              delectus.
+              {t("official_info_design_p")}
             </p>
-            <h2 id="seccion1.2">Habilidades</h2>
+            <h2 id="seccion1.2">{t("official_info_abilities_header")}</h2>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic ea
-              voluptate mollitia vitae distinctio dolorum vero possimus
-              laudantium aspernatur obcaecati alias cupiditate, voluptatem
-              facilis dolor culpa quia sunt libero nostrum ratione corporis!
-              Ipsam rerum accusamus accusantium quod quam sit enim eos
-              necessitatibus ipsa. Voluptatum tempore nostrum iusto minima, quos
-              molestias exercitationem hic, numquam vero veniam laborum
-              consectetur illo voluptatem dicta!
+              {t("official_info_abilities_p")}
             </p>
-            <h2 id="seccion1.3">Personalidad</h2>
+            <h2 id="seccion1.3">{t("official_info_personality_header")}</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-              tempora porro necessitatibus, eveniet quod a veritatis adipisci
-              magni accusantium! Debitis unde voluptates, perspiciatis ad autem
-              ut iusto. Explicabo, adipisci minus, rerum deserunt quae ad harum
-              quo corrupti ex iure, maxime optio perferendis. Omnis suscipit
-              perspiciatis sequi voluptates, nostrum saepe a eum sapiente nihil
-              doloremque pariatur ratione sunt quam velit commodi.
+              {t("official_info_personality_p")}
             </p>
           </TextContainer>
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Yuyuko.png"
-            text="Sprite de Perfect Cherry Blossom"
+            text={t("yuyuko_sprite_th7")}
           ></ImagesWiki>
         </div>
         <div className="flex gap-11.75">
           <ImagesWiki
             src="/staticImgs/generalUse/Th07ayakashi01.png"
-            text="Saigyou Ayakashi"
+            text={t("ayakashi_sprite_th7")}
             classImage="h-50 w-auto"
           ></ImagesWiki>
 
           <TextContainer className={"w-[85%]"}>
-            <h1 id="seccion2">Transfondo</h1>
+            <h1 id="seccion2">{t("official_info_lore_header")}</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              sequi ea voluptatibus quae, fugit doloribus aliquid ullam enim
-              corrupti iure maiores optio magni in inventore placeat qui
-              sapiente facere provident, necessitatibus, excepturi quia. Culpa
-              exercitationem inventore, excepturi nulla aperiam tenetur impedit
-              deserunt recusandae illum assumenda nesciunt reiciendis cupiditate
-              soluta magni delectus eum veniam fugit est, vel quisquam molestias
-              natus quibusdam?
+              {t("official_info_lore_p")}
             </p>
           </TextContainer>
         </div>
         <div className="flex gap-10">
           <TextContainer className="w-[85%]">
-            <h1 id="seccion3">Apariciones</h1>
-            <h2 id="seccion3.1">Juegos</h2>
+            <h1 id="seccion3">{t("official_info_appearances_header")}</h1>
+            <h2 id="seccion3.1">{t("official_info_games_header")}</h2>
             <p>
-              -<a href="">Perfect Cherry Blossom</a>: Lorem ipsum dolor sit,
-              amet consectetur adipisicing elit. Nemo sit perferendis asperiores
-              sint hic assumenda similique laudantium rem nostrum dignissimos
-              corporis sequi animi quisquam, neque consequatur architecto
-              dolorem nam quae atque. Blanditiis, laudantium eligendi. Fuga
-              magni optio maiores nobis commodi exercitationem, iure aperiam, ea
-              illo rerum, nostrum molestias quidem. Accusantium!
+              -<a href="">Perfect Cherry Blossom</a>: {t("official_info_games_th7_p")}
             </p>
             <p>
-              -<a href="">Imperishable Night</a>: Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Voluptatibus, eaque animi
-              consectetur consequuntur fugiat dolores hic voluptate temporibus
-              odio similique fugit! Tenetur modi animi omnis, possimus
-              laboriosam molestias iste quam obcaecati blanditiis maxime
-              repudiandae ipsum praesentium temporibus dolorum error id rerum
-              sunt vitae quaerat, porro odit veritatis quos deleniti
-              dignissimos.
+              -<a href="">Imperishable Night</a>: {t("official_info_games_th8_p")}
             </p>
             <p>
-              -<a href="">Ten Desires</a>: Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Animi explicabo laboriosam veniam
-              aperiam iste amet in maiores, hic molestiae laborum praesentium
-              nam rem optio accusamus ex qui numquam vero minima doloremque
-              pariatur alias modi ab eos! Nesciunt a accusantium rem dolor non
-              facere, sapiente quis facilis impedit atque voluptate repudiandae?
+              -<a href="">Ten Desires</a>: {t("official_info_games_th13_p")}
             </p>
             <p>
               -<a href="">Immaterial and Missing Power</a>: Lorem ipsum dolor
@@ -222,34 +183,33 @@ export default function Oficial() {
               consectetur adipisicing elit. Pariatur expedita tenetur, ut labore
               provident incidunt cum quos fugiat vero nemo.
             </p>
-            <h2 id="seccion3.2">Mangas</h2>
+            <h2 id="seccion3.2">{t("official_info_literature_header")}</h2>
             <p>
-              - <a href="">Silent Sinner in Blue</a>: Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Soluta neque mollitia, expedita
-              cupiditate voluptatum asperiores eos, at deleniti quam eum
-              molestiae inventore animi ipsam labore dignissimos iure! Officia,
-              voluptates quos.
+              - <a href="">Silent Sinner in Blue</a>: {t("official_info_literature_ssib_p")}
             </p>
             <p>
-              -<a href="">Foul Detective Satori</a>: Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Deserunt quos ab voluptatibus vitae
-              nihil explicabo incidunt dolores quia cum. Earum laborum
-              laboriosam optio delectus nobis ipsam saepe expedita, cupiditate
-              eum!
+              -<a href="">Foul Detective Satori</a>: Parte de los primeros 
+              incidentes cayendo victima incluso pero luego despertando y 
+              tomando parte de ayudar en investigación pero solo durante el 
+              primer volumen del manga.
             </p>
             <p>
-              -<a href="">Whispered Oracle of Hakurei Shrine</a>: Lorem ipsum,
-              dolor sit amet consectetur adipisicing elit. Voluptatibus nostrum
-              recusandae sed ducimus. Totam necessitatibus repellendus, at illo
-              facere, quos, vel deleniti laboriosam alias nulla pariatur nemo
-              soluta aut natus?
+              -<a href="">Strange and Bright Nature Deity</a>: Solo aparece 
+              como personaje cameo en algunos capítulos
             </p>
             <p>
-              -<a href="">Strange and Bright Nature Deity</a>: Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Quidem, asperiores
-              veritatis? Nihil rerum unde, soluta corrupti in deleniti pariatur
-              tempora alias expedita tempore cumque amet commodi mollitia
-              deserunt quia perspiciatis!
+              -<a href="">Oriental Sacred Place.</a>: Aparece como personaje 
+              secundario en el 'test de coraje' organizado por el Santuario
+              Hakurei y las hadas de la luz donde manda a Youmu a participal
+              en el.
+            </p>
+            <p>
+              -<a href="">Visionary Fairies in Shrine</a>: Aparece como terciario
+              en un capitu para observar el florecimiento de los arboles de 
+              cerezo junto a Youmu en el Santuario Hakurei, las tres hadas de
+              la luz junto a Clownpiece le juegan una broma a Youmu con la 
+              antorcha de la locura. Tambien aparece como personaje de fondo 
+              otros capitulos
             </p>
           </TextContainer>
           <div>
@@ -279,23 +239,21 @@ export default function Oficial() {
             <h1 id="seccion4">Relaciones</h1>
             <h2 id="seccion4.1">Youmu Konpaku</h2>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia
-              et eius dolore distinctio delectus labore amet accusamus quod
-              tempora cupiditate totam nobis ab aut cum dicta dignissimos
-              placeat corrupti, veniam, quibusdam incidunt corporis? Totam
-              laborum neque fugit excepturi, id quaerat voluptas vero dolorum,
-              atque doloremque similique nulla dolor eos ut sit corrupti,
-              aspernatur eaque! Distinctio?
+              Jardinera personal y secuaz de Yuyuko, muchas veces apareciendo
+              juntas y otras veces es enviada a hacer ciertas tareas fuera del
+              inframundo.
             </p>
             <h2 id="seccion4.2">Yukari Yakumo</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              quod perferendis quia quisquam blanditiis libero, aliquam
-              voluptate assumenda, rem aliquid a optio at delectus recusandae
-              praesentium veniam commodi natus iusto excepturi accusantium
-              beatae voluptatum tenetur esse similique? Magni, iure incidunt hic
-              consectetur perspiciatis perferendis earum esse quasi atque eum
-              sapiente enim, rem animi ducimus itaque.
+              Amiga cercana de Yuyuko incluso antes de su muerte. Yukari le, 
+              permite conocer e incluso formar parte de sus planes con los que
+              es normalmente muy secretiva.
+            </p>
+            <h2 id="seccion4.3">Eiki Shiki</h2>
+            <p>
+              El rol de Administradora de las almas de los muertos fue otorgado
+              por la Yama (Eiki), por lo que es conocida por Yuyuko y esta le tiene
+              respeto a Eiki
             </p>
           </TextContainer>
         </div>

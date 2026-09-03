@@ -23,11 +23,15 @@ export default function Mangas() {
               <a href="#foul">2-Foul Detective Satori</a>
             </li>
             <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
-              <a href="#oriental">3-Oriental Sacred Place</a>
+              <a href="#strange">3-Strange and Bright Nature Deity</a>
             </li>
             <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
-              <a href="#visionary">4-Visionary Fairies in Shrine</a>
+              <a href="#oriental">4-Oriental Sacred Place</a>
             </li>
+            <li className="pl-4 text-blue-500 hover:border-b-2 border-blue-500 w-max">
+              <a href="#visionary">5-Visionary Fairies in Shrine</a>
+            </li>
+            
           </ul>
         </ContentTable>
         <TextContainer className="h-full mt-0 text-">
@@ -51,6 +55,15 @@ export default function Mangas() {
         info={t("foul_info")}
         credits={t("foul_credits")}
       ></TitleSprites>
+
+      <TitleSprites
+        id="strange"
+        title={"Strange and Bright Nature Deity"}
+        info={t("strange_info")}
+        credits={t("strange_credits")}
+      ></TitleSprites>
+
+      <MangaBrowser name="strange and bright nature deity" />
 
       <MangaBrowser name="foul detective satori" />
 

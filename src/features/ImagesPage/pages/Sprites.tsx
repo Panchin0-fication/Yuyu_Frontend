@@ -23,6 +23,8 @@ export default function Sprites() {
     { hidden: true, id: "ending10" },
     { hidden: true, id: "ending11" },
     { hidden: true, id: "ending12" },
+    { hidden: true, id: "ending13" },
+    { hidden: true, id: "ending14" },
   ]);
 
   return (
@@ -33,7 +35,7 @@ export default function Sprites() {
           isInPage={true}
           header={t("header_sprites")}
         ></HeaderPages>
-        <a href="#inicio" className="flecha-inicio">
+        <a href="#inicio">
           <MdKeyboardArrowUp className="fixed transform translate-y-[-16vh] ml-[95vw] w-10 h-12.5 text-black" />
         </a>
       </header>
@@ -87,17 +89,17 @@ export default function Sprites() {
         <TitleSprites
           id="gameplay"
           title={t("header_gameplay_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_gameplay")}
+          credits={t("sprites_credits_zun_twi")}
         ></TitleSprites>
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <Sprite
             info="Touhou (7) Youyoumu ~ Perfect Cherry Blossom"
             src="staticImgs/generalUse/Sprites-touhou7-enemigos-EDIT.png"
+          />
+          <Sprite
+            info="Touhou (13) Shinreibyoun ~ Ten Desires"
+            src="staticImgs/generalUse/Sprites-touhou13-enemigos-EDIT.png"
           />
           <Sprite
             info="Touhou (8) Eiyashou  ~ Imperishable Night"
@@ -112,12 +114,8 @@ export default function Sprites() {
         <TitleSprites
           id="seleccion"
           title={t("header_character_selection_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_selection")}
+          credits={t("sprites_credits_zun_twi")}
         ></TitleSprites>
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <Sprite
@@ -137,12 +135,8 @@ export default function Sprites() {
         <TitleSprites
           id="dialogos"
           title={t("header_dialogues_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_dialogues")}
+          credits={t("sprites_credits_zun_twi")}
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <Sprite
@@ -166,12 +160,8 @@ export default function Sprites() {
         <TitleSprites
           id="finales"
           title={t("header_endings_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_endings")}
+          credits={t("sprites_credits_zun")}
           endings={endings}
           setEndings={setEndings}
         />
@@ -261,17 +251,27 @@ export default function Sprites() {
             setEndings={setEndings}
             ending={endings[11]}
           />
+          <ImageSpoiler
+            src="staticImgs/generalUse/th9_ending_1.png"
+            info="Touhou (9) Kaeizuka ~ Phantasmagoria of Flower View "
+            endings={endings}
+            setEndings={setEndings}
+            ending={endings[12]}
+          />
+          <ImageSpoiler
+            src="staticImgs/generalUse/th9_ending_2.png"
+            info="Touhou (9) Kaeizuka ~ Phantasmagoria of Flower View "
+            endings={endings}
+            setEndings={setEndings}
+            ending={endings[13]}
+          />
         </div>
 
         <TitleSprites
           id="fondos"
           title={t("header_backgrounds_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_background")}
+          credits={t("sprites_credits_zun_twi")}
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <Sprite
@@ -295,12 +295,8 @@ export default function Sprites() {
         <TitleSprites
           id="otros"
           title={t("header_others_info")}
-          info="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
-          credits="Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Accusantium, beatae
-              voluptates! Sapiente illum nisi unde placeat"
+          info={t("sprites_info_other")}
+          credits={t("sprites_credits_zun_twi")}
         />
         <div className="mt-5 ml-5 flex flex-row justify-start flex-wrap gap-2.5 [&>img]:self-start">
           <Sprite
@@ -308,11 +304,11 @@ export default function Sprites() {
             src="staticImgs/generalUse/Sprites-touhou8-loading-EDIT.png"
           />
           <Sprite
-            info="Touhou  Shinkirou ~ Hopeless Masquerade"
+            info="Touhou (13.5) Shinkirou ~ Hopeless Masquerade"
             src="staticImgs/generalUse/sprites-touhou13.5-defondo-EDIT.png"
           />
           <Sprite
-            info="Touhou Hisouten ~ Scarlet Weather Rhapsody"
+            info="Touhou Hisouten (10.5) ~ Scarlet Weather Rhapsody"
             src="staticImgs/generalUse/Sprites-touhou10.5-efectos.png"
           />
         </div>

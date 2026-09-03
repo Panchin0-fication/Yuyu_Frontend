@@ -23,11 +23,11 @@ export default function FrontImages() {
         header={t("header_front")}
       />
       <NavSecondary actualPage="images" classNameExtra="w-[95%] mx-auto" />
-      <div className="grid grid-cols-3 gap-12.5 justify-center pt-3.75 pb-12.5 w-[95%] mx-auto">
+      <div className="grid grid-cols-3 gap-12.5 justify-center pt-3.75 pb-12.5 w-[95%] mx-auto min-h-screen">
         <button
           onMouseOverCapture={(): void => handleMouseOver("sprites")}
           onMouseOut={handleMouseOut}
-          className="justify-self-center border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
+          className="justify-self-center h-max border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
           onClick={(): void => handleClick("sprites")}
         >
           <img
@@ -43,7 +43,7 @@ export default function FrontImages() {
           <p className="text-[23px]">{t("sprites_page_header")}</p>
         </button>
         <button
-          className="justify-self-center border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
+          className="justify-self-center h-max border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
           onMouseOverCapture={(): void => handleMouseOver("mangas")}
           onMouseOut={handleMouseOut}
           onClick={(): void => handleClick("mangas")}
@@ -61,7 +61,7 @@ export default function FrontImages() {
           <p className="text-[23px]">{t("mangas_page_header")}</p>
         </button>
         <button
-          className="justify-self-center border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
+          className="justify-self-center h-max border-none bg-transparent group relative cursor-pointer hover:after:absolute after:content-[''] hover:after:top-0 after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-[#030000] hover:after:opacity-30 hover:after:z-10"
           onMouseOverCapture={(): void => handleMouseOver("fanArts")}
           onMouseOut={handleMouseOut}
           onClick={(): void => handleClick("fanArts")}
