@@ -359,6 +359,7 @@ export default function TagsInterface({
                         </p>
                         <div className="flex items-center">
                           <input
+                            className="text-black bg-white border-black border-2 "
                             type="text"
                             value={nameChange}
                             onChange={(e) => setNameChange(e.target.value)}
@@ -432,7 +433,7 @@ export default function TagsInterface({
             <div className="flex flex-col gap-2.5 items-center">
               <input
                 type="text"
-                className="flex m-auto border-[3px] border-black text-2xl p-1"
+                className="flex m-auto border-[3px] border-black text-2xl p-1 text-black bg-white"
                 value={inputs.addTag}
                 onChange={(e) =>
                   setInputs({ addTag: e.target.value, search: inputs.search })

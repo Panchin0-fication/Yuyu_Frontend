@@ -18,6 +18,7 @@
   "log_info_p_two": "You will be able to access most sections and features of the webpage, so it is not necessary; the biggest restriction of not having a session is that you will not be able to upload FanArts.",
   "log_info_p_three": "Press continue to create an account.",
   "log_login_button": "Log in",
+  "log_logout_button":"Log out",
   "log_config_button": "Configuration",
   "log_info_button": "Information",
   "log_not_loged_name": "Ghost",

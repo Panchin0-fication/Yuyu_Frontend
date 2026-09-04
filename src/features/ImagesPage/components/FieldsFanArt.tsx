@@ -62,6 +62,7 @@ export default function FieldsFanArt({
                 <p>{t("body_select_file_p_one")}</p>
                 <p>{t("body_select_file_p_two")}</p>
                 <input
+                  className="hidden"
                   onChange={() => {
                     if (!fileRef.current) return;
                     if (
@@ -97,7 +98,6 @@ export default function FieldsFanArt({
                     }
                   }}
                   ref={fileRef}
-                  className="hidden"
                   type="file"
                   accept=".png, .jpg, .jpeg"
                 />
@@ -215,7 +215,7 @@ export default function FieldsFanArt({
           <p>{t("body_enter_link_p_three")}</p>
           <div className="flex gap-1.25">
             <input
-              className={`${"border-[3px] w-87 p-1.5"} ${!editLink ? "text-gray-400" : ""}`}
+              className={`${"border-[3px] w-87 p-1.5 text-black bg-white border-black "} ${!editLink ? "text-gray-400" : ""}`}
               value={inputs.originalLink}
               onChange={(e) =>
                 setInputs({ ...inputs, originalLink: e.target.value })

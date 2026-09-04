@@ -269,7 +269,7 @@ export default function ValidateUser() {
               <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
                 <p>{t("page_input_label_change_email")}</p>
                 <input
-                  className="w-56 p-1"
+                  className="w-56 p-1 text-black bg-white border-black border-2"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   type="text"

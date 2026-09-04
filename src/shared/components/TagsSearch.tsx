@@ -119,9 +119,9 @@ export default function TagsSearch({
   return (
     <section className={extraStyles}>
       <div className="flex gap-2.5 justify-center">
-        <input
+        <input 
           type="text"
-          className="flex border-[3px] text-xl border-black p-1.25"
+          className="flex border-[3px] text-xl border-black p-1.25 text-black bg-white"
           value={search}
           placeholder={"All"}
           onChange={(e) => {

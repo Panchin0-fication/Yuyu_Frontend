@@ -53,13 +53,27 @@ export default function UserLog() {
           className={`${"absolute flex flex-col gap-0.5 p-0.5 bg-gray-600 -translate-y-25"} ${showOptions ? "flex" : "hidden"}`}
           onMouseOut={() => setOptionHover("")}
         >
+          {!username && 
+          
           <span
             className={`${optionHover === "login" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("login")}
             onClick={goToLogin}
           >
             {t("log_login_button")}
-          </span>
+          </span>}
+
+          {username && <span
+            className={`${optionHover === "close" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
+            onMouseOver={() => setOptionHover("close")}
+            onClick={()=>{
+              localStorage.removeItem("token"); 
+              location.reload();
+            }}
+          >
+            {t("log_logout_button")}
+          </span>}
+          
           <span
             className={`${optionHover === "config" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("config")}
@@ -67,13 +81,16 @@ export default function UserLog() {
           >
             {t("log_config_button")}
           </span>
+          {!username && 
           <span
             className={`${optionHover === "info" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("info")}
             onClick={() => setShowInfo(true)}
           >
             {t("log_info_button")}
-          </span>
+          </span>}
+
+          
         </div>
 
         <div

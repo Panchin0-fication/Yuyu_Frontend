@@ -21,6 +21,8 @@
   "info_message_add_fan_art_li_three": "Link original del FanArt y el nombre de usuario de los autores",
   "info_message_add_fan_art_p_two": "Despues de publicar el FanArt debes de esperar a que los administradores lo acepten para que todos los usuarios pudan verlo",
   "show_original": "Mostar calidad original",
+  "message_unexisting_tag":"Tags no existente",
+  "NO_FANARTSFOUND":"Un tag a buscar no existe",
   "header_post_fanart": "Publicar Fan Arts",
   "header_validate_fanart": "Validar FanArt",
   "message_header_no_loged_in": "Sin sesión",

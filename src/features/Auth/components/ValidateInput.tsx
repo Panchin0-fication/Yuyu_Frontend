@@ -26,7 +26,7 @@ export default function ValidateInput({
       <p className="text-2xl font-medium w-max mt-3">{t(header)}</p>
       <div className="mt-2 flex gap-2 items-center w-max">
         <input
-          className="w-96 rounded-sm border-2 border-black focus:border-pink-600 p-1"
+          className="w-96 rounded-sm focus:border-pink-600 p-1 text-black bg-white border-black border-2"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
           type="text"

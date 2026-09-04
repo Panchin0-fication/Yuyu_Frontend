@@ -54,11 +54,6 @@ h1 {
   padding: 0px;
   margin: 0px;
 }
-input {
-  border: 2px solid black;
-  color: black;
-  background-color: white;
-}
 input:focus {
   outline: none;
 }

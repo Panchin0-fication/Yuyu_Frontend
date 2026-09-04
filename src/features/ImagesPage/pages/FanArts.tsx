@@ -20,6 +20,8 @@ import {
   MdArrowBack,
   MdArrowForward,
 } from "react-icons/md";
+import { HiOutlineXMark } from "react-icons/hi2";
+
 export default function FanArts() {
   //Used in all the page
   const { t } = useTranslation("images");
@@ -70,7 +72,7 @@ export default function FanArts() {
     setLoading(false);
   }
 
-  async function render(newActiveTags = false): Promise<void> {
+  async function render(searchStr = "", newActiveTags=false): Promise<void> {
     setLoading(true);
     setUnique(null);
     setShowOriginal(false);
@@ -82,11 +84,12 @@ export default function FanArts() {
         .map((tag) => `tags=${encodeURIComponent(tag)}`)
         .join("&");
     } else {
-      queryString = search
+      queryString = searchStr
         .split(" ")
         .map((tag) => `tags=${encodeURIComponent(tag)}`)
         .join("&");
     }
+    
     function errorResonse(): boolean {
       setMessage(
         <Message
@@ -100,7 +103,6 @@ export default function FanArts() {
       setLoading(false);
       return true;
     }
-
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/fanArts/tags/${page}?${queryString}`,
       {
@@ -117,6 +119,20 @@ export default function FanArts() {
     if (!res.success) if (errorResonse()) return;
 
     let data = res.fanArts;
+
+    if(data.length === 0){
+      setMessage(
+        <Message
+          header={t("message_unexisting_tag")}
+          text={t(res.code)}
+          type="error"
+          setMessage={setMessage}
+          toRedirect=""
+        />,
+      );
+      setLoading(false);
+      return
+    }
 
     page <= 1 ? setLeftArrow(false) : setLeftArrow(true);
     data.length === 9 ? setRightArrow(true) : setRightArrow(false);
@@ -175,12 +191,17 @@ export default function FanArts() {
     setLoading(false);
   }
 
-  function addTag(tag: string) {
+  async function addTag(tag: string):Promise<void> {
+    var searchString;
     if (search === "") {
+      searchString = tag
       setSearch(`${tag}`);
     } else {
+      searchString = search + " " + `${tag}`
       setSearch(search + " " + `${tag}`);
     }
+    setActiveSearch(searchString)
+    await render(searchString, true);
   }
 
   function onCancel(): void {
@@ -243,21 +264,26 @@ export default function FanArts() {
                     />
                   </div>
 
-                  <input
-                    onChange={(e) => {
-                      setSearch(e.target.value);
-                    }}
-                    placeholder="All"
-                    value={search}
-                    type="text"
-                    className="p-1"
-                  />
+                  <div className="text-black bg-white border-black border-2 flex gap-1 items-center">
+                    <input
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                      }}
+                      placeholder="All"
+                      value={search}
+                      type="text"
+                      className="p-1"
+                    />
+                    <HiOutlineXMark className="text-lg cursor-pointer" onClick={()=>setSearch("")}/>
+                  </div>
+
                   <button
+                    className="cursor-pointer"
                     onClick={async () => {
                       if (!loading) {
                         setPage(1);
                         setActiveSearch(search);
-                        await render(true);
+                        await render(search, true);
                       }
                     }}
                   >

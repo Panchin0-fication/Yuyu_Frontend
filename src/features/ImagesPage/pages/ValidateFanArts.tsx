@@ -470,6 +470,7 @@ export default function ValidateFanArts() {
         <h2>{t("reject_fan_art_subheader")}</h2>
         <div className="items-center flex gap-2.5">
           <input
+            className="text-black bg-white border-black border-2"
             onChange={() => {
               incorrectLinkRef.current = !incorrectLinkRef.current;
             }}
@@ -479,6 +480,7 @@ export default function ValidateFanArts() {
         </div>
         <div className="items-center flex gap-2.5">
           <input
+            className="text-black bg-white border-black border-2"
             onChange={() => {
               lowResolutionRef.current = !lowResolutionRef.current;
             }}
@@ -488,6 +490,7 @@ export default function ValidateFanArts() {
         </div>
         <div className="items-center flex gap-2.5">
           <input
+            className="text-black bg-white border-black border-2"
             onChange={() => (artistIssueRef.current = !artistIssueRef.current)}
             type="checkbox"
           />
@@ -495,6 +498,7 @@ export default function ValidateFanArts() {
         </div>
         <div className="items-center flex gap-2.5">
           <input
+            className="text-black bg-white border-black border-2"
             onChange={() => (noYuyukoRef.current = !noYuyukoRef.current)}
             type="checkbox"
           />

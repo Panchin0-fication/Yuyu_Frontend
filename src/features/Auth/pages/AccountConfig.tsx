@@ -267,6 +267,7 @@ export default function AccountConfig() {
                 <p className="text-lg">{t("show_explicit_label")}</p>
                 <input
                   checked={explicitBox}
+                  className="text-black bg-white border-black border-2"
                   onChange={() => setExplicitBox(!explicitBox)}
                   type="checkbox"
                 />

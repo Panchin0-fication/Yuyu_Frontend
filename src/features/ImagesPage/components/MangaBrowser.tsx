@@ -161,7 +161,7 @@ export default function MangaBrowser({ name }: props) {
         ></Select>
         <h2 className="text-3xl">{t("mangas_searcher_num")}</h2>
         <input
-          className="p-2.5 border-2 border-gray-400 hover:border-black w-15"
+          className="p-2.5 border-2 border-gray-400 hover:border-black w-15 text-black bg-white"
           placeholder="3"
           type="text"
           value={lot}

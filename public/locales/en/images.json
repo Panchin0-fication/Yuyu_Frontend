@@ -21,6 +21,8 @@
   "info_message_add_fan_art_li_three": "Original link to the FanArt and the user name of the authors",
   "info_message_add_fan_art_p_two": "After posting your FanArt, you must wait for the administrators to approve it so that all users can see it.",
   "show_original": "Show original quality",
+  "message_unexisting_tag":"Non-existent tags",
+  "NO_FANARTSFOUND":"A tag to search for does not exist",
   "header_post_fanart": "Post Fan Arts",
   "header_validate_fanart": "Validate FanArt",
   "message_header_no_loged_in": "Not logged in",
