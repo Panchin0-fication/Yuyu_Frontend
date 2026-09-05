@@ -41,7 +41,6 @@ export default function FieldsFanArt({
     if (mode === "verify") {
       setEditLink(false);
     }
-    console.log("ESE FER", fileRef?.current.files);
   }, []);
   const [message, setMessage] = useState<ReactNode | null>(null);
   const BOLD_CONFIG = <span className="font-medium whitespace-nowrap"></span>;

@@ -60,9 +60,9 @@ export default function TitleSprites({
         className={`grid grid-cols-[3%_97%] text-lg items-center gap-2.5 transition-opacity duration-300 ease-out ${arrow ? "opacity-0" : ""}`}
       >
         <MdInfo className="w-7.5 h-7.5" />
-        <p className="font-['Yanone_Kaffeesatz'] font-normal text-lg">{info}</p>
+        <p className="font-normal text-lg">{info}</p>
         <MdPerson className="w-7.5 h-7.5" />
-        <p className="font-yanone font-normal text-lg">{credits}</p>
+        <p className="font-normal text-lg">{credits}</p>
       </TextContainer>
     </>
   );

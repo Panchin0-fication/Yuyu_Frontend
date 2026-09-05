@@ -259,7 +259,6 @@ export default function PostFanArt() {
 
       const resCloudinary = (await responseCloudinary.json()) as withUrl;
       if (!resCloudinary.success) {
-        console.log("PUTO FERCHO", resCloudinary);
         return;
       }
       fanArtObject["src"] = resCloudinary.url;

@@ -106,12 +106,12 @@ export default function MangaBrowser({ name }: props) {
     getData();
   }, []);
 
-  const isInitialMount = useRef(0);
+  const isInitialMount = useRef(true);
   const timerRef = useRef<number | null>(null);
   useEffect(() => {
-    if (isInitialMount.current <= 1) {
-      isInitialMount.current = isInitialMount.current + 1;
-    } else if (isInitialMount.current >= 2) {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    } else {
       if (timerRef.current !== null) {
         window.clearTimeout(timerRef.current);
       }

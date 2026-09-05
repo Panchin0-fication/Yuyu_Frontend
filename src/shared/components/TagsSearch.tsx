@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { type tag, TagLabel, type change } from "@shared";
 import { useTranslation } from "react-i18next";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { LuRefreshCw } from "react-icons/lu";
 
 type props = {
   numberTags?: number;
@@ -128,11 +129,7 @@ export default function TagsSearch({
             setSearch(e.target.value);
           }}
         />
-        <img
-          src="/icons/autorenew.svg"
-          className={`animate-spin ${loading ? "visible" : "hidden"}`}
-          alt=""
-        />
+        <LuRefreshCw className={`animate-spin text-lg ${loading ? "visible" : "hidden"}`}/>
       </div>
 
       {tags && (
