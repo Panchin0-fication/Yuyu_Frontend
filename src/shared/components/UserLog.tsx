@@ -50,13 +50,13 @@ export default function UserLog() {
       </div>
       <div className="m-auto">
         <div
-          className={`${"absolute flex flex-col gap-0.5 p-0.5 bg-gray-600 -translate-y-25"} ${showOptions ? "flex" : "hidden"}`}
+          className={`${"absolute flex flex-col gap-0.5 p-0.5 bg-gray-600 -translate-y-30"} ${showOptions ? "flex" : "hidden"}`}
           onMouseOut={() => setOptionHover("")}
         >
           {!username && 
           
           <span
-            className={`${optionHover === "login" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
+            className={`${optionHover === "login" ? "bg-blue-500" : "bg-black"} ${"text-white text-2xl px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("login")}
             onClick={goToLogin}
           >
@@ -64,7 +64,7 @@ export default function UserLog() {
           </span>}
 
           {username && <span
-            className={`${optionHover === "close" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
+            className={`${optionHover === "close" ? "bg-blue-500" : "bg-black"} ${"text-white text-2xl px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("close")}
             onClick={()=>{
               localStorage.removeItem("token"); 
@@ -75,7 +75,7 @@ export default function UserLog() {
           </span>}
           
           <span
-            className={`${optionHover === "config" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
+            className={`${optionHover === "config" ? "bg-blue-500" : "bg-black"} ${"text-white text-2xl px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("config")}
             onClick={() => navigate("/auth/accountConfig")}
           >
@@ -83,7 +83,7 @@ export default function UserLog() {
           </span>
           {!username && 
           <span
-            className={`${optionHover === "info" ? "bg-blue-500" : "bg-black"} ${"text-white text-lg px-2 cursor-pointer"}`}
+            className={`${optionHover === "info" ? "bg-blue-500" : "bg-black"} ${"text-white text-2xl px-2 cursor-pointer"}`}
             onMouseOver={() => setOptionHover("info")}
             onClick={() => setShowInfo(true)}
           >
