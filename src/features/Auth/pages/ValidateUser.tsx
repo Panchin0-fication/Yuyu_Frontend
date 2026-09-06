@@ -196,7 +196,9 @@ export default function ValidateUser() {
       <ValidateContainerAndHeader title={t("page_header_validate")}>
         <div className="flex gap-3.5 items-center mt-2.5">
           <IoIosInformationCircle />
-          <p className="text-lg">{t("page_paragraph_one_validate")}</p>
+          <p className="text-xl lg:text-2xl">
+            {t("page_paragraph_one_validate")}
+          </p>
         </div>
 
         <ValidateInput
@@ -217,7 +219,9 @@ export default function ValidateUser() {
                   : setDisplayOption("resend");
               }}
             >
-              <p className="text-lg">{t("page_subtitle_resend_code")}</p>
+              <p className="text-xl lg:text-2xl">
+                {t("page_subtitle_resend_code")}
+              </p>
 
               <IoMdArrowDropdown
                 className={`${"text-blue-700 text-xl"} ${displayOption === "resend" ? "rotate-180" : ""}`}
@@ -225,10 +229,10 @@ export default function ValidateUser() {
             </header>
 
             {displayOption === "resend" && (
-              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
+              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-m text-lg lg:text-xl">
                 <p>{t("page_paragraph_resend_code_info")}</p>
                 <button
-                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg text-base w-max mt-1"
+                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg w-max mt-1"
                   onClick={() => {
                     if (!loading) {
                       resend();
@@ -259,14 +263,16 @@ export default function ValidateUser() {
                   : setDisplayOption("changeEmail");
               }}
             >
-              <p className="text-lg">{t("page_subtitle_change_email")}</p>
+              <p className="text-xl lg:text-2xl">
+                {t("page_subtitle_change_email")}
+              </p>
               <IoMdArrowDropdown
                 className={`${"text-blue-700 text-xl"} ${displayOption === "changeEmail" ? "rotate-180" : ""}`}
               />
             </header>
 
             {displayOption === "changeEmail" && (
-              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md">
+              <div className="p-2.5 pb-1 grid place-items-center w-64 border-2 border-blue-700 rounded-md text-lg lg:text-xl">
                 <p>{t("page_input_label_change_email")}</p>
                 <input
                   className="w-56 p-1 text-black bg-white border-black border-2"
@@ -275,7 +281,7 @@ export default function ValidateUser() {
                   type="text"
                 />
                 <button
-                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg text-base w-max mt-1"
+                  className="flex items-center gap-2.5 p-1 bg-blue-700 text-white rounded-lg w-max mt-1"
                   onClick={() => {
                     if (!loading) {
                       changeEmail();

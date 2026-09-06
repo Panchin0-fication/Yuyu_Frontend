@@ -1,6 +1,6 @@
 //Main Pages
 export { default as FrontPage } from "./frontPage/pages/FrontPage.js";
-export { default as Oficial } from "./oficial/page/Oficial.jsx";
+export { default as Oficial } from "./official/page/Official.jsx";
 export { default as Fanon } from "./fanon/page/Fanon.js";
 export { default as FrontImages } from "./ImagesPage/pages/FrontImages.js";
 

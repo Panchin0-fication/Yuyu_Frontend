@@ -6,21 +6,24 @@ h1 {
 
 @font-face {
   font-family: "IMB_Sans";
-  src: url("/fonts/IBM_Plex_Sans/IBMPlexSans-VariableFont_wdth,wght.ttf") format("truetype");
+  src: url("/fonts/IBM_Plex_Sans/IBMPlexSans-VariableFont_wdth,wght.ttf")
+    format("truetype");
   font-optical-sizing: auto;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Merriweather";
-  src: url("/fonts/Merriweather/Merriweather-VariableFont_opsz,wdth,wght.ttf") format("truetype");
+  src: url("/fonts/Merriweather/Merriweather-VariableFont_opsz,wdth,wght.ttf")
+    format("truetype");
   font-optical-sizing: auto;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Yanone_Kaffeesatz";
-  src: url("/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf") format("truetype");
+  src: url("/fonts/Yanone_Kaffeesatz/YanoneKaffeesatz-VariableFont_wght.ttf")
+    format("truetype");
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -41,8 +44,8 @@ h1 {
     display: none;
   }
   .no-scrollbar {
-    -ms-overflow-style: none;  
-    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -80,7 +83,6 @@ h1 {
 
 h1 {
   display: block;
-  font-size: 2em;
   font-weight: bold;
   padding: 0px;
   margin: 0px;

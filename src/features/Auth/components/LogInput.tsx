@@ -32,7 +32,7 @@ export default function LogInput({
 }: props) {
   return (
     <>
-      <div className="flex gap-1.5 items-center text-lg mb-2.5">
+      <div className="flex gap-1.5 items-center text-xl lg:text-2xl mb-2.5">
         {icon}
         <p>{label}</p>
       </div>

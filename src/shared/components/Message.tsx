@@ -25,37 +25,37 @@ export default function Message({
     navigate(toRedirect, previus);
   }
   const { t } = useTranslation("common");
-  const HEADER_H2 = "[&_h2]:text-2xl [&_h2]:text-center";
+  const HEADER_H2 = "[&_h2]:text-3xl [&_h2]:lg:text-4xl [&_h2]:text-center";
   const HEADER_P =
     "[&_p]:absolute [&_p]:right-0 [&_p]:-translate-x-5 [&_p]:cursor-pointer";
   return (
     <>
       <div className="after:absolute after:content-[''] after:top-0 after:left-0 after:w-full after:h-full after:bg-[#030000] after:opacity-30 after:z-10"></div>
-      <div className="items-center py-2.5 px-5 text-white w-max h-max text-xl fixed top-0 left-0 right-0 bottom-0 m-auto z-20 bg-black animate-myAnimation duration-1000">
+      <div className="items-center py-2.5 px-5 text-white w-max h-max fixed top-0 left-0 right-0 bottom-0 m-auto z-20 bg-black animate-myAnimation duration-1000">
         <header
           className={`${"flex justify-center items-center"} ${HEADER_H2} ${HEADER_P}`}
         >
-          <h2>{header}</h2>
+          <h2 className="">{header}</h2>
 
           {toRedirect === "" && <p onClick={() => setMessage(null)}>X</p>}
         </header>
         <hr></hr>
         <br />
-        <div className="flex gap-5 mb-2.5">
+        <div className="flex items-center gap-5 mb-2.5">
           {type === "error" ? (
             <MdErrorOutline className="text-white text-lg" />
           ) : (
             <FaCheck className="text-white text-lg" />
           )}
-          <p>{text}</p>
+          <p className="text-2xl lg:text-3xl">{text}</p>
         </div>
         {toRedirect !== "" && (
           <div className="flex justify-center">
             <button
-              className="bg-blue-600 px-2.5 py-1 rounded-sm mt-2.5 cursor-pointer"
+              className="bg-blue-600 px-2.5 py-1 rounded-sm mt-2.5 cursor-pointer text-xl lg:text-2xl"
               onClick={onClick}
             >
-              <p className="text-white text-lg">{t("button_continue")}</p>
+              <p className="text-white">{t("button_continue")}</p>
             </button>
           </div>
         )}

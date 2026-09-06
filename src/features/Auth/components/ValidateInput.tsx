@@ -23,16 +23,16 @@ export default function ValidateInput({
   const { t } = useTranslation("auth");
   return (
     <section className="grid place-items-center">
-      <p className="text-2xl font-medium w-max mt-3">{t(header)}</p>
+      <p className="text-3xl font-medium w-max mt-3">{t(header)}</p>
       <div className="mt-2 flex gap-2 items-center w-max">
         <input
-          className="w-96 rounded-sm focus:border-pink-600 p-1 text-black bg-white border-black border-2"
+          className="w-full lg:w-80 rounded-sm focus:border-pink-600 p-1 text-black bg-white border-black border-2"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
           type="text"
         />
         <button
-          className="bg-gray-700 border-gray-700 text-white p-1.5 rounded-lg max-w-max cursor-pointer text-base hover:bg-pink-700 transition-colors"
+          className="bg-gray-700 border-gray-700 text-white p-1.5 rounded-lg max-w-max cursor-pointer text-lg lg:text-xl hover:bg-pink-700 transition-colors"
           onClick={() => {
             if (!loading) {
               handleVerify(verificationCode);

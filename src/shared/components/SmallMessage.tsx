@@ -27,7 +27,7 @@ export default function SmallMessage({ type, message }: props) {
   }
   return (
     <div className="mt-2.5 min-w-37.5">
-      <header className="flex gap-3.75 items-center text-lg font-medium">
+      <header className="flex gap-3.75 items-center text-2xl lg:text-3xl font-medium">
         {image}
         <p
           className={`${textStyle} ${"flex gap-3.75 items-center text-lg font-medium"}`}

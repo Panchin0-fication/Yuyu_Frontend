@@ -149,11 +149,11 @@ export default function AccountConfig() {
     <>
       <ValidateSesion setUserData={setUserData} />
       {message}
-      <div className="min-h-screen">
+      <div className="min-h-screen pb-5">
         <br />
         <br />
         <br />
-        <div className="flex gap-2.5 flex-col bg-white rounded-lg border-white border-2 w-lg p-5 m-auto ">
+        <div className="flex gap-2.5 flex-col bg-white rounded-lg border-white border-2 w-[85vw] lg:w-xl p-5 m-auto ">
           <LogHeader title={t("configuration_header")}></LogHeader>
           <p className="text-xl pl-1 font-normal">
             {t("current_user_label")}
@@ -264,7 +264,7 @@ export default function AccountConfig() {
               }}
             >
               <div className="flex gap-2.5 ">
-                <p className="text-lg">{t("show_explicit_label")}</p>
+                <p className="text-xl">{t("show_explicit_label")}</p>
                 <input
                   checked={explicitBox}
                   className="text-black bg-white border-black border-2"
@@ -280,7 +280,7 @@ export default function AccountConfig() {
             </div>
           </section>
           <button
-            className="bg-pink-600 text-white w-max py-4 px-1 cursor-pointer text-lg rounded-sm m-auto hover:bg-pink-800"
+            className="bg-pink-600 text-white w-max py-2 px-1 cursor-pointer font-medium text-xl lg:text-2xl rounded-sm m-auto hover:bg-pink-800"
             onClick={() => {
               if (
                 (originalPref?.hideTags !== auxTag ||

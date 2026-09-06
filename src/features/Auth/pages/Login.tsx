@@ -99,7 +99,7 @@ export default function Login() {
   }
   return (
     <>
-      <div className="flex flex-col gap-5 w-96 m-auto min-h-screen pt-20">
+      <div className="flex flex-col items-center gap-5 w-[85vw] lg:w-120 m-auto min-h-screen pt-20">
         {blockMessage}
         <LogContainer>
           <LogHeader title={t("page_header_login")} />
@@ -121,7 +121,7 @@ export default function Login() {
             icon={<FaLock className="text-lg" />}
             type="password"
           />
-          <div className="flex flex-col gap-2.5 leading-3">
+          <div className="flex flex-col gap-4 text-lg lg:text-xl leading-3 pt-5">
             <Link to={"/auth/changePassword"}>
               <p className="text-blue-700 ">{t("forgot_password")}</p>
             </Link>
@@ -131,7 +131,7 @@ export default function Login() {
           </div>
 
           <button
-            className="bg-black hover:bg-pink-700 transition-colors duration-300 cursor-pointer text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg"
+            className="bg-black hover:bg-pink-700 transition-colors duration-300 cursor-pointer text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 font-medium text-xl lg:text-2xl"
             onClick={() => {
               if (!loading) {
                 handleClick();

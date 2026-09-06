@@ -8,6 +8,45 @@ import {
 } from "@shared";
 export default function Oficial() {
   const { t } = useTranslation("wikis");
+
+  const imgAyakashi = (
+    <ImagesWiki
+      src="/staticImgs/generalUse/Th07ayakashi01.png"
+      text={t("ayakashi_sprite_th7")}
+      classImage="h-50 w-auto"
+    ></ImagesWiki>
+  );
+  const txtLore = (
+    <TextContainer className={"w-[85%]"}>
+      <h1 id="seccion2">{t("official_info_lore_header")}</h1>{" "}
+      <p>{t("official_info_lore_p")}</p>
+    </TextContainer>
+  );
+  const imgsCharacters = (
+    <>
+      <ImagesWiki
+        src="/staticImgs/generalUse/200px-Th07Youmu.png"
+        text={t("youmu_sprite_th7")}
+        classImage="h-62.5 w-auto"
+      />
+      <ImagesWiki
+        src="/staticImgs/generalUse/200px-Th07Yukari.png"
+        text={t("yukari_sprite_th7")}
+        classImage="h-62.5 w-auto"
+      />
+    </>
+  );
+  const txtCharacters = (
+    <TextContainer className="w-[85vw] lg:w-[70%]">
+      <h1 id="seccion4">{t("official_info_relationships_header")}</h1>
+      <h2 id="seccion4.1">{t("official_info_youmu_header")}</h2>
+      <p>{t("official_info_youmu_p")}</p>
+      <h2 id="seccion4.2">{t("official_info_yukari_header")}</h2>
+      <p>{t("official_info_yukari_p")}</p>
+      <h2 id="seccion4.3">{t("official_info_eiki_header")}</h2>
+      <p>{t("official_info_eiki_p")}</p>
+    </TextContainer>
+  );
   return (
     <div className="flex flex-col pb-5">
       <HeaderPages
@@ -18,8 +57,8 @@ export default function Oficial() {
       <div className="w-[95%] m-auto">
         <NavSecondary actualPage="oficial" />
 
-        <div className="flex gap-10 items-center pt-4">
-          <ContentTable className="flex flex-col gap-1 w-60">
+        <div className="flex flex-col lg:flex-row gap-10 items-center pt-4 pb-5">
+          <ContentTable className="flex flex-col gap-1 w-[85vw] lg:w-60">
             <h3 className="titulo">{t("official_index_header")}</h3>
 
             <a
@@ -101,82 +140,95 @@ export default function Oficial() {
               {t("official_index_highlights")}
             </a>
           </ContentTable>
-          <TextContainer className="h-max w-[65%]">
+          <TextContainer className="h-max w-[80vw] lg:w-[65%]">
             <h1 id="seccion1">{t("official_info_general_info_header")}</h1>
             <h2 id="seccion1.1">{t("official_info_design_header")}</h2>
-            <p>
-              {t("official_info_design_p")}
-            </p>
+            <p>{t("official_info_design_p")}</p>
             <h2 id="seccion1.2">{t("official_info_abilities_header")}</h2>
-            <p>
-              {t("official_info_abilities_p")}
-            </p>
+            <p>{t("official_info_abilities_p")}</p>
             <h2 id="seccion1.3">{t("official_info_personality_header")}</h2>
-            <p>
-              {t("official_info_personality_p")}
-            </p>
+            <p>{t("official_info_personality_p")}</p>
           </TextContainer>
           <ImagesWiki
             src="/staticImgs/generalUse/200px-Th07Yuyuko.png"
             text={t("yuyuko_sprite_th7")}
           ></ImagesWiki>
         </div>
-        <div className="flex gap-11.75">
-          <ImagesWiki
-            src="/staticImgs/generalUse/Th07ayakashi01.png"
-            text={t("ayakashi_sprite_th7")}
-            classImage="h-50 w-auto"
-          ></ImagesWiki>
-
-          <TextContainer className={"w-[85%]"}>
-            <h1 id="seccion2">{t("official_info_lore_header")}</h1>
-            <p>
-              {t("official_info_lore_p")}
-            </p>
-          </TextContainer>
+        <div className="flex flex-col lg:flex-row gap-11.75 pb-5 items-center">
+          {window.innerWidth > 1024 && [imgAyakashi, txtLore]}
+          {window.innerWidth <= 1024 && [txtLore, imgAyakashi]}
         </div>
-        <div className="flex gap-10">
+        <div className="flex flex-col lg:flex-row gap-10 pb-5 items-center">
           <TextContainer className="w-[85%]">
             <h1 id="seccion3">{t("official_info_appearances_header")}</h1>
             <h2 id="seccion3.1">{t("official_info_games_header")}</h2>
             <p>
-              -<a href="" className="font-bold">Perfect Cherry Blossom</a>: {t("official_info_games_th7_p")}
+              -
+              <a href="" className="font-bold">
+                Perfect Cherry Blossom
+              </a>
+              : {t("official_info_games_th7_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Imperishable Night</a>: {t("official_info_games_th8_p")}
+              -
+              <a href="" className="font-bold">
+                Imperishable Night
+              </a>
+              : {t("official_info_games_th8_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Ten Desires</a>: {t("official_info_games_th13_p")}
+              -
+              <a href="" className="font-bold">
+                Ten Desires
+              </a>
+              : {t("official_info_games_th13_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Immaterial and Missing Power</a>: Lorem ipsum dolor
-              sit amet, consectetur adipisicing elit. Repellat nobis dignissimos
-              unde tenetur! Eaque, corrupti alias consequuntur quisquam
-              voluptate asperiores adipisci nulla consectetur tempore totam.
-              Quia, veniam odio porro sunt sequi nulla sint repellendus magnam!
+              -
+              <a href="" className="font-bold">
+                Immaterial and Missing Power
+              </a>
+              : Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Repellat nobis dignissimos unde tenetur! Eaque, corrupti alias
+              consequuntur quisquam voluptate asperiores adipisci nulla
+              consectetur tempore totam. Quia, veniam odio porro sunt sequi
+              nulla sint repellendus magnam!
             </p>
             <p>
-              -<a href="" className="font-bold">Shoot the Bullet</a>: Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Eum quas, quisquam minima illo
-              tenetur cumque commodi ab neque. Assumenda, sequi?
+              -
+              <a href="" className="font-bold">
+                Shoot the Bullet
+              </a>
+              : Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum
+              quas, quisquam minima illo tenetur cumque commodi ab neque.
+              Assumenda, sequi?
             </p>
             <p>
-              -<a href="" className="font-bold">Scarlet Weather Rhapsody</a>: Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Dolor cum culpa consequatur ut
-              voluptatibus reiciendis totam! Modi amet placeat excepturi unde
-              rerum officia error numquam.
+              -
+              <a href="" className="font-bold">
+                Scarlet Weather Rhapsody
+              </a>
+              : Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+              cum culpa consequatur ut voluptatibus reiciendis totam! Modi amet
+              placeat excepturi unde rerum officia error numquam.
             </p>
             <p>
-              -<a href="" className="font-bold">Touhou Hisoutensoku</a>: Lorem ipsum dolor sit, amet
-              consectetur adipisicing elit. Aperiam, optio corporis consequatur
-              voluptates, odit quas non ad delectus, quae nihil illo quam
-              tempore minus odio?
+              -
+              <a href="" className="font-bold">
+                Touhou Hisoutensoku
+              </a>
+              : Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Aperiam, optio corporis consequatur voluptates, odit quas non ad
+              delectus, quae nihil illo quam tempore minus odio?
             </p>
             <p>
-              -<a href="" className="font-bold">Hopeless Masquerade</a>: Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Dicta non omnis itaque, veniam qui,
-              deserunt ut delectus sunt nisi unde quae tempora repellat
-              consectetur voluptate!
+              -
+              <a href="" className="font-bold">
+                Hopeless Masquerade
+              </a>
+              : Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta
+              non omnis itaque, veniam qui, deserunt ut delectus sunt nisi unde
+              quae tempora repellat consectetur voluptate!
             </p>
             <p>
               -<a href="">Impossible Spell Card</a>: Lorem, ipsum dolor sit amet
@@ -185,22 +237,42 @@ export default function Oficial() {
             </p>
             <h2 id="seccion3.2">{t("official_info_literature_header")}</h2>
             <p>
-              - <a href="" className="font-bold">Silent Sinner in Blue</a>: {t("official_info_literature_ssib_p")}
+              -{" "}
+              <a href="" className="font-bold">
+                Silent Sinner in Blue
+              </a>
+              : {t("official_info_literature_ssib_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Foul Detective Satori</a>: {t("official_info_literature_fds_p")}
+              -
+              <a href="" className="font-bold">
+                Foul Detective Satori
+              </a>
+              : {t("official_info_literature_fds_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Strange and Bright Nature Deity</a>: {t("official_info_literature_sbnd_p")}
+              -
+              <a href="" className="font-bold">
+                Strange and Bright Nature Deity
+              </a>
+              : {t("official_info_literature_sbnd_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Oriental Sacred Place.</a>: {t("official_info_literature_osp_p")}
+              -
+              <a href="" className="font-bold">
+                Oriental Sacred Place.
+              </a>
+              : {t("official_info_literature_osp_p")}
             </p>
             <p>
-              -<a href="" className="font-bold">Visionary Fairies in Shrine</a>: {t("official_info_literature_vfs_p")}
+              -
+              <a href="" className="font-bold">
+                Visionary Fairies in Shrine
+              </a>
+              : {t("official_info_literature_vfs_p")}
             </p>
           </TextContainer>
-          <div>
+          <div className="flex flex-col gap-5">
             <ImagesWiki
               src="/staticImgs/generalUse/MV5BOGViZjY3ZTgtNzhiYS00NjEyLWFkMGEtNTgwZDFkMDgyODYxXkEyXkFqcGc@._V1_QL75_UY207_CR35,0,140,207_.jpg"
               text="Touhou 7: Perfect Cherry Blossom"
@@ -212,38 +284,15 @@ export default function Oficial() {
             />
           </div>
         </div>
-        <div className="flex gap-10">
-          <ImagesWiki
-            src="/staticImgs/generalUse/200px-Th07Youmu.png"
-            text={t("youmu_sprite_th7")}
-            classImage="h-62.5 w-auto"
-          />
-          <ImagesWiki
-            src="/staticImgs/generalUse/200px-Th07Yukari.png"
-            text={t("yukari_sprite_th7")}
-            classImage="h-62.5 w-auto"
-          />
-          <TextContainer className="w-[70%]">
-            <h1 id="seccion4">{t("official_info_relationships_header")}</h1>
-            <h2 id="seccion4.1">{t("official_info_youmu_header")}</h2>
-            <p>
-              {t("official_info_youmu_p")}
-            </p>
-            <h2 id="seccion4.2">{t("official_info_yukari_header")}</h2>
-            <p>
-              {t("official_info_yukari_p")}
-            </p>
-            <h2 id="seccion4.3">{t("official_info_eiki_header")}</h2>
-            <p>
-             {t("official_info_eiki_p")}
-            </p>
-          </TextContainer>
+        <div className="flex flex-col lg:flex-row gap-10 pb-5 items-center">
+          {window.innerWidth > 1024 && [imgsCharacters, txtCharacters]}
+          {window.innerWidth <= 1024 && [txtCharacters, imgsCharacters]}
         </div>
         <div>
           <TextContainer>
             <h1 id="seccion5">{t("official_info_highlights_header")}</h1>
           </TextContainer>
-          <div className="flex gap-10">
+          <div className="flex flex-col lg:flex-row gap-10 items-center p-5">
             <ImagesWiki
               src="/staticImgs/generalUse/actual-drawings-made-by-zuns-wife-v0-faha70qce0ae1.jpg"
               text={t("official_info_highlights_one")}

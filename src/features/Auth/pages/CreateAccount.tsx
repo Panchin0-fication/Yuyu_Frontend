@@ -190,7 +190,7 @@ export default function CreateAccount() {
         {smallMessage}
         <div className="flex gap-5 items-center">
           <button
-            className="bg-black text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 text-lg hover:bg-pink-700"
+            className="bg-black text-white p-1.5 rounded-lg max-w-max m-auto mt-2.5 hover:bg-pink-700 font-medium text-xl lg:text-2xl"
             onClick={() => {
               if (!loading) {
                 createAccount();
